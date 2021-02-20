@@ -1,9 +1,13 @@
 import React from 'react';
 import { View, Text, Button, StyleSheet } from 'react-native';
+import comonStyles from '../StyleSheets/Shared';
 
 const Menu = props => {
    return (
-      <Text>Menu</Text>
+      <View
+      style={comonStyles.titleBox}>
+      <Text style={comonStyles.titleText}>Menu</Text>
+   </View>
    );
 }
 

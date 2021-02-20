@@ -6,6 +6,7 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 import { CHATROOM } from './../data/dummy-data';
 import CBSChatRooms from './CBSChatRooms';
 import MyChatRooms from './MyChatRooms';
+import comonStyles from '../StyleSheets/Shared';
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -14,8 +15,8 @@ const Chat = () => {
     return (
         <View style={styles.room}>
             <View
-                style={styles.titleBox}>
-                <Text style={styles.titleText}>Chat</Text>
+                style={comonStyles.titleBox}>
+                <Text style={comonStyles.titleText}>Chat</Text>
                 <Ionicons name='create-outline'></Ionicons>
             </View>
             <Tab.Navigator tabBarOptions={{

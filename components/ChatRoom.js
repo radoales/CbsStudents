@@ -4,8 +4,19 @@ import { useNavigation } from '@react-navigation/native';
 
 const ChatRoom = props => {
     const navigation = useNavigation();
-    const isReadTextStyle = props.chatroom.chatMessages.map(m => m.isRead)[0] ? styles.chatTextRead : styles.chatTextUnread;
-    const isReadMark = props.chatroom.chatMessages.map(m => m.isRead)[0] ? styles.dotRead : styles.dotUnread;
+    const isLastMessageRead = props.chatroom.chatMessages.map(m => m.isRead)[0];
+    const createddate = props.chatroom.chatMessages.map(m => m.createdDate)[0];
+
+    const receivedTime = createddate.getDate() === new Date().getDate() ? createddate.getHours() + ':' + createddate.getMinutes() 
+    : createddate.toDateString();
+
+    const isReadTextStyle = isLastMessageRead ? styles.chatTextRead : styles.chatTextUnread;
+    const isReadMark = isLastMessageRead ? styles.dotRead : styles.dotUnread;
+   
+    let lastMessage = props.chatroom.chatMessages.map(m => m.message)[0];
+    lastMessage = lastMessage.length >= 23 && !isLastMessageRead ? lastMessage.substring(0,23) + '...' 
+    : isLastMessageRead && lastMessage.length >=25 ? lastMessage.substring(0,25) + '...'
+    : lastMessage;
     return (
         <View style={{
             flex: 1,
@@ -19,13 +30,13 @@ const ChatRoom = props => {
                         style={ styles.imageIcon} />
                     <View style={styles.column}>
                         <Text style={{ fontWeight: 'bold' }}>{props.chatroom.name}</Text>
-                        <Text style={isReadTextStyle}>{props.chatroom.chatMessages.map(m => m.message)[0]}</Text>
+                        <Text style={isReadTextStyle}>{lastMessage}</Text>
                     </View>
-                    <View style={styles.column}>
+                    <View style={styles.endColumn}>
                         <View style={{ paddingBottom: 5, paddingTop: 5 }}>
                             <View style={isReadMark}/>
                         </View>
-                        <Text style={isReadTextStyle}>- {props.chatroom.chatMessages.map(m => m.createdDate.getHours())[0]}:{props.chatroom.chatMessages.map(m => m.createdDate.getMinutes())[0]}</Text>
+                        <Text style={isReadTextStyle}>- {receivedTime}</Text>
                     </View>
                 </View>
             </TouchableOpacity>
@@ -68,6 +79,10 @@ const styles = StyleSheet.create({
     column :{
         flexDirection: 'column', 
         paddingLeft: 10
+    },
+    endColumn :{
+        flex: 1,
+        alignItems: 'flex-end'
     }
 });
 
