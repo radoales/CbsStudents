@@ -6,7 +6,7 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 import { CHATROOM } from './../data/dummy-data';
 import CBSChatRooms from './CBSChatRooms';
 import MyChatRooms from './MyChatRooms';
-import comonStyles from '../StyleSheets/Shared';
+import {comonStyles} from '../StyleSheets/Shared';
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -32,17 +32,6 @@ const Chat = () => {
 }
 
 const styles = StyleSheet.create({
-    titleText: {
-        textAlign: "center",
-        fontWeight: "bold",
-        color: "darkslateblue",
-        fontSize: 20,
-        fontFamily: 'monospace' 
-    },
-    titleBox: {
-        height: 30,
-        backgroundColor: "white"
-    },
     tabLabels:{
         fontWeight: 'bold',
         fontSize: 15,

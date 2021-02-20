@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, Button, StyleSheet } from 'react-native';
-import comonStyles from '../StyleSheets/Shared';
+import {comonStyles} from '../StyleSheets/Shared';
 
 const Discover = props => {
    return (

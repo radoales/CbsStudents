@@ -1,17 +1,18 @@
 import React from 'react';
 import { View, Text, Button, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import {chatListStyles} from '../StyleSheets/Shared';
 
-const ChatRoom = props => {
+const ChatList = props => {
     const navigation = useNavigation();
     const isLastMessageRead = props.chatroom.chatMessages.map(m => m.isRead)[0];
     const createddate = props.chatroom.chatMessages.map(m => m.createdDate)[0];
 
     const receivedTime = createddate.getDate() === new Date().getDate() ? createddate.getHours() + ':' + createddate.getMinutes() 
-    : createddate.toDateString();
+    : createddate.toDateString().substring(4,10);
 
-    const isReadTextStyle = isLastMessageRead ? styles.chatTextRead : styles.chatTextUnread;
-    const isReadMark = isLastMessageRead ? styles.dotRead : styles.dotUnread;
+    const isReadTextStyle = isLastMessageRead ? chatListStyles.chatTextRead : chatListStyles.chatTextUnread;
+    const isReadMark = isLastMessageRead ? chatListStyles.dotRead : chatListStyles.dotUnread;
    
     let lastMessage = props.chatroom.chatMessages.map(m => m.message)[0];
     lastMessage = lastMessage.length >= 23 && !isLastMessageRead ? lastMessage.substring(0,23) + '...' 
@@ -25,14 +26,14 @@ const ChatRoom = props => {
             alignItems: 'stretch',
         }}>
             <TouchableOpacity onPress={() => navigation.navigate("nameOfNavigationRouteEgMenu")}>
-                <View style={styles.chatBlock} >
+                <View style={chatListStyles.chatBlock} >
                     <Image source={{ uri: props.chatroom.chatImage }}
-                        style={ styles.imageIcon} />
-                    <View style={styles.column}>
+                        style={ chatListStyles.imageIcon} />
+                    <View style={chatListStyles.column}>
                         <Text style={{ fontWeight: 'bold' }}>{props.chatroom.name}</Text>
                         <Text style={isReadTextStyle}>{lastMessage}</Text>
                     </View>
-                    <View style={styles.endColumn}>
+                    <View style={chatListStyles.endColumn}>
                         <View style={{ paddingBottom: 5, paddingTop: 5 }}>
                             <View style={isReadMark}/>
                         </View>
@@ -45,45 +46,7 @@ const ChatRoom = props => {
 }
 
 const styles = StyleSheet.create({
-    dotUnread: {
-        backgroundColor: 'darkslateblue',
-        height: 10,
-        width: 10,
-        borderRadius: 5,
-        alignSelf: 'flex-end'
-    },
-    dotRead: {
-
-        height: 10,
-        width: 10,
-        borderRadius: 5,
-        alignSelf: 'flex-end'
-    },
-    chatBlock: {
-        flexDirection: 'row',
-        height: 50,
-        padding: 10
-    },
-    chatTextUnread: {
-        fontWeight: 'bold'
-    },
-    chatTextRead: {
-        fontWeight: 'normal'
-    },
-    imageIcon: {
-        width: 40,
-         height: 40,
-         borderRadius: 20,
-          resizeMode: 'contain'
-    },
-    column :{
-        flexDirection: 'column', 
-        paddingLeft: 10
-    },
-    endColumn :{
-        flex: 1,
-        alignItems: 'flex-end'
-    }
+  
 });
 
-export default ChatRoom;
+export default ChatList;
