@@ -9,7 +9,7 @@ const CBSChatList = () => {
             <FlatList
                data={CHATROOM_CBS}
                renderItem={itemData => (
-                  <ChatList chatroom={itemData.item}></ChatList>
+                  <ChatList chatroom={itemData.item}/>
                )}
                keyExtractor={item => item.id}
             />

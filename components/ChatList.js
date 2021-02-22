@@ -20,7 +20,7 @@ const ChatList = props => {
             : lastMessage;
     return (
         <View style={styles.chatList}>
-            <TouchableOpacity onPress={() => navigation.navigate('ChatRoomScreen'
+            <TouchableOpacity onPress={() => navigation.navigate('Menu', {chatRoom: props.chatroom}
             )}
             >
                 <View style={chatListStyles.chatBlock} >

@@ -4,16 +4,18 @@ import User from "../models/User";
 
 export const USERS = [
     new User('1', 'Robert Jacobsen', '1234', 'rob@student.dk', '', 'MSc in Medicine', true),
-    new User('2', 'Lara Thylor', '1234', 'lara@student.dk', '', 'MSc in Medicine', true),
-    new User('3', 'Alex Lee', '1234', 'alex@student.dk', '', 'MSc2 in Medicine', true),
-    new User('1', 'Felipe Grace', '1234', 'felipe@student.dk', '', 'MSc in Medicine', true)
+    new User('2', 'Lara Thylor', '1234', 'lara@student.dk', require('../assets/lara.jpg'), 'MSc in Medicine', true),
+    new User('3', 'Alex Lee', '1234', 'alex@student.dk', require('../assets/alex.jpg'), 'MSc2 in Medicine', true),
+    new User('4', 'Felipe Grace', '1234', 'felipe@student.dk', require('../assets/felipe.jpg'), 'MSc in Medicine', true)
 ];
 //------------------------------------------------ChatMessages-------------------------------------------------//
 export const CHATMESSAGES_SURF = [
-    new ChatMessage('1', new Date(2021, 2, 20, 11, 36, 23), 'Thank you for !', USERS[0], false),
-    new ChatMessage('2', new Date(2021, 0, 1, 20, 12, 1), 'Hello I am here', USERS[1], true),
-    new ChatMessage('3', new Date(2021, 0, 1, 20, 14, 1), 'Hello how are you!', USERS[0], true),
-    new ChatMessage('4', new Date(2021, 0, 1, 20, 15, 1), 'Hello looking at a React Native teacher right now..!', USERS[1], true),
+    new ChatMessage('1', new Date(2021, 2, 20, 11, 36, 23), 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', USERS[0], false),
+    new ChatMessage('2', new Date(2021, 0, 1, 20, 12, 1), 'Lorem ipsum dolor sit amet, consectetur ', USERS[1], true),
+    new ChatMessage('25', new Date(2021, 0, 1, 20, 12, 1), 'Lorem ipsum', USERS[1], true),
+    new ChatMessage('26', new Date(2021, 0, 1, 20, 12, 1), 'Lorem ipsum dolor sit amet, consectetur ', USERS[2], true),
+    new ChatMessage('3', new Date(2021, 0, 1, 20, 14, 1), 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor .', USERS[0], true),
+    new ChatMessage('4', new Date(2021, 0, 1, 20, 15, 1), 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do .', USERS[1], true),
 ];
 
 export const CHATMESSAGES_FEM = [
