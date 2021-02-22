@@ -1,7 +1,7 @@
 import React from 'react';
-import { View, Text, Button, StyleSheet, SafeAreaView, FlatList } from 'react-native';
-import ChatList from './../components/ChatList';
-import { CHATROOM_PRVT } from './../data/dummy-data';
+import { View, StyleSheet, FlatList } from 'react-native';
+import ChatList from '../components/ChatList';
+import { CHATROOM_PRVT } from '../data/dummy-data';
 
 const CBSChatRooms = () => {
    return (

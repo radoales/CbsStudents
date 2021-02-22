@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native';
+import { Platform, StyleSheet } from 'react-native';
 
 const comonStyles = StyleSheet.create({
     titleText: {
@@ -6,7 +6,7 @@ const comonStyles = StyleSheet.create({
         fontWeight: "bold",
         color: "darkslateblue",
         fontSize: 20,
-        fontFamily: 'monospace' 
+        fontFamily: Platform.OS === 'ios'? 'Al Nile' : 'monospace' 
     },
     titleBox: {
         height: 30,

@@ -6,7 +6,7 @@ const Menu = props => {
    return (
       <View
       style={comonStyles.titleBox}>
-      <Text style={comonStyles.titleText}>Menu</Text>
+       <Text style={comonStyles.titleText}>Menu</Text>
    </View>
    );
 }
