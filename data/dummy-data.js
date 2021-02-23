@@ -3,7 +3,7 @@ import ChatRoom from "../models/ChatRoom";
 import User from "../models/User";
 
 export const USERS = [
-    new User('1', 'Robert Jacobsen', '1234', 'rob@student.dk', '', 'MSc in Medicine', true),
+    new User('1', 'Robert Jacobsen', '1234', 'rob@student.dk', require('../assets/robert.jpg'), 'MSc in Medicine', true),
     new User('2', 'Lara Thylor', '1234', 'lara@student.dk', require('../assets/lara.jpg'), 'MSc in Medicine', true),
     new User('3', 'Alex Lee', '1234', 'alex@student.dk', require('../assets/alex.jpg'), 'MSc2 in Medicine', true),
     new User('4', 'Felipe Grace', '1234', 'felipe@student.dk', require('../assets/felipe.jpg'), 'MSc in Medicine', true)

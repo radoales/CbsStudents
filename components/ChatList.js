@@ -20,11 +20,11 @@ const ChatList = props => {
             : lastMessage;
     return (
         <View style={styles.chatList}>
-            <TouchableOpacity onPress={() => navigation.navigate('Menu', {chatRoom: props.chatroom}
+            <TouchableOpacity onPress={() => navigation.navigate('Menu', { chatRoom: props.chatroom }
             )}
             >
                 <View style={chatListStyles.chatBlock} >
-                    <Image source={ props.chatroom.chatImage }
+                    <Image source={props.chatroom.chatImage}
                         style={chatListStyles.imageIcon} />
                     <View style={chatListStyles.column}>
                         <Text style={{ fontWeight: 'bold' }}>{props.chatroom.name}</Text>

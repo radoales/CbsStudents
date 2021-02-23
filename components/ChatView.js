@@ -30,7 +30,10 @@ const ChatView = (props) => {
   return (
     <View>
       <View style={{ flex: 1, flexDirection: 'row', alignSelf: flexPosition }}>
+      {!isLoggedInUser ? (
         <Image source={props.message.user.image} style={styles.imageIcon} />
+        ) : <View/> }
+        
         <View style={{flex: 1, flexDirection: 'column'}}>
           <View style={block}>
             <Text style={textStyle}>
@@ -62,7 +65,7 @@ const styles = StyleSheet.create({
     borderTopStartRadius: 10,
   },
   chatBoxLeft: {
-    backgroundColor: 'lightgrey',
+    backgroundColor: '#D9D9D9',
     width: 250,
     padding: 10,
     marginVertical: 8,
