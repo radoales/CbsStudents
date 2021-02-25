@@ -11,9 +11,9 @@ export const USERS = [
 //------------------------------------------------ChatMessages-------------------------------------------------//
 export const CHATMESSAGES_SURF = [
     new ChatMessage('1', new Date(2021, 2, 20, 11, 36, 23), 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', USERS[0], false),
-    new ChatMessage('2', new Date(2021, 0, 1, 20, 12, 1), 'Lorem ipsum dolor sit amet, consectetur ', USERS[1], true),
-    new ChatMessage('25', new Date(2021, 0, 1, 20, 12, 1), 'Lorem ipsum', USERS[1], true),
-    new ChatMessage('26', new Date(2021, 0, 1, 20, 12, 1), 'Lorem ipsum dolor sit amet, consectetur ', USERS[2], true),
+    new ChatMessage('2', new Date(2021, 0, 17, 20, 12, 1), 'Lorem ipsum dolor sit amet, consectetur ', USERS[1], true),
+    new ChatMessage('25', new Date(2021, 0, 17, 20, 12, 1), 'Lorem ipsum', USERS[1], true),
+    new ChatMessage('26', new Date(2021, 0, 5, 20, 12, 1), 'Lorem ipsum dolor sit amet, consectetur ', USERS[2], true),
     new ChatMessage('3', new Date(2021, 0, 1, 20, 14, 1), 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor .', USERS[0], true),
     new ChatMessage('4', new Date(2021, 0, 1, 20, 15, 1), 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do .', USERS[1], true),
 ];

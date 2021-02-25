@@ -1,13 +1,5 @@
 import React from 'react';
-import {
-  View,
-  Text,
-  Button,
-  StyleSheet,
-  FlatList,
-  SafeAreaView,
-  Image,
-} from 'react-native';
+import { View, Text, StyleSheet, Image, } from 'react-native';
 import { comonStyles, chatListStyles } from '../StyleSheets/Shared';
 
 const ChatView = (props) => {
@@ -24,17 +16,23 @@ const ChatView = (props) => {
   const createddate = props.message.createdDate;
   const receivedTime = createddate.getHours() + ':' + createddate.getMinutes();
   const textStyle = isLoggedInUser ? styles.textRight : styles.textLeft;
+  const date = createddate.toDateString().substring(4, 15);
 
   const userName = props.message.user.name;
 
   return (
     <View>
+      <View style={{
+         flexDirection: 'row',
+          alignSelf: 'center'
+           }}>
+        <Text style={{color: 'grey', fontSize: 13}}>{date}</Text>
+      </View>
       <View style={{ flex: 1, flexDirection: 'row', alignSelf: flexPosition }}>
-      {!isLoggedInUser ? (
-        <Image source={props.message.user.image} style={styles.imageIcon} />
-        ) : <View/> }
-        
-        <View style={{flex: 1, flexDirection: 'column'}}>
+        {!isLoggedInUser ? (
+          <Image source={props.message.user.image} style={styles.imageIcon} />
+        ) : <View />}
+        <View style={{ flex: 1, flexDirection: 'column' }}>
           <View style={block}>
             <Text style={textStyle}>
               {props.message.message} : {userId}

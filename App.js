@@ -5,14 +5,36 @@ import { StatusBar } from 'expo-status-bar';
 import * as React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons';
+import {comonStyles} from './StyleSheets/Shared';
 
+import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import Home from './screens/Home';
 import Discover from './screens/Discover';
 import Chat from './screens/Chat';
 import Menu from './screens/Menu';
+import ChatRoomScreen from './screens/ChatRoomScreen';
 
+const Stack = createStackNavigator();
+
+function StackNavigator() {
+  return (
+    <Stack.Navigator >
+      <Stack.Screen name="Chat" component={Chat}
+        options={{
+          title: 'Chat',
+          headerStyle: comonStyles.titleBox,
+          headerTitleStyle: comonStyles.titleText,
+        }} />
+      <Stack.Screen  name="ChatRoomScreen" component={ChatRoomScreen}
+         options={{
+          headerStyle: comonStyles.titleBox,
+          headerTitleStyle: comonStyles.titleText,
+        }} />
+    </Stack.Navigator>
+  );
+}
 
 const Tab = createBottomTabNavigator();
 
@@ -25,7 +47,6 @@ export default function App() {
         screenOptions={({ route }) => ({
           tabBarIcon: ({ focused, color, size }) => {
             let iconName;
-
 
             if (route.name === 'Home') {
               iconName = focused
@@ -53,7 +74,7 @@ export default function App() {
       >
         <Tab.Screen name="Home" component={Home} />
         <Tab.Screen name="Discover" component={Discover} />
-        <Tab.Screen name="Chat" component={Chat} />
+        <Tab.Screen name="Chat" component={StackNavigator} />
         <Tab.Screen name="Menu" component={Menu} />
       </Tab.Navigator>
     </NavigationContainer>

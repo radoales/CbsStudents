@@ -9,7 +9,7 @@ const comonStyles = StyleSheet.create({
         fontFamily: Platform.OS === 'ios'? 'Al Nile' : 'monospace' 
     },
     titleBox: {
-        height: 30,
+        height: 50,
         backgroundColor: "white"
     }
 })
@@ -23,7 +23,6 @@ const chatListStyles = StyleSheet.create({
         alignSelf: 'flex-end'
     },
     dotRead: {
-
         height: 10,
         width: 10,
         borderRadius: 5,
