@@ -1,11 +1,11 @@
 import React from 'react';
 import { View, Text, StyleSheet, Image, } from 'react-native';
 
-import store from '../store/store';
 import * as constants from '../constants';
 
 const ChatView = (props) => {
 
+ // console.log(props);
   const userId = props.message.user.id;
 
   const isLoggedInUser = userId == 1;
@@ -23,16 +23,18 @@ const ChatView = (props) => {
 
   const userName = props.message.user.name;
 
-  let isNewDate = date == store.getState().date ? true : false;
-  let isSameUser = userId == store.getState().userId ? true : false;
+  // let isNewDate = date == store.getState().date ? true : false;
+  // let isSameUser = userId == store.getState().userId ? true : false;
+  let isNewDate = true;
+  let isSameUser = false;
 
-  store.dispatch({
-    type: constants.MESSAGE_ADDED,
-    payload: {
-      date: date,
-      userId: userId
-    }
-  });
+  // store.dispatch({
+  //   type: constants.MESSAGE_ADDED,
+  //   payload: {
+  //     date: date,
+  //     userId: userId
+  //   }
+  // });
 
   return (
     <View>

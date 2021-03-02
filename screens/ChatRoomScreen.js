@@ -5,16 +5,15 @@ import {
 } from 'react-native';
 import ChatView from '../components/ChatView';
 import Ionicons from '@expo/vector-icons/Ionicons';
-import ChatMessage from "../models/ChatMessage";
-import {USERS} from '../data/dummy-data';
-
-import store from '../store/store';
-import * as constants from '../constants';
+import { useSelector, useDispatch } from 'react-redux';
+import { addToChats } from './../store/ChatActions';
 
 const ChatRoomScreen = ({ route, navigation }) => {
+
+   const dispatch = useDispatch();
+
    const { chatRoom } = route.params;
    const [value, onChangeText] = React.useState('');
-
    //Set Heder Title
    // navigation.setOptions({
    //    title: chatRoom.name,
@@ -23,13 +22,8 @@ const ChatRoomScreen = ({ route, navigation }) => {
    //    }
    // });
 
-   function sendMessage(){
-      store.dispatch({
-         type: constants.SENT,
-         payload: {
-            message: value
-         }
-       });
+   function sendMessage() {
+      dispatch(addToChats(value))
       this.textInput.clear();
    }
 
@@ -37,7 +31,7 @@ const ChatRoomScreen = ({ route, navigation }) => {
 
    const sendButtonStyle = value.length == 0 ? styles.sendButtonViewActive : styles.sendButtonViewInActive;
    const isInputFieldEmpty = value.length == 0 ? true : false;
-    
+
    return (
       <SafeAreaView style={styles.container}>
          <FlatList

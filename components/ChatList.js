@@ -4,6 +4,7 @@ import { useNavigation } from '@react-navigation/native';
 import { chatListStyles } from '../StyleSheets/Shared';
 
 const ChatList = props => {
+    //console.log(props);
     const navigation = useNavigation();
     const chatMessages = props.chatroom.chatMessages.reverse();
     const isLastMessageRead = chatMessages.map(m => m.isRead)[0];

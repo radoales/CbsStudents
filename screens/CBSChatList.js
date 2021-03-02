@@ -1,17 +1,16 @@
 import React from 'react';
 import { View, StyleSheet, FlatList, Text } from 'react-native';
 import ChatList from '../components/ChatList';
-import store from '../store/store';
-import * as constants from '../constants';
-import { CHATROOM_CBS } from "../data/dummy-data";
 
-const chatroom = store.getState().chatrooms;
+import { useSelector, useDispatch } from 'react-redux';
+
 
 const CBSChatList = () => {
+   const chatrooms = useSelector(state => state.chat.chatrooms); // selecting from redux store
    return (
          <View style={styles.room}>
             <FlatList
-               data={CHATROOM_CBS}
+               data={chatrooms}
                renderItem={itemData => (
                   <ChatList chatroom={itemData.item}/>
                )}

@@ -12,21 +12,17 @@ import { comonStyles } from './StyleSheets/Shared';
 
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-//import ChatReducer from './store/reducers/ChatReducer';
+import ChatReducer from './store/reducers/ChatReducer';
 import Home from './screens/Home';
 import Discover from './screens/Discover';
 import Chat from './screens/Chat';
 import Menu from './screens/Menu';
 import ChatRoomScreen from './screens/ChatRoomScreen';
 import { Provider } from 'react-redux';
-import store from './store/store';
+//import store from './store/store';
 import { combineReducers, createStore, applyMiddleware } from 'redux';
 
-// const rootReducer = combineReducers({
-//   chat: ChatReducer
-// });
-//const store = createStore(rootReducer, composeWithDevTools());
- //const store = createStore(rootReducer);
+
 
 const Stack = createStackNavigator();
 
@@ -49,6 +45,12 @@ function StackNavigator() {
 }
 
 const Tab = createBottomTabNavigator();
+
+const rootReducer = combineReducers({
+  chat: ChatReducer
+});
+//const store = createStore(rootReducer, composeWithDevTools());
+ const store = createStore(rootReducer);
 
 export default function App() {
 

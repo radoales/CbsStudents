@@ -1,16 +1,18 @@
-import { CHATROOM_CBS } from "../data/dummy-data";
-import ChatMessage from "../models/ChatMessage";
-import { USERS } from '../data/dummy-data';
+import { CHATROOM_CBS } from "../../data/dummy-data";
 
+import {NEW_CHATMESSAGE } from './../ChatActions';
+import { USERS } from './../../data/dummy-data'
+import ChatMessage  from './../../models/ChatMessage'
 
 const initialState = {
     date: new Date().toDateString().substring(4, 15),
     userId: null,
-    chatrooms: CHATROOM_CBS,
-    chatroomId: null
+    chatrooms: CHATROOM_CBS
 };
 
-export default reducer = (state = initialState, action) => {
+
+
+const ChatReducer = (state = initialState, action) => {
     // if (action.type === 'messageAdded') {
     //     if (state !== action.payload) {
     //         return {
@@ -20,10 +22,10 @@ export default reducer = (state = initialState, action) => {
     //         };
     //     }
     // } else 
-    if (action.type === 'sent') {
-
-        let message = new ChatMessage(Math.random().toString(), new Date(), action.payload.message, USERS[0], false);
-
+    if (action.type === NEW_CHATMESSAGE) {
+            console.log(action.payload);
+        let message = action.payload;
+            console.log(message);
         const chatroom = state.chatrooms.find(room => room.id == 1);
 
         const chatMessages = [...chatroom.chatMessages, message];
@@ -41,3 +43,5 @@ export default reducer = (state = initialState, action) => {
 
     return state;
 };
+
+export default ChatReducer;
