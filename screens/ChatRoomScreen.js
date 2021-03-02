@@ -5,22 +5,39 @@ import {
 } from 'react-native';
 import ChatView from '../components/ChatView';
 import Ionicons from '@expo/vector-icons/Ionicons';
+import ChatMessage from "../models/ChatMessage";
+import {USERS} from '../data/dummy-data';
+
+import store from '../store/store';
+import * as constants from '../constants';
 
 const ChatRoomScreen = ({ route, navigation }) => {
    const { chatRoom } = route.params;
    const [value, onChangeText] = React.useState('');
 
    //Set Heder Title
-   navigation.setOptions({
-      title: chatRoom.name,
-      topBar: {
-         backButton: { color: 'white' }
-      }
-   });
+   // navigation.setOptions({
+   //    title: chatRoom.name,
+   //    topBar: {
+   //       backButton: { color: 'white' }
+   //    }
+   // });
+
+   function sendMessage(){
+      store.dispatch({
+         type: constants.SENT,
+         payload: {
+            message: value
+         }
+       });
+      this.textInput.clear();
+   }
+
+
 
    const sendButtonStyle = value.length == 0 ? styles.sendButtonViewActive : styles.sendButtonViewInActive;
    const isInputFieldEmpty = value.length == 0 ? true : false;
-
+    
    return (
       <SafeAreaView style={styles.container}>
          <FlatList
@@ -33,7 +50,7 @@ const ChatRoomScreen = ({ route, navigation }) => {
                source={require('../assets/robert.jpg')}
                style={styles.imageIcon}
             />
-            <TextInput
+            <TextInput ref={input => { this.textInput = input }}
                style={styles.inputField}
                onChangeText={(text) => onChangeText(text)}
                value={value}
@@ -43,7 +60,7 @@ const ChatRoomScreen = ({ route, navigation }) => {
                onFocus={() => console.log("focus received")}
                onBlur={() => console.log("focus lost")}
             />
-            <TouchableOpacity disabled={isInputFieldEmpty}>
+            <TouchableOpacity onPress={() => sendMessage()} disabled={isInputFieldEmpty}>
                <View style={sendButtonStyle}>
                   <Ionicons style={[{ transform: [{ rotate: '315deg' }] }]} name="send-sharp" size={25} color="white" />
                </View>

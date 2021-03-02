@@ -1,7 +1,11 @@
 import React from 'react';
 import { View, StyleSheet, FlatList, Text } from 'react-native';
 import ChatList from '../components/ChatList';
-import { CHATROOM_CBS } from '../data/dummy-data';
+import store from '../store/store';
+import * as constants from '../constants';
+import { CHATROOM_CBS } from "../data/dummy-data";
+
+const chatroom = store.getState().chatrooms;
 
 const CBSChatList = () => {
    return (

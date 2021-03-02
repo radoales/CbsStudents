@@ -5,8 +5,9 @@ import { chatListStyles } from '../StyleSheets/Shared';
 
 const ChatList = props => {
     const navigation = useNavigation();
-    const isLastMessageRead = props.chatroom.chatMessages.map(m => m.isRead)[0];
-    const createddate = props.chatroom.chatMessages.map(m => m.createdDate)[0];
+    const chatMessages = props.chatroom.chatMessages.reverse();
+    const isLastMessageRead = chatMessages.map(m => m.isRead)[0];
+    const createddate = chatMessages.map(m => m.createdDate)[0];
 
     const receivedTime = createddate.getDate() === new Date().getDate() ? createddate.getHours() + ':' + createddate.getMinutes()
         : createddate.toDateString().substring(4, 10);
@@ -14,7 +15,7 @@ const ChatList = props => {
     const isReadTextStyle = isLastMessageRead ? chatListStyles.chatTextRead : chatListStyles.chatTextUnread;
     const isReadMark = isLastMessageRead ? chatListStyles.dotRead : chatListStyles.dotUnread;
 
-    let lastMessage = props.chatroom.chatMessages.map(m => m.message)[0];
+    let lastMessage = chatMessages.map(m => m.message)[0];
     lastMessage = lastMessage.length >= 23 && !isLastMessageRead ? lastMessage.substring(0, 23) + '...'
         : isLastMessageRead && lastMessage.length >= 25 ? lastMessage.substring(0, 25) + '...'
             : lastMessage;

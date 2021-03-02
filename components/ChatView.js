@@ -1,8 +1,11 @@
 import React from 'react';
 import { View, Text, StyleSheet, Image, } from 'react-native';
-import { comonStyles, chatListStyles } from '../StyleSheets/Shared';
+
+import store from '../store/store';
+import * as constants from '../constants';
 
 const ChatView = (props) => {
+
   const userId = props.message.user.id;
 
   const isLoggedInUser = userId == 1;
@@ -20,29 +23,54 @@ const ChatView = (props) => {
 
   const userName = props.message.user.name;
 
+  let isNewDate = date == store.getState().date ? true : false;
+  let isSameUser = userId == store.getState().userId ? true : false;
+
+  store.dispatch({
+    type: constants.MESSAGE_ADDED,
+    payload: {
+      date: date,
+      userId: userId
+    }
+  });
+
   return (
     <View>
       <View style={{
-         flexDirection: 'row',
-          alignSelf: 'center'
-           }}>
-        <Text style={{color: 'grey', fontSize: 13}}>{date}</Text>
+        flexDirection: 'row',
+        alignSelf: 'center'
+      }}>
+        {!isNewDate ? (
+          <Text style={{ color: 'grey', fontSize: 13, paddingBottom: 20, paddingTop: 20 }}>{date}</Text>
+        ) : (<View />)}
       </View>
       <View style={{ flex: 1, flexDirection: 'row', alignSelf: flexPosition }}>
-        {!isLoggedInUser ? (
-          <Image source={props.message.user.image} style={styles.imageIcon} />
-        ) : <View />}
+        {
+          !isLoggedInUser && !isSameUser ? (
+            <Image source={props.message.user.image} style={styles.imageIcon} />
+          ) : <View style={styles.imageIcon} />
+        }
         <View style={{ flex: 1, flexDirection: 'column' }}>
           <View style={block}>
             <Text style={textStyle}>
-              {props.message.message} : {userId}
+              {props.message.message}
             </Text>
           </View>
-          <View style={timeReceivedPosition}>
-            <Text style={styles.timeReceivedStyle}>
-              From {userName} - {receivedTime}
-            </Text>
-          </View>
+          {
+            !isSameUser && !isLoggedInUser ? (
+              <View style={timeReceivedPosition}>
+                <Text style={styles.timeReceivedStyle}>
+                  From {userName} - {receivedTime}
+                </Text>
+              </View>
+            ) : isLoggedInUser ? (
+              <View style={timeReceivedPosition}>
+                <Text style={styles.timeReceivedStyle}>
+                  {receivedTime}
+                </Text>
+              </View>
+            ) : (<View />)
+          }
         </View>
       </View>
     </View>
@@ -66,7 +94,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#D9D9D9',
     width: 250,
     padding: 10,
-    marginVertical: 8,
+    marginVertical: 2,
     marginHorizontal: 16,
     borderBottomStartRadius: 3,
     borderBottomEndRadius: 10,

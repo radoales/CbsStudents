@@ -1,20 +1,32 @@
 import 'react-native-gesture-handler';
 import { NavigationContainer } from '@react-navigation/native';
+import { LogBox } from 'react-native';
+LogBox.ignoreLogs(['Warning: ...']); // Ignore log notification by message
+LogBox.ignoreAllLogs();//Ignore all log notifications
 
 import { StatusBar } from 'expo-status-bar';
 import * as React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons';
-import {comonStyles} from './StyleSheets/Shared';
+import { comonStyles } from './StyleSheets/Shared';
 
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-
+//import ChatReducer from './store/reducers/ChatReducer';
 import Home from './screens/Home';
 import Discover from './screens/Discover';
 import Chat from './screens/Chat';
 import Menu from './screens/Menu';
 import ChatRoomScreen from './screens/ChatRoomScreen';
+import { Provider } from 'react-redux';
+import store from './store/store';
+import { combineReducers, createStore, applyMiddleware } from 'redux';
+
+// const rootReducer = combineReducers({
+//   chat: ChatReducer
+// });
+//const store = createStore(rootReducer, composeWithDevTools());
+ //const store = createStore(rootReducer);
 
 const Stack = createStackNavigator();
 
@@ -27,8 +39,8 @@ function StackNavigator() {
           headerStyle: comonStyles.titleBox,
           headerTitleStyle: comonStyles.titleText,
         }} />
-      <Stack.Screen  name="ChatRoomScreen" component={ChatRoomScreen}
-         options={{
+      <Stack.Screen name="ChatRoomScreen" component={ChatRoomScreen}
+        options={{
           headerStyle: comonStyles.titleBox,
           headerTitleStyle: comonStyles.titleText,
         }} />
@@ -42,42 +54,45 @@ export default function App() {
 
 
   return (
-    <NavigationContainer>
-      <Tab.Navigator
-        screenOptions={({ route }) => ({
-          tabBarIcon: ({ focused, color, size }) => {
-            let iconName;
+    <Provider store={store}>
+      <NavigationContainer>
+        <Tab.Navigator
+          screenOptions={({ route }) => ({
+            tabBarIcon: ({ focused, color, size }) => {
+              let iconName;
 
-            if (route.name === 'Home') {
-              iconName = focused
-                ? 'home' : 'home-outline';
-            } else if (route.name === 'Discover') {
-              iconName = focused ? 'search' : 'search-outline';
-            } else if (route.name === 'Chat') {
-              iconName = focused ? 'chatbubbles' : 'chatbubbles-outline';
-            } else if (route.name === 'Menu') {
-              iconName = focused ? 'menu' : 'menu-outline';
+              if (route.name === 'Home') {
+                iconName = focused
+                  ? 'home' : 'home-outline';
+              } else if (route.name === 'Discover') {
+                iconName = focused ? 'search' : 'search-outline';
+              } else if (route.name === 'Chat') {
+                iconName = focused ? 'chatbubbles' : 'chatbubbles-outline';
+              } else if (route.name === 'Menu') {
+                iconName = focused ? 'menu' : 'menu-outline';
+              }
+
+              // You can return any component that you like here!
+              return <Ionicons name={iconName} size={size} color={color} />;
+            },
+          })}
+          tabBarOptions={{
+            activeTintColor: 'darkslateblue',
+            inactiveTintColor: 'gray',
+            labelStyle: {
+              fontWeight: 'bold',
+              textTransform: 'uppercase'
             }
+          }}
+        >
+          <Tab.Screen name="Home" component={Home} />
+          <Tab.Screen name="Discover" component={Discover} />
+          <Tab.Screen name="Chat" component={StackNavigator} />
+          <Tab.Screen name="Menu" component={Menu} />
+        </Tab.Navigator>
+      </NavigationContainer>
+    </Provider>
 
-            // You can return any component that you like here!
-            return <Ionicons name={iconName} size={size} color={color} />;
-          },
-        })}
-        tabBarOptions={{
-          activeTintColor: 'darkslateblue',
-          inactiveTintColor: 'gray',
-          labelStyle: {
-            fontWeight: 'bold',
-            textTransform: 'uppercase'
-          }
-        }}
-      >
-        <Tab.Screen name="Home" component={Home} />
-        <Tab.Screen name="Discover" component={Discover} />
-        <Tab.Screen name="Chat" component={StackNavigator} />
-        <Tab.Screen name="Menu" component={Menu} />
-      </Tab.Navigator>
-    </NavigationContainer>
   );
 }
 
