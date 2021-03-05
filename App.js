@@ -28,19 +28,17 @@ const Stack = createStackNavigator();
 
 function StackNavigator() {
   return (
-    <Provider store={store}>
       <Stack.Navigator >
         <Stack.Screen name="Chat" component={Chat}
           options={{
             title: 'Chat',
-            headerTitleStyle: comonStyles.titleText,
+            headerTitleStyle: comonStyles.headerText,
           }} />
         <Stack.Screen name="ChatRoomScreen" component={ChatRoomScreen}
           options={{
-            headerTitleStyle: comonStyles.titleText,
+            headerTitleStyle: comonStyles.headerText,
           }} />
       </Stack.Navigator>
-    </Provider>
   );
 }
 
@@ -88,8 +86,8 @@ export default function App() {
         >
           <Tab.Screen name="Home" component={Home} />
           <Tab.Screen name="Discover" component={Discover} />
-          <Tab.Screen name="Chat" component={StackNavigator} />
-          <Tab.Screen name="Menu" component={Menu} />
+          <Tab.Screen name="Chat" component={StackNavigator}          />
+          <Tab.Screen name="Menu" component={Menu}  />
         </Tab.Navigator>
       </NavigationContainer>
     </Provider>

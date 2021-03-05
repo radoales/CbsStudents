@@ -8,8 +8,8 @@ const Tab = createMaterialTopTabNavigator();
 const Home = props => {
    return (
       <View
-         style={comonStyles.titleBox}>
-         <Text style={comonStyles.titleText}>Feed</Text>
+         style={comonStyles.headerBox}>
+         <Text style={comonStyles.headerText}>Feed</Text>
       </View>
    );
 }

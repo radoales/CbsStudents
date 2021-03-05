@@ -10,8 +10,8 @@ const Discover = props => {
    return (
       <View>
          <View
-            style={comonStyles.titleBox}>
-            <Text style={[comonStyles.titleText, { paddingTop: 20 }]}>Discover</Text>
+            style={comonStyles.headerBox}>
+            <Text style={[comonStyles.headerText, { paddingTop: 20 }]}>Discover</Text>
          </View>
          <View style={{ margin: 15 }}>
             <SearchBar

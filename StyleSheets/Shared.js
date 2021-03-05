@@ -1,15 +1,16 @@
 import { Platform, StyleSheet } from 'react-native';
 
 const comonStyles = StyleSheet.create({
-    titleText: {
+    headerText: {
         textAlign: "center",
         fontWeight: "bold",
         color: "darkslateblue",
         fontSize: 20,
+        paddingTop: 25,
         fontFamily: Platform.OS === 'ios'? 'Al Nile' : 'monospace' 
     },
-    titleBox: {
-        height: 50,
+    headerBox: {
+        height: 60,
         backgroundColor: "white"
     }
 })
