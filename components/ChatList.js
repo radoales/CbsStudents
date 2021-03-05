@@ -4,22 +4,42 @@ import { useNavigation } from '@react-navigation/native';
 import { chatListStyles } from '../StyleSheets/Shared';
 
 const ChatList = props => {
-    //console.log(props);
-    const navigation = useNavigation();
-    const chatMessages = props.chatroom.chatMessages.reverse();
-    const isLastMessageRead = chatMessages.map(m => m.isRead)[0];
-    const createddate = chatMessages.map(m => m.createdDate)[0];
+    const navigation = useNavigation(); 
 
-    const receivedTime = createddate.getDate() === new Date().getDate() ? createddate.getHours() + ':' + createddate.getMinutes()
-        : createddate.toDateString().substring(4, 10);
+    //Get the array of chatmessages from the props
+    const chatMessages = props.chatroom.chatMessages;
 
+    //Get the last message
+    let lastMessage = chatMessages[chatMessages.length - 1];
+
+    //Get the last message user Id
+    const lastMessageUserId = chatMessages.map(m => m.user.id)[chatMessages.length - 1];
+
+    //Check if user is the auth user
+    const isAuthUser = lastMessageUserId == 1;
+
+    //Check if the last message was marked as read and not sent from the auth user
+    const isLastMessageRead = lastMessage.isRead === false && !isAuthUser ? false : true;
+
+    const lasteMessageDate = lastMessage.createdDate;
+
+    //Format received time/date. If date is today, display <- hh:mm ->, if not display <- mmm dd ->
+    const receivedTime = lasteMessageDate.getDate() === new Date().getDate()
+        ? lasteMessageDate.getHours() + ':' + lasteMessageDate.getMinutes()
+        : lasteMessageDate.toDateString().substring(4, 10);
+
+    //Set style for the message if is read or not
     const isReadTextStyle = isLastMessageRead ? chatListStyles.chatTextRead : chatListStyles.chatTextUnread;
+
+    //Display the mark if a message is unread
     const isReadMark = isLastMessageRead ? chatListStyles.dotRead : chatListStyles.dotUnread;
 
-    let lastMessage = chatMessages.map(m => m.message)[0];
-    lastMessage = lastMessage.length >= 23 && !isLastMessageRead ? lastMessage.substring(0, 23) + '...'
-        : isLastMessageRead && lastMessage.length >= 25 ? lastMessage.substring(0, 25) + '...'
-            : lastMessage;
+    let lastMessageText = lastMessage.message;
+
+    //Display a part of the last message
+    lastMessageText = lastMessageText.length >= 30 && !isLastMessageRead ? lastMessageText.substring(0, 30) + '...'
+        : isLastMessageRead && lastMessageText.length >= 32 ? lastMessageText.substring(0, 32) + '...'
+            : lastMessageText;
     return (
         <View style={styles.chatList}>
             <TouchableOpacity onPress={() => navigation.navigate('ChatRoomScreen', { chatRoom: props.chatroom }
@@ -30,7 +50,7 @@ const ChatList = props => {
                         style={chatListStyles.imageIcon} />
                     <View style={chatListStyles.column}>
                         <Text style={{ fontWeight: 'bold' }}>{props.chatroom.name}</Text>
-                        <Text style={isReadTextStyle}>{lastMessage}</Text>
+                        <Text style={isReadTextStyle}>{lastMessageText}</Text>
                     </View>
                     <View style={chatListStyles.endColumn}>
                         <View style={{ paddingBottom: 5, paddingTop: 5 }}>

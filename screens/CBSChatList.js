@@ -2,11 +2,11 @@ import React from 'react';
 import { View, StyleSheet, FlatList, Text } from 'react-native';
 import ChatList from '../components/ChatList';
 
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 
 const CBSChatList = () => {
-   const chatrooms = useSelector(state => state.chat.chatrooms); // selecting from redux store
+   const chatrooms = useSelector(state => state.chat.chatrooms); 
    return (
          <View style={styles.room}>
             <FlatList

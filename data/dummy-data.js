@@ -16,7 +16,7 @@ export const CHATMESSAGES_SURF = [
     new ChatMessage('26', new Date(2020, 0, 17, 20, 12, 1), '*Lorem ipsum dolor', USERS[1], true),
     new ChatMessage('27', new Date(2020, 1, 5, 20, 12, 1), 'Lorem ipsum dolor sit amet, consectetur ', USERS[2], true),
     new ChatMessage('3', new Date(2021, 2, 1, 20, 14, 1), 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor .', USERS[0], true),
-    new ChatMessage('4', new Date(2021, 2, 1, 20, 15, 1), 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do .', USERS[1], true),
+    new ChatMessage('4', new Date(2021, 2, 1, 20, 15, 1), 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do .', USERS[1], false),
 ];
 
 export const CHATMESSAGES_FEM = [
@@ -30,7 +30,7 @@ export const CHATMESSAGES_STUDENTS = [
     new ChatMessage('9', new Date(2021, 4, 10, 20, 10, 1), 'Thank you for your message!', USERS[0], true),
     new ChatMessage('10', new Date(2021, 0, 1, 20, 12, 1), 'Hello I am here', USERS[1], true),
     new ChatMessage('11', new Date(2021, 0, 1, 20, 14, 1), 'Hello how are you!', USERS[0], true),
-    new ChatMessage('12', new Date(2021, 0, 1, 20, 15, 1), 'Hello looking at a React Native teacher right now..!', USERS[1], true),
+    new ChatMessage('12', new Date(2021, 0, 1, 20, 15, 1), 'Hello looking at a React Native teacher right now..!', USERS[1], false),
 ];
 
 export const CHATMESSAGES_GOLF = [

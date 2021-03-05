@@ -5,15 +5,15 @@ import {
 } from 'react-native';
 import ChatView from '../components/ChatView';
 import Ionicons from '@expo/vector-icons/Ionicons';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { addToChats } from './../store/ChatActions';
 
 const ChatRoomScreen = ({ route, navigation }) => {
-
    const dispatch = useDispatch();
 
-   const { chatRoom } = route.params;
+   const  {chatRoom}  = route.params; 
    const [value, onChangeText] = React.useState('');
+
    //Set Heder Title
    // navigation.setOptions({
    //    title: chatRoom.name,
@@ -27,13 +27,14 @@ const ChatRoomScreen = ({ route, navigation }) => {
       this.textInput.clear();
    }
 
-
-
-   const sendButtonStyle = value.length == 0 ? styles.sendButtonViewActive : styles.sendButtonViewInActive;
    const isInputFieldEmpty = value.length == 0 ? true : false;
+   
+   //If input has any charecters set button to active
+   const sendButtonStyle = isInputFieldEmpty ? styles.sendButtonViewActive : styles.sendButtonViewInActive;
+
 
    return (
-      <SafeAreaView style={styles.container}>
+      <View style={styles.container}>
          <FlatList
             data={chatRoom.chatMessages}
             renderItem={({ item }) => <ChatView message={item} />}
@@ -46,7 +47,7 @@ const ChatRoomScreen = ({ route, navigation }) => {
             />
             <TextInput ref={input => { this.textInput = input }}
                style={styles.inputField}
-               onChangeText={(text) => onChangeText(text)}
+               onChangeText={text => onChangeText(text)}
                value={value}
                placeholder='Write message'
                multiline
@@ -60,7 +61,7 @@ const ChatRoomScreen = ({ route, navigation }) => {
                </View>
             </TouchableOpacity>
          </View>
-      </SafeAreaView>
+      </View>
    );
 };
 

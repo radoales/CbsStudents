@@ -1,40 +1,52 @@
 import React from 'react';
 import { View, Text, StyleSheet, Image, } from 'react-native';
-
-import * as constants from '../constants';
+import { useSelector, useDispatch } from 'react-redux';
+import { addMessage } from './../store/ChatActions';
 
 const ChatView = (props) => {
+  const dispatch = useDispatch();
 
- // console.log(props);
+  //Get the Id of the owner of the message
   const userId = props.message.user.id;
 
-  const isLoggedInUser = userId == 1;
+  //Get the name of the user sending the message
+  const userName = props.message.user.name;
 
-  const flexPosition = isLoggedInUser ? 'flex-end' : 'flex-start';
-  const timeReceivedPosition = isLoggedInUser
+  //Check if the owner of the message is the authenticated User
+  //'1' should be replaced with the authenticated user
+  const isAuthUser = userId == 1;
+
+  //const flexPosition = isAuthUser ? 'flex-end' : 'flex-start';
+
+  //The position of the time the message was received
+  const timeReceivedPosition = isAuthUser
     ? styles.timeReceivedRight
     : styles.timeReceivedLeft;
 
-  const block = isLoggedInUser ? styles.chatBoxRight : styles.chatBoxLeft;
+  //The position of the message block
+  const messageBlock = isAuthUser ? styles.chatBoxRight : styles.chatBoxLeft;
+
+  //Get the date of the message
   const createddate = props.message.createdDate;
+
+  //Format the receiving time of the message <- hh:mm ->
   const receivedTime = createddate.getHours() + ':' + createddate.getMinutes();
-  const textStyle = isLoggedInUser ? styles.textRight : styles.textLeft;
+
+  //The style of the message text
+  const textStyle = isAuthUser ? styles.textRight : styles.textLeft;
+
+  //Format the created date <- mmm dd yyyy ->
   const date = createddate.toDateString().substring(4, 15);
 
-  const userName = props.message.user.name;
+  //Check if the message has a different date than the prevoius one
+  //  let isNewDate = date == useSelector(state => state.chat.lastMessageDate) ? true : false;
 
-  // let isNewDate = date == store.getState().date ? true : false;
-  // let isSameUser = userId == store.getState().userId ? true : false;
+  //Check if the message has a different userId then the prevoius one
+  //  let isSameUser = userId == useSelector(state => state.chat.lastMessageUserId) ? true : false;
   let isNewDate = true;
   let isSameUser = false;
 
-  // store.dispatch({
-  //   type: constants.MESSAGE_ADDED,
-  //   payload: {
-  //     date: date,
-  //     userId: userId
-  //   }
-  // });
+  dispatch(addMessage(date, userId));
 
   return (
     <View>
@@ -42,30 +54,38 @@ const ChatView = (props) => {
         flexDirection: 'row',
         alignSelf: 'center'
       }}>
+
+        {/* If the date of the current message is different than the previous one, display it */}
         {!isNewDate ? (
           <Text style={{ color: 'grey', fontSize: 13, paddingBottom: 20, paddingTop: 20 }}>{date}</Text>
         ) : (<View />)}
       </View>
-      <View style={{ flex: 1, flexDirection: 'row', alignSelf: flexPosition }}>
+      <View style={{ flex: 1, flexDirection: 'row', /*alignSelf: flexPosition*/ }}>
+
+        {/* If User is the authenticated user and not the same as the previous message, display profile image */}
         {
-          !isLoggedInUser && !isSameUser ? (
+          !isAuthUser && !isSameUser ? (
             <Image source={props.message.user.image} style={styles.imageIcon} />
           ) : <View style={styles.imageIcon} />
         }
         <View style={{ flex: 1, flexDirection: 'column' }}>
-          <View style={block}>
+          <View style={messageBlock}>
             <Text style={textStyle}>
               {props.message.message}
             </Text>
           </View>
+
+          {/* If User is not the Authenticated User and is not the same as previous message, display userName and time */}
           {
-            !isSameUser && !isLoggedInUser ? (
+            !isAuthUser && !isSameUser ? (
               <View style={timeReceivedPosition}>
                 <Text style={styles.timeReceivedStyle}>
                   From {userName} - {receivedTime}
                 </Text>
               </View>
-            ) : isLoggedInUser ? (
+
+              //If user is the Athenticated user, display only time
+            ) : isAuthUser ? (
               <View style={timeReceivedPosition}>
                 <Text style={styles.timeReceivedStyle}>
                   {receivedTime}
