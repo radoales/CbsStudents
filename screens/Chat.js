@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
     tabLabels: {
         fontWeight: 'bold',
         fontSize: 15,
-        fontFamily: Platform.OS === 'ios'? 'Al Nile' : 'monospace' ,
+        fontFamily:  Platform.OS === 'ios'? 'Al Nile' : 'monospace' ,
         textTransform: 'none'
     }
 });

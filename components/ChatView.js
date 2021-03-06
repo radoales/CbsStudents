@@ -3,14 +3,12 @@ import { View, Text, StyleSheet, Image, } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import { addMessage } from './../store/ChatActions';
 
-const ChatView = (props) => {
+const ChatView = ({ message }) => {
   const dispatch = useDispatch();
-
   //Get the Id of the owner of the message
-  const userId = props.message.user.id;
-
+  const userId = message.user.id;
   //Get the name of the user sending the message
-  const userName = props.message.user.name;
+  const userName = message.user.name;
 
   //Check if the owner of the message is the authenticated User
   //'1' should be replaced with the authenticated user
@@ -27,7 +25,7 @@ const ChatView = (props) => {
   const messageBlock = isAuthUser ? styles.chatBoxRight : styles.chatBoxLeft;
 
   //Get the date of the message
-  const createddate = props.message.createdDate;
+  const createddate = message.createdDate;
 
   //Format the receiving time of the message <- hh:mm ->
   const receivedTime = createddate.getHours() + ':' + createddate.getMinutes();
@@ -65,13 +63,13 @@ const ChatView = (props) => {
         {/* If User is the authenticated user and not the same as the previous message, display profile image */}
         {
           !isAuthUser && !isSameUser ? (
-            <Image source={props.message.user.image} style={styles.imageIcon} />
+            <Image source={message.user.image} style={styles.imageIcon} />
           ) : <View style={styles.imageIcon} />
         }
         <View style={{ flex: 1, flexDirection: 'column' }}>
           <View style={messageBlock}>
             <Text style={textStyle}>
-              {props.message.message}
+              {message.message}
             </Text>
           </View>
 

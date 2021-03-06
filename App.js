@@ -52,7 +52,6 @@ const store = createStore(rootReducer, composeWithDevTools());
 
 export default function App() {
 
-
   return (
     <Provider store={store}>
       <NavigationContainer>
