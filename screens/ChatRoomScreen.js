@@ -1,4 +1,4 @@
-import React from "react"
+import React from 'react'
 import {
   View,
   Image,
@@ -7,11 +7,11 @@ import {
   SafeAreaView,
   TextInput,
   TouchableOpacity,
-} from "react-native"
-import ChatView from "../components/ChatView"
-import Ionicons from "@expo/vector-icons/Ionicons"
-import { useDispatch, useSelector } from "react-redux"
-import { addToChats } from "./../store/ChatActions"
+} from 'react-native'
+import Ionicons from '@expo/vector-icons/Ionicons'
+import { useDispatch, useSelector } from 'react-redux'
+import ChatView from '../components/ChatView'
+import { addToChats } from '../store/ChatActions'
 
 const ChatRoomScreen = ({ navigation }) => {
   const dispatch = useDispatch()
@@ -19,8 +19,8 @@ const ChatRoomScreen = ({ navigation }) => {
   const activeChatRoom = useSelector((state) => state.chat.activeChatRoom)
   const chatRoom = chatrooms?.[activeChatRoom]
 
-  const [value, setValue] = React.useState("")
-  //Set Heder Title
+  const [value, setValue] = React.useState('')
+  // Set Heder Title
   // navigation.setOptions({
   //    title: chatRoom.name,
   //    topBar: {
@@ -30,12 +30,12 @@ const ChatRoomScreen = ({ navigation }) => {
 
   function sendMessage() {
     dispatch(addToChats(value))
-    setValue("")
+    setValue('')
   }
 
-  const isInputFieldEmpty = value.length == 0 ? true : false
+  const isInputFieldEmpty = value.length == 0
 
-  //If input has any charecters set button to active
+  // If input has any charecters set button to active
   const sendButtonStyle = isInputFieldEmpty
     ? styles.sendButtonViewActive
     : styles.sendButtonViewInActive
@@ -48,10 +48,10 @@ const ChatRoomScreen = ({ navigation }) => {
         keyExtractor={(item) => item.id}
       />
       <View
-        style={{ flexDirection: "row", borderColor: "#D9D9D9", borderWidth: 1 }}
+        style={{ flexDirection: 'row', borderColor: '#D9D9D9', borderWidth: 1 }}
       >
         <Image
-          source={require("../assets/robert.jpg")}
+          source={require('../assets/robert.jpg')}
           style={styles.imageIcon}
         />
         <TextInput
@@ -61,8 +61,8 @@ const ChatRoomScreen = ({ navigation }) => {
           placeholder="Write message"
           multiline
           numberOfLines={4}
-          onFocus={() => console.log("focus received")}
-          onBlur={() => console.log("focus lost")}
+          onFocus={() => console.log('focus received')}
+          onBlur={() => console.log('focus lost')}
         />
         <TouchableOpacity
           onPress={() => sendMessage()}
@@ -70,7 +70,7 @@ const ChatRoomScreen = ({ navigation }) => {
         >
           <View style={sendButtonStyle}>
             <Ionicons
-              style={[{ transform: [{ rotate: "315deg" }] }]}
+              style={[{ transform: [{ rotate: '315deg' }] }]}
               name="send-sharp"
               size={25}
               color="white"
@@ -85,13 +85,13 @@ const ChatRoomScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "white",
+    backgroundColor: 'white',
   },
   imageIcon: {
     width: 40,
     height: 40,
     borderRadius: 20,
-    resizeMode: "contain",
+    resizeMode: 'contain',
     margin: 10,
     marginRight: 0,
   },
@@ -99,30 +99,30 @@ const styles = StyleSheet.create({
     margin: 10,
     height: 40,
     width: 240,
-    backgroundColor: "#D9D9D9",
+    backgroundColor: '#D9D9D9',
     borderRadius: 5,
     padding: 5,
     marginRight: 0,
   },
   sendButtonViewActive: {
-    backgroundColor: "rgba(72,61,139, 0.5)",
+    backgroundColor: 'rgba(72,61,139, 0.5)',
     width: 40,
     height: 40,
     paddingLeft: 5,
     paddingTop: 4,
     margin: 10,
     borderRadius: 5,
-    alignItems: "center",
+    alignItems: 'center',
   },
   sendButtonViewInActive: {
-    backgroundColor: "rgb(72,61,139)",
+    backgroundColor: 'rgb(72,61,139)',
     width: 40,
     height: 40,
     paddingLeft: 5,
     paddingTop: 4,
     margin: 10,
     borderRadius: 5,
-    alignItems: "center",
+    alignItems: 'center',
   },
 })
 

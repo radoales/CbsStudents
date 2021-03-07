@@ -1,8 +1,7 @@
-import React from "react"
-import { View, StyleSheet, FlatList, Text } from "react-native"
-import ChatList from "../components/ChatList"
-
-import { useSelector } from "react-redux"
+import React from 'react'
+import { View, StyleSheet, FlatList, Text } from 'react-native'
+import { useSelector } from 'react-redux'
+import ChatList from '../components/ChatList'
 
 const CBSChatList = () => {
   const chatrooms = useSelector((state) => state.chat.chatrooms)
