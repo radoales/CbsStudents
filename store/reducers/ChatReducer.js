@@ -12,8 +12,8 @@ const ChatReducer = (state = initialState, action) => {
   if (action.type === MESSAGE_ADDED) {
     return {
       ...state,
-      lastMessageDate: action.payload.prevMessageDate,
-      userId: action.payload.prevMessageUserId,
+      prevMessageDate: action.payload.prevMessageDate,
+      prevMessageUserId: action.payload.prevMessageUserId,
     }
   }
   if (action.type === MESSAGE_SENT) {

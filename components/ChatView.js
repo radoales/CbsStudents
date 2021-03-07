@@ -37,12 +37,13 @@ const ChatView = ({ message }) => {
   const date = createddate.toDateString().substring(4, 15)
 
   // Check if the message has a different date than the prevoius one
-  //  let isNewDate = date == useSelector(state => state.chat.lastMessageDate) ? true : false;
+  const isNewDate = date === useSelector((state) => state.chat.prevMessageDate)
 
   // Check if the message has a different userId then the prevoius one
-  //  let isSameUser = userId == useSelector(state => state.chat.lastMessageUserId) ? true : false;
-  const isNewDate = true
-  const isSameUser = false
+  const isSameUser =
+    userId === useSelector((state) => state.chat.prevMessageUserId)
+  // let isNewDate = true;
+  // let isSameUser = false;
 
   dispatch(addMessage(date, userId))
 
@@ -55,7 +56,7 @@ const ChatView = ({ message }) => {
         }}
       >
         {/* If the date of the current message is different than the previous one, display it */}
-        {!isNewDate ? (
+        {isNewDate ? (
           <Text
             style={{
               color: 'grey',
@@ -91,8 +92,8 @@ const ChatView = ({ message }) => {
                 From {userName} - {receivedTime}
               </Text>
             </View>
-          ) : // If user is the Athenticated user, display only time
-          isAuthUser ? (
+          ) // If user is the Athenticated user, display only time
+          : isAuthUser ? (
             <View style={timeReceivedPosition}>
               <Text style={styles.timeReceivedStyle}>{receivedTime}</Text>
             </View>

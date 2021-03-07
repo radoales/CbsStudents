@@ -17,8 +17,11 @@ export const addToChats = (text) => {
   return { type: MESSAGE_SENT, payload: message }
 }
 
-export const addMessage = (date, userId) => {
-  return { type: MESSAGE_ADDED, payload: { date, userId } }
+export const addMessage = (prevMessageDate, prevMessageUserId) => {
+  return {
+    type: MESSAGE_ADDED,
+    payload: { prevMessageDate, prevMessageUserId },
+  }
 }
 
 export const setUpdateActiveChatRoom = (index) => {
