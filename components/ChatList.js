@@ -22,7 +22,7 @@ const ChatList = ({ chatroom, index }) => {
   ]
 
   // Check if user is the auth user
-  const isAuthUser = lastMessageUserId == 1
+  const isAuthUser = lastMessageUserId === '1'
 
   // Check if the last message was marked as read and not sent from the auth user
   const isLastMessageRead = !(lastMessage.isRead === false && !isAuthUser)

@@ -1,10 +1,11 @@
 import React from 'react'
 import { View, Text, StyleSheet, Image } from 'react-native'
-import { useSelector, useDispatch } from 'react-redux'
+import { useDispatch, useStore } from 'react-redux'
 import { addMessage } from '../store/ChatActions'
 
 const ChatView = ({ message }) => {
   const dispatch = useDispatch()
+  const store = useStore()
   // Get the Id of the owner of the message
   const userId = message.user.id
   // Get the name of the user sending the message
@@ -12,7 +13,7 @@ const ChatView = ({ message }) => {
 
   // Check if the owner of the message is the authenticated User
   // '1' should be replaced with the authenticated user
-  const isAuthUser = userId == 1
+  const isAuthUser = userId === '1'
 
   // const flexPosition = isAuthUser ? 'flex-end' : 'flex-start';
 
@@ -37,13 +38,10 @@ const ChatView = ({ message }) => {
   const date = createddate.toDateString().substring(4, 15)
 
   // Check if the message has a different date than the prevoius one
-  const isNewDate = date === useSelector((state) => state.chat.prevMessageDate)
+  const isNewDate = date !== store.getState().chat.prevMessageDate
 
   // Check if the message has a different userId then the prevoius one
-  const isSameUser =
-    userId === useSelector((state) => state.chat.prevMessageUserId)
-  // let isNewDate = true;
-  // let isSameUser = false;
+  const isSameUser = userId === store.getState().chat.prevMessageUserId
 
   dispatch(addMessage(date, userId))
 
@@ -92,8 +90,7 @@ const ChatView = ({ message }) => {
                 From {userName} - {receivedTime}
               </Text>
             </View>
-          ) // If user is the Athenticated user, display only time
-          : isAuthUser ? (
+          ) : isAuthUser ? (
             <View style={timeReceivedPosition}>
               <Text style={styles.timeReceivedStyle}>{receivedTime}</Text>
             </View>

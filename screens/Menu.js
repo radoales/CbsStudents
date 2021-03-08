@@ -7,7 +7,6 @@ import {
   TouchableOpacity,
   Switch,
 } from 'react-native'
-import User from '../models/User'
 import { comonStyles } from '../StyleSheets/Shared'
 import { USERS } from '../data/dummy-data'
 
@@ -106,7 +105,7 @@ const Menu = () => {
               Event Reminder
             </Text>
             <Text style={styles.notificationText}>
-              An hour before events you are 'going to'
+              An hour before events you are &aposgoing to&apos
             </Text>
           </View>
           <View style={{ flex: 1, flexDirection: 'column' }}>

@@ -4,7 +4,6 @@ import {
   Image,
   StyleSheet,
   FlatList,
-  SafeAreaView,
   TextInput,
   TouchableOpacity,
 } from 'react-native'
@@ -22,18 +21,15 @@ const ChatRoomScreen = ({ navigation }) => {
   const [value, setValue] = React.useState('')
   // Set Heder Title
   // navigation.setOptions({
-  //    title: chatRoom.name,
-  //    topBar: {
-  //       backButton: { color: 'white' }
-  //    }
-  // });
+  //   title: chatRoom.name,
+  // })
 
   function sendMessage() {
     dispatch(addToChats(value))
     setValue('')
   }
 
-  const isInputFieldEmpty = value.length == 0
+  const isInputFieldEmpty = value.length === 0
 
   // If input has any charecters set button to active
   const sendButtonStyle = isInputFieldEmpty
