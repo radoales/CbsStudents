@@ -44,21 +44,21 @@ export const USERS = [
 export const CHATMESSAGES_SURF = [
   new ChatMessage(
     '1',
-    new Date(2020, 0, 20, 11, 36, 23),
+    new Date(2018, 0, 20, 11, 36, 23),
     'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
     USERS[0],
     false,
   ),
   new ChatMessage(
     '2',
-    new Date(2020, 0, 17, 20, 12, 1),
+    new Date(2018, 0, 17, 20, 12, 1),
     'Lorem ipsum dolor sit amet, consectetur ',
     USERS[1],
     true,
   ),
   new ChatMessage(
     '25',
-    new Date(2020, 0, 17, 20, 12, 1),
+    new Date(2019, 0, 17, 20, 15, 1),
     'Lorem ipsum',
     USERS[1],
     true,

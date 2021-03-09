@@ -1,16 +1,13 @@
 import 'react-native-gesture-handler'
 import { NavigationContainer } from '@react-navigation/native'
-import { LogBox, StyleSheet, Text, View } from 'react-native'
-// Ignore all log notifications
-
-import { StatusBar } from 'expo-status-bar'
+import { LogBox, StyleSheet } from 'react-native'
 import * as React from 'react'
 
 import Ionicons from '@expo/vector-icons/Ionicons'
 import { createStackNavigator } from '@react-navigation/stack'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { Provider } from 'react-redux'
-import { combineReducers, createStore, applyMiddleware } from 'redux'
+import { combineReducers, createStore } from 'redux'
 import { composeWithDevTools } from 'redux-devtools-extension'
 import { comonStyles } from './StyleSheets/Shared'
 
@@ -20,12 +17,15 @@ import Discover from './screens/Discover'
 import Chat from './screens/Chat'
 import Menu from './screens/Menu'
 import ChatRoomScreen from './screens/ChatRoomScreen'
+import ProfileScreen from './screens/ProfileScreen'
+import EditProfileScreen from './screens/EditProfileScreen'
+import UserReducer from './store/reducers/UserReducer'
 
 LogBox.ignoreLogs(['Warning: ...']) // Ignore log notification by message
 LogBox.ignoreAllLogs()
 const Stack = createStackNavigator()
 
-function StackNavigator() {
+function ChatStackNavigator() {
   return (
     <Stack.Navigator>
       <Stack.Screen
@@ -47,10 +47,34 @@ function StackNavigator() {
   )
 }
 
+function MenuStackNavigator() {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen
+        name="Menu"
+        component={Menu}
+        options={{
+          title: 'Menu',
+          headerTitleStyle: comonStyles.headerText,
+        }}
+      />
+      <Stack.Screen
+        name="EditProfileScreen"
+        component={EditProfileScreen}
+        options={{
+          title: 'Edit Profile',
+          headerTitleStyle: comonStyles.headerText,
+        }}
+      />
+    </Stack.Navigator>
+  )
+}
+
 const Tab = createBottomTabNavigator()
 
 const rootReducer = combineReducers({
   chat: ChatReducer,
+  user: UserReducer,
 })
 const store = createStore(rootReducer, composeWithDevTools())
 // const store = createStore(rootReducer);
@@ -88,8 +112,8 @@ export default function App() {
         >
           <Tab.Screen name="Home" component={Home} />
           <Tab.Screen name="Discover" component={Discover} />
-          <Tab.Screen name="Chat" component={StackNavigator} />
-          <Tab.Screen name="Menu" component={Menu} />
+          <Tab.Screen name="Chat" component={ChatStackNavigator} />
+          <Tab.Screen name="Menu" component={MenuStackNavigator} />
         </Tab.Navigator>
       </NavigationContainer>
     </Provider>
