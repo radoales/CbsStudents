@@ -3,19 +3,18 @@ import React from 'react'
 import { TextInput, View, Text, StyleSheet } from 'react-native'
 
 const InputBlock = (props) => {
-  const [value, setValue] = React.useState('')
-  const [errorHeight, setErrorHeight] = React.useState(0)
+  const [showError, setShowError] = React.useState(0)
 
   function CheckInputLenght() {
-    setErrorHeight(value.length === 0 ? 20 : 0)
+    setShowError(props.value.length === 0 ? 20 : 0)
   }
   return (
     <View style={styles.inputBox}>
       <Text style={styles.label}>{props.label}</Text>
       <TextInput
         style={[styles.inputField]}
-        onChangeText={(text) => setValue(text)}
-        value={value}
+        onChangeText={(text) => props.setValue(text)}
+        value={props.value}
         placeholder={props.placeholder}
         placeholderTextColor="rgba(72,61,139,0.5)"
         multiline
@@ -24,7 +23,7 @@ const InputBlock = (props) => {
         onBlur={() => CheckInputLenght()}
       />
       <View style={styles.line} />
-      <Text style={[{ height: errorHeight }, styles.errorMessage]}>
+      <Text style={[{ height: showError }, styles.errorMessage]}>
         {props.errorMessage}
       </Text>
     </View>

@@ -1,10 +1,8 @@
 /* eslint-disable react/destructuring-assignment */
 import React from 'react'
-import { useNavigation } from '@react-navigation/native'
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 
 const ButtonBox = (props) => {
-  const navigation = useNavigation()
   return (
     <View>
       <TouchableOpacity
@@ -24,7 +22,7 @@ const ButtonBox = (props) => {
             paddingTop: 10,
             fontWeight: 'bold',
           }}
-          onPress={() => navigation.navigate(props.screen)}
+          onPress={props.func}
         >
           {props.title}
         </Text>

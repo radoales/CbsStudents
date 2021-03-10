@@ -1,13 +1,14 @@
 /* eslint-disable react/destructuring-assignment */
 import React from 'react'
 import { View, StyleSheet, Text, Image, TouchableOpacity } from 'react-native'
-import { useNavigation } from '@react-navigation/native'
+import { useNavigation, useIsFocused  } from '@react-navigation/native'
 import { useSelector } from 'react-redux'
 import SwitchBlock from '../components/SwitchBlock'
 import ButtonBox from '../components/ButtonBox'
 
 const ProfileScreen = () => {
   const navigation = useNavigation()
+  const isFocused = useIsFocused()
   const authUser = useSelector((state) => state.user.loggedInUser)
 
   const [isChatEnabled, setIsChatEnabled] = React.useState(false)
@@ -38,7 +39,13 @@ const ProfileScreen = () => {
           <Text>{authUser.title}</Text>
         </View>
       </View>
-      <ButtonBox title="Edit Profile" screen="EditProfileScreen" />
+      <ButtonBox
+        data={authUser}
+        title="Edit Profile"
+        func={() =>
+          navigation.navigate('EditProfileScreen', { data: authUser })
+        }
+      />
       <View style={styles.line} />
       <Text
         style={{
