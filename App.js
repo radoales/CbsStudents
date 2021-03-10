@@ -9,7 +9,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { Provider } from 'react-redux'
 import { combineReducers, createStore } from 'redux'
 import { composeWithDevTools } from 'redux-devtools-extension'
-import { comonStyles } from './StyleSheets/Shared'
+import { headerStyles } from './StyleSheets/Shared'
 
 import ChatReducer from './store/reducers/ChatReducer'
 import Home from './screens/Home'
@@ -17,7 +17,6 @@ import Discover from './screens/Discover'
 import Chat from './screens/Chat'
 import Menu from './screens/Menu'
 import ChatRoomScreen from './screens/ChatRoomScreen'
-import ProfileScreen from './screens/ProfileScreen'
 import EditProfileScreen from './screens/EditProfileScreen'
 import UserReducer from './store/reducers/UserReducer'
 
@@ -33,14 +32,14 @@ function ChatStackNavigator() {
         component={Chat}
         options={{
           title: 'Chat',
-          headerTitleStyle: comonStyles.headerText,
+          headerTitleStyle: headerStyles.headerText,
         }}
       />
       <Stack.Screen
         name="ChatRoomScreen"
         component={ChatRoomScreen}
         options={{
-          headerTitleStyle: comonStyles.headerText,
+          headerTitleStyle: headerStyles.headerText,
         }}
       />
     </Stack.Navigator>
@@ -55,7 +54,7 @@ function MenuStackNavigator() {
         component={Menu}
         options={{
           title: 'Menu',
-          headerTitleStyle: comonStyles.headerText,
+          headerTitleStyle: headerStyles.headerText,
         }}
       />
       <Stack.Screen
@@ -63,7 +62,7 @@ function MenuStackNavigator() {
         component={EditProfileScreen}
         options={{
           title: 'Edit Profile',
-          headerTitleStyle: comonStyles.headerText,
+          headerTitleStyle: headerStyles.headerText,
         }}
       />
     </Stack.Navigator>

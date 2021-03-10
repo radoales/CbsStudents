@@ -1,6 +1,6 @@
 import { Platform, StyleSheet } from 'react-native'
 
-const comonStyles = StyleSheet.create({
+const headerStyles = StyleSheet.create({
   headerText: {
     textAlign: 'center',
     fontWeight: 'bold',
@@ -54,6 +54,11 @@ const chatListStyles = StyleSheet.create({
     flex: 1,
     alignItems: 'flex-end',
   },
+  line: {
+    margin: 20,
+    borderBottomColor: 'lightgrey',
+    borderBottomWidth: 1,
+  },
 })
 
-export { comonStyles, chatListStyles }
+export { headerStyles, chatListStyles }

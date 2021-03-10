@@ -1,11 +1,11 @@
 import React from 'react'
 import { View, Text, StyleSheet } from 'react-native'
-import { comonStyles } from '../StyleSheets/Shared'
+import { headerStyles } from '../StyleSheets/Shared'
 
 const Home = (props) => {
   return (
-    <View style={comonStyles.headerBox}>
-      <Text style={comonStyles.headerText}>Feed</Text>
+    <View style={headerStyles.headerBox}>
+      <Text style={headerStyles.headerText}>Feed</Text>
       <View style={{ paddingTop: 20 }}>
         <View style={styles.boxWithShadow} />
       </View>
@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.8,
     shadowRadius: 2,
     elevation: 5,
-  }
+  },
 })
 
 export default Home

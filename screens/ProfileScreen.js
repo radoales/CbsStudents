@@ -1,16 +1,10 @@
+/* eslint-disable react/destructuring-assignment */
 import React from 'react'
-import {
-  View,
-  StyleSheet,
-  Text,
-  Image,
-  TouchableOpacity,
-  Switch,
-  Button,
-} from 'react-native'
+import { View, StyleSheet, Text, Image, TouchableOpacity } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import { useSelector } from 'react-redux'
-import { comonStyles } from '../StyleSheets/Shared'
+import SwitchBlock from '../components/SwitchBlock'
+import ButtonBox from '../components/ButtonBox'
 
 const ProfileScreen = () => {
   const navigation = useNavigation()
@@ -26,9 +20,6 @@ const ProfileScreen = () => {
 
   return (
     <View style={{ flexDirection: 'column' }}>
-      {/* <View style={comonStyles.headerBox}>
-        <Text style={comonStyles.headerText}>Menu</Text>
-      </View> */}
       <View style={{ flexDirection: 'row', padding: 20 }}>
         <View style={{ flexDirection: 'column', paddingEnd: 20 }}>
           <Image source={authUser.image} style={styles.imageIcon} />
@@ -47,29 +38,7 @@ const ProfileScreen = () => {
           <Text>{authUser.title}</Text>
         </View>
       </View>
-      <TouchableOpacity
-        style={{
-          height: 35,
-          backgroundColor: 'darkslateblue',
-          marginLeft: 20,
-          marginRight: 20,
-          alignItems: 'center',
-          borderRadius: 5,
-        }}
-      >
-        <Text
-          style={{
-            color: 'white',
-            fontSize: 15,
-            paddingTop: 7,
-            fontWeight: 'bold',
-          }}
-          onPress={() => navigation.navigate('EditProfileScreen')}
-        >
-          Edit Profile
-        </Text>
-      </TouchableOpacity>
-
+      <ButtonBox title="Edit Profile" screen="EditProfileScreen" />
       <View style={styles.line} />
       <Text
         style={{
@@ -81,71 +50,20 @@ const ProfileScreen = () => {
       >
         NOTIFICATIONS
       </Text>
-      <View style={styles.settingsBox}>
-        <View style={{ flexDirection: 'row' }}>
-          <View style={{ flex: 5, flexDirection: 'column', paddingLeft: 10 }}>
-            <Text style={{ fontWeight: 'bold', fontSize: 15, paddingTop: 10 }}>
-              Chat
-            </Text>
-            <Text style={styles.notificationText}>
-              When you receive a new message
-            </Text>
-          </View>
-          <View style={{ flex: 1, flexDirection: 'column' }}>
-            <Switch
-              style={{ paddingVertical: 15 }}
-              trackColor={{ false: 'darkgrey', true: 'rgba(72,61,139, 0.3)' }}
-              thumbColor={isChatEnabled ? 'darkslateblue' : 'lightgrey'}
-              onValueChange={toggleSwitchChat}
-              value={isChatEnabled}
-            />
-          </View>
-        </View>
-      </View>
-      <View style={styles.settingsBox}>
-        <View style={{ flexDirection: 'row' }}>
-          <View style={{ flex: 5, flexDirection: 'column', paddingLeft: 10 }}>
-            <Text style={{ fontWeight: 'bold', fontSize: 15, paddingTop: 10 }}>
-              Event Reminder
-            </Text>
-            <Text style={styles.notificationText}>
-              An hour before events you are 'going to'
-            </Text>
-          </View>
-          <View style={{ flex: 1, flexDirection: 'column' }}>
-            <Switch
-              style={{ paddingVertical: 15 }}
-              trackColor={{ false: 'darkgrey', true: 'rgba(72,61,139, 0.3)' }}
-              thumbColor={isEventEnabled ? 'darkslateblue' : 'lightgrey'}
-              onValueChange={toggleSwitchEvent}
-              value={isEventEnabled}
-            />
-          </View>
-        </View>
-      </View>
+      <SwitchBlock
+        name="Chat"
+        info="When you receive a message"
+        toggleSwitch={toggleSwitchChat}
+        switchState={isChatEnabled}
+      />
+      <SwitchBlock
+        name="Event Reminder"
+        info={"An hour before events you are 'going to'"}
+        toggleSwitch={toggleSwitchEvent}
+        switchState={isEventEnabled}
+      />
       <View style={styles.line} />
-      <TouchableOpacity
-        style={{
-          backgroundColor: 'white',
-          height: 60,
-          marginBottom: 10,
-          marginLeft: 20,
-          marginRight: 20,
-          alignItems: 'center',
-          borderRadius: 5,
-        }}
-      >
-        <Text
-          style={{
-            color: 'darkslateblue',
-            fontSize: 20,
-            paddingTop: 15,
-            fontWeight: 'bold',
-          }}
-        >
-          LOG OUT
-        </Text>
-      </TouchableOpacity>
+      <ButtonBox title="Sign Out" screen="ProfileScreen" />
     </View>
   )
 }
@@ -156,13 +74,6 @@ const styles = StyleSheet.create({
     height: 70,
     borderRadius: 20,
     resizeMode: 'contain',
-  },
-  settingsBox: {
-    backgroundColor: 'white',
-    height: 60,
-    margin: 20,
-    marginBottom: 5,
-    borderRadius: 5,
   },
   line: {
     margin: 20,

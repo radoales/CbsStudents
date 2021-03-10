@@ -1,14 +1,14 @@
 import React from 'react'
 import { SearchBar } from 'react-native-elements'
 import { View, Text, Button, StyleSheet } from 'react-native'
-import { comonStyles } from '../StyleSheets/Shared'
+import { headerStyles } from '../StyleSheets/Shared'
 
 const Discover = (props) => {
   const [search, setSearch] = React.useState('')
   return (
     <View>
-      <View style={comonStyles.headerBox}>
-        <Text style={[comonStyles.headerText, { paddingTop: 20 }]}>
+      <View style={headerStyles.headerBox}>
+        <Text style={[headerStyles.headerText, { paddingTop: 20 }]}>
           Discover
         </Text>
       </View>

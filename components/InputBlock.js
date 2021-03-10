@@ -4,48 +4,67 @@ import { TextInput, View, Text, StyleSheet } from 'react-native'
 
 const InputBlock = (props) => {
   const [value, setValue] = React.useState('')
-  const [errorHeight, seterrorHeight] = React.useState(0)
+  const [errorHeight, setErrorHeight] = React.useState(0)
 
-  function FocusLost() {
-    seterrorHeight(value.length === 0 ? 20 : 0)
+  function CheckInputLenght() {
+    setErrorHeight(value.length === 0 ? 20 : 0)
   }
   return (
-    <View>
+    <View style={styles.inputBox}>
       <Text style={styles.label}>{props.label}</Text>
-      <Text style={{ height: errorHeight }}>{props.errorMessage}</Text>
       <TextInput
-        style={styles.inputField}
+        style={[styles.inputField]}
         onChangeText={(text) => setValue(text)}
         value={value}
-        placeholder="Input text"
+        placeholder={props.placeholder}
+        placeholderTextColor="rgba(72,61,139,0.5)"
         multiline
         numberOfLines={4}
         onFocus={() => console.log('focus received')}
-        onBlur={() => FocusLost()}
+        onBlur={() => CheckInputLenght()}
       />
-      <TextInput
-        style={styles.inputField}
-        placeholder="Input text"
-        multiline
-        numberOfLines={4}
-      />
+      <View style={styles.line} />
+      <Text style={[{ height: errorHeight }, styles.errorMessage]}>
+        {props.errorMessage}
+      </Text>
     </View>
   )
 }
 
 const styles = StyleSheet.create({
+  inputBox: {
+    height: 100,
+    alignSelf: 'stretch',
+    margin: 20,
+    backgroundColor: 'white',
+    borderRadius: 5,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.8,
+    shadowRadius: 2,
+    elevation: 5,
+  },
   inputField: {
-    margin: 10,
     height: 40,
     alignSelf: 'stretch',
-    backgroundColor: '#D9D9D9',
+    backgroundColor: 'white',
     borderRadius: 5,
-    padding: 5,
+    paddingLeft: 10,
+    borderColor: 'red',
+    borderWidth: 0,
   },
   label: {
-    alignSelf: 'center',
-    fontSize: 20,
+    paddingLeft: 10,
+    fontSize: 15,
     marginTop: 10,
+  },
+  errorMessage: {
+    color: 'red',
+    paddingLeft: 10,
+  },
+  line: {
+    borderBottomColor: 'lightgrey',
+    borderBottomWidth: 1,
   },
 })
 
