@@ -6,6 +6,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import SwitchBlock from '../components/SwitchBlock'
 import ButtonBox from '../components/ButtonBox'
 import { signOut } from '../store/actions/UserActions'
+import { mainColor, mainColorInactive } from '../constants'
 
 const ProfileScreen = () => {
   const dispatch = useDispatch()
@@ -35,7 +36,7 @@ const ProfileScreen = () => {
           <Text
             style={{
               fontSize: 20,
-              color: 'darkslateblue',
+              color: mainColor,
               fontWeight: 'bold',
             }}
           >
@@ -57,7 +58,7 @@ const ProfileScreen = () => {
         style={{
           fontSize: 20,
           margin: 20,
-          color: 'darkslateblue',
+          color: mainColor,
           fontWeight: 'bold',
         }}
       >

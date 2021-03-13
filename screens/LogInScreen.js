@@ -5,6 +5,7 @@ import { useNavigation } from '@react-navigation/native'
 import { logIn } from '../store/actions/UserActions'
 import ButtonBox from '../components/ButtonBox'
 import InputBlock from '../components/InputBlock'
+import { mainColor } from '../constants'
 
 const LogInScreen = () => {
   const dispatch = useDispatch()
@@ -34,7 +35,7 @@ const LogInScreen = () => {
       <Text
         style={{
           fontSize: 20,
-          color: 'darkslateblue',
+          color: mainColor,
           fontWeight: 'bold',
           paddingLeft: 20,
         }}
@@ -55,7 +56,7 @@ const LogInScreen = () => {
       <TouchableOpacity>
         <Text
           style={{
-            color: 'darkslateblue',
+            color: mainColor,
             alignSelf: 'center',
             padding: 20,
             fontWeight: 'bold',
@@ -70,7 +71,7 @@ const LogInScreen = () => {
       >
         <Text
           style={{
-            color: 'darkslateblue',
+            color: mainColor,
             alignSelf: 'center',
             paddingRight: 5,
           }}
@@ -80,7 +81,7 @@ const LogInScreen = () => {
         <TouchableOpacity onPress={() => handleSignUp()}>
           <Text
             style={{
-              color: 'darkslateblue',
+              color: mainColor,
               alignSelf: 'center',
               fontWeight: 'bold',
             }}

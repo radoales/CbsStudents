@@ -11,6 +11,7 @@ import Ionicons from '@expo/vector-icons/Ionicons'
 import { useDispatch, useSelector } from 'react-redux'
 import ChatView from '../components/ChatView'
 import { addToChats } from '../store/actions/ChatActions'
+import { mainColor, mainColorInactive } from '../constants'
 
 const ChatRoomScreen = ({ navigation, route }) => {
   const dispatch = useDispatch()
@@ -97,7 +98,7 @@ const styles = StyleSheet.create({
     marginRight: 0,
   },
   sendButtonViewActive: {
-    backgroundColor: 'rgba(72,61,139, 0.5)',
+    backgroundColor: mainColorInactive,
     width: 40,
     height: 40,
     paddingLeft: 5,
@@ -107,7 +108,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   sendButtonViewInActive: {
-    backgroundColor: 'rgb(72,61,139)',
+    backgroundColor: mainColor,
     width: 40,
     height: 40,
     paddingLeft: 5,

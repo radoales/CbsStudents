@@ -1,10 +1,11 @@
 import { Platform, StyleSheet } from 'react-native'
+import { mainColor, mainColorInactive } from '../constants'
 
 const headerStyles = StyleSheet.create({
   headerText: {
     textAlign: 'center',
     fontWeight: 'bold',
-    color: 'darkslateblue',
+    color: mainColor,
     fontSize: 20,
     // fontFamily: Platform.OS === 'ios' ? 'Al Nile' : 'monospace',
   },
@@ -15,7 +16,7 @@ const headerStyles = StyleSheet.create({
 
 const chatListStyles = StyleSheet.create({
   dotUnread: {
-    backgroundColor: 'darkslateblue',
+    backgroundColor: mainColor,
     height: 10,
     width: 10,
     borderRadius: 5,

@@ -2,6 +2,7 @@ import React from 'react'
 import { View, Text, StyleSheet, Image } from 'react-native'
 import { useDispatch, useStore } from 'react-redux'
 import { addMessage } from '../store/actions/ChatActions'
+import { mainColor, mainColorInactive } from '../constants'
 
 const ChatView = ({ message }) => {
   const dispatch = useDispatch()
@@ -105,7 +106,7 @@ const ChatView = ({ message }) => {
 
 const styles = StyleSheet.create({
   chatBoxRight: {
-    backgroundColor: 'darkslateblue',
+    backgroundColor: mainColor,
     padding: 10,
     width: 250,
     marginVertical: 8,

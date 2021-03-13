@@ -6,6 +6,7 @@ import CheckBox from '@react-native-community/checkbox'
 import { signUp } from '../store/actions/UserActions'
 import ButtonBox from '../components/ButtonBox'
 import InputBlock from '../components/InputBlock'
+import { mainColor, mainColorInactive } from '../constants'
 
 const SignUpScreen = () => {
   const dispatch = useDispatch()
@@ -82,11 +83,11 @@ const SignUpScreen = () => {
           disabled={false}
           value={termsCheckBox}
           onValueChange={(newValue) => setTermsCheckBox(newValue)}
-          tintColors={{ false: 'darkgrey', true: 'darkslateblue' }}
+          tintColors={{ false: 'darkgrey', true: mainColor }}
         />
         <Text
           style={{
-            color: 'darkslateblue',
+            color: mainColor,
             alignSelf: 'center',
             paddingRight: 5,
           }}
@@ -99,7 +100,7 @@ const SignUpScreen = () => {
         >
           <Text
             style={{
-              color: 'darkslateblue',
+              color: mainColor,
               fontWeight: 'bold',
               textDecorationLine: 'underline',
             }}
@@ -114,7 +115,7 @@ const SignUpScreen = () => {
       >
         <Text
           style={{
-            color: 'darkslateblue',
+            color: mainColor,
             alignSelf: 'center',
             paddingRight: 5,
           }}
@@ -124,7 +125,7 @@ const SignUpScreen = () => {
         <TouchableOpacity onPress={() => navigation.navigate('LogInScreen')}>
           <Text
             style={{
-              color: 'darkslateblue',
+              color: mainColor,
               alignSelf: 'center',
               fontWeight: 'bold',
             }}

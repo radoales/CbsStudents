@@ -42,8 +42,8 @@ const EditProfileScreen = ({ route }) => {
         <InputBlock
           value={userName}
           setValue={setUserName}
+          required
           label="WHAT IS YOUR NAME?"
-          errorMessage="Please enter your name"
           placeholder="First name and last name"
           initialState={user.name}
         />
@@ -51,8 +51,8 @@ const EditProfileScreen = ({ route }) => {
         <InputBlock
           value={title}
           setValue={setTitle}
+          required
           label="STUDY PROGRAM"
-          errorMessage="Please enter your study programme"
           placeholder="Programme"
         />
       </View>

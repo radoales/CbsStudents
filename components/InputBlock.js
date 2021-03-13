@@ -1,6 +1,7 @@
 /* eslint-disable react/destructuring-assignment */
 import React from 'react'
 import { TextInput, View, Text, StyleSheet } from 'react-native'
+import { mainColor, mainColorInactive } from '../constants'
 
 const InputBlock = (props) => {
   const [errorMessage, setErrorMesaage] = React.useState(props.errorMessage)
@@ -21,7 +22,7 @@ const InputBlock = (props) => {
         onChangeText={(text) => props.setValue(text)}
         value={props.value}
         placeholder={props.placeholder}
-        placeholderTextColor="rgba(72,61,139,0.5)"
+        placeholderTextColor={mainColorInactive}
         numberOfLines={4}
         onBlur={() => CheckInput()}
         secureTextEntry={props.secureTextEntry}

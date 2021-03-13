@@ -21,6 +21,7 @@ import SignUpScreen from './screens/SignUpScreen'
 import LogInScreen from './screens/LogInScreen'
 import EditProfileScreen from './screens/EditProfileScreen'
 import UserReducer from './store/reducers/UserReducer'
+import { mainColor, mainColorInactive } from './constants'
 
 LogBox.ignoreLogs(['Warning: ...']) // Ignore log notification by message
 LogBox.ignoreAllLogs()
@@ -56,7 +57,7 @@ function TabMenuStackNaigator() {
         },
       })}
       tabBarOptions={{
-        activeTintColor: 'darkslateblue',
+        activeTintColor: mainColor,
         inactiveTintColor: 'gray',
         labelStyle: {
           fontWeight: 'bold',

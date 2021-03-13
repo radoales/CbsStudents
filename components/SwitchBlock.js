@@ -1,6 +1,7 @@
 /* eslint-disable react/destructuring-assignment */
 import React from 'react'
 import { View, Text, Switch, StyleSheet } from 'react-native'
+import { mainColor, mainColorInactive } from '../constants'
 
 const SwitchBlock = (props) => {
   return (
@@ -15,8 +16,8 @@ const SwitchBlock = (props) => {
         <View style={{ flex: 1, flexDirection: 'column' }}>
           <Switch
             style={{ paddingVertical: 15 }}
-            trackColor={{ false: 'darkgrey', true: 'rgba(72,61,139, 0.3)' }}
-            thumbColor={props.switchState ? 'darkslateblue' : 'lightgrey'}
+            trackColor={{ false: 'darkgrey', true: mainColorInactive }}
+            thumbColor={props.switchState ? mainColor : 'lightgrey'}
             onValueChange={props.toggleSwitch}
             value={props.switchState}
           />

@@ -1,6 +1,7 @@
 /* eslint-disable react/destructuring-assignment */
 import React from 'react'
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
+import { mainColor, mainColorInactive } from '../constants'
 
 const ButtonBox = (props) => {
   return (
@@ -8,7 +9,7 @@ const ButtonBox = (props) => {
       <TouchableOpacity
         style={{
           height: 50,
-          backgroundColor: 'darkslateblue',
+          backgroundColor: mainColor,
           marginLeft: 20,
           marginRight: 20,
           alignItems: 'center',

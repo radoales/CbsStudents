@@ -1,6 +1,7 @@
 import React from 'react'
 import { StyleSheet, Platform } from 'react-native'
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs'
+import { mainColor, mainColorInactive } from '../constants'
 
 import CBSChatList from './CBSChatList'
 import MyChatList from './MyChatList'
@@ -11,7 +12,7 @@ const Chat = () => {
   return (
     <Tab.Navigator
       tabBarOptions={{
-        activeTintColor: 'darkslateblue',
+        activeTintColor: mainColor,
         inactiveTintColor: 'gray',
         labelStyle: styles.tabLabels,
       }}
