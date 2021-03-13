@@ -109,9 +109,10 @@ function ChatStackNavigator() {
       <Stack.Screen
         name="ChatRoomScreen"
         component={ChatRoomScreen}
-        options={{
+        options={({ route }) => ({
+          title: route.params.name,
           headerTitleStyle: headerStyles.headerText,
-        }}
+        })}
       />
     </Stack.Navigator>
   )
@@ -126,6 +127,7 @@ function MenuStackNavigator() {
         options={{
           title: 'Menu',
           headerTitleStyle: headerStyles.headerText,
+          headerStyle: { height: 90 },
         }}
       />
       <Stack.Screen

@@ -1,9 +1,13 @@
-import { USER_SAVED, USER_LOGGED_IN, USER_SIGN_OUT } from '../UserActions'
+import {
+  USER_SAVED,
+  USER_LOGGED_IN,
+  USER_SIGNED_OUT,
+} from '../actions/UserActions'
 import { USERS } from '../../data/dummy-data'
 
 const initialState = {
   users: USERS,
-  loggedInUser: null,
+  loggedInUser: USERS[0],
 }
 
 const UserReducer = (state = initialState, action) => {
@@ -19,15 +23,23 @@ const UserReducer = (state = initialState, action) => {
     }
 
     case USER_LOGGED_IN: {
-      const user = state.users.find((u) => u.email === action.payload.email)
-
+      const user = state.users.find(
+        (u) =>
+          u.email === action.payload.email &&
+          u.password === action.payload.password,
+      )
+      if (user !== undefined) {
+        return {
+          ...state,
+          loggedInUser: user,
+        }
+      }
       return {
         ...state,
-        loggedInUser: user,
       }
     }
 
-    case USER_SIGN_OUT: {
+    case USER_SIGNED_OUT: {
       return {
         ...state,
         loggedInUser: null,

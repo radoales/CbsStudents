@@ -6,11 +6,9 @@ const headerStyles = StyleSheet.create({
     fontWeight: 'bold',
     color: 'darkslateblue',
     fontSize: 20,
-    paddingTop: 25,
-    fontFamily: Platform.OS === 'ios' ? 'Al Nile' : 'monospace',
+    // fontFamily: Platform.OS === 'ios' ? 'Al Nile' : 'monospace',
   },
   headerBox: {
-    height: 60,
     backgroundColor: 'white',
   },
 })

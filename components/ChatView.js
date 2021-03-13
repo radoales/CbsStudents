@@ -1,7 +1,7 @@
 import React from 'react'
 import { View, Text, StyleSheet, Image } from 'react-native'
 import { useDispatch, useStore } from 'react-redux'
-import { addMessage } from '../store/ChatActions'
+import { addMessage } from '../store/actions/ChatActions'
 
 const ChatView = ({ message }) => {
   const dispatch = useDispatch()

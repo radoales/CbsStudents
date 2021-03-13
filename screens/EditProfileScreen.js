@@ -4,7 +4,7 @@ import { StyleSheet, View, Image, Text } from 'react-native'
 import { useDispatch } from 'react-redux'
 import InputBlock from '../components/InputBlock'
 import ButtonBox from '../components/ButtonBox'
-import { saveUser } from '../store/UserActions'
+import { saveUser } from '../store/actions/UserActions'
 
 const EditProfileScreen = ({ route }) => {
   const dispatch = useDispatch()

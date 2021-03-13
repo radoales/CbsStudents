@@ -4,7 +4,7 @@ import { useNavigation } from '@react-navigation/native'
 import { useDispatch } from 'react-redux'
 import { chatListStyles } from '../StyleSheets/Shared'
 
-import { setUpdateActiveChatRoom } from '../store/ChatActions'
+import { setUpdateActiveChatRoom } from '../store/actions/ChatActions'
 
 const ChatList = ({ chatroom, index }) => {
   const navigation = useNavigation()
@@ -57,7 +57,7 @@ const ChatList = ({ chatroom, index }) => {
 
   const handleNavigation = () => {
     dispatch(setUpdateActiveChatRoom(index))
-    navigation.navigate('ChatRoomScreen')
+    navigation.navigate('ChatRoomScreen', { name: chatroom.name })
   }
 
   return (

@@ -1,5 +1,9 @@
 import { CHATROOM_CBS } from '../../data/dummy-data'
-import { MESSAGE_SENT, MESSAGE_ADDED, CHAT_SELECTED } from '../ChatActions'
+import {
+  MESSAGE_SENT,
+  MESSAGE_ADDED,
+  CHAT_SELECTED,
+} from '../actions/ChatActions'
 
 const initialState = {
   prevMessageDate: null,

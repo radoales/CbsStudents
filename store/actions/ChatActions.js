@@ -1,5 +1,5 @@
-import ChatMessage from '../models/ChatMessage'
-import { USERS } from '../data/dummy-data'
+import ChatMessage from '../../models/ChatMessage'
+import { USERS } from '../../data/dummy-data'
 
 export const MESSAGE_SENT = 'MESSAGE_SENT'
 export const MESSAGE_ADDED = 'MESSAGE_ADDED'

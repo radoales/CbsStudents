@@ -10,19 +10,15 @@ import {
 import Ionicons from '@expo/vector-icons/Ionicons'
 import { useDispatch, useSelector } from 'react-redux'
 import ChatView from '../components/ChatView'
-import { addToChats } from '../store/ChatActions'
+import { addToChats } from '../store/actions/ChatActions'
 
-const ChatRoomScreen = ({ navigation }) => {
+const ChatRoomScreen = ({ navigation, route }) => {
   const dispatch = useDispatch()
   const chatrooms = useSelector((state) => state.chat.chatrooms)
   const activeChatRoom = useSelector((state) => state.chat.activeChatRoom)
   const chatRoom = chatrooms?.[activeChatRoom]
 
   const [value, setValue] = React.useState('')
-  // Set Heder Title
-  // navigation.setOptions({
-  //   title: chatRoom.name,
-  // })
 
   function sendMessage() {
     dispatch(addToChats(value))

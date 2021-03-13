@@ -1,16 +1,8 @@
 import React from 'react'
-import {
-  StyleSheet,
-  View,
-  TextInput,
-  Button,
-  Image,
-  Text,
-  TouchableOpacity,
-} from 'react-native'
+import { StyleSheet, View, Image, Text, TouchableOpacity } from 'react-native'
 import { useDispatch } from 'react-redux'
 import { useNavigation } from '@react-navigation/native'
-import { logIn } from '../store/UserActions'
+import { logIn } from '../store/actions/UserActions'
 import ButtonBox from '../components/ButtonBox'
 import InputBlock from '../components/InputBlock'
 

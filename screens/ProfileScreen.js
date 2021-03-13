@@ -1,11 +1,11 @@
 /* eslint-disable react/destructuring-assignment */
 import React from 'react'
-import { View, StyleSheet, Text, Image, TouchableOpacity } from 'react-native'
+import { View, StyleSheet, Text, Image } from 'react-native'
 import { useNavigation, useIsFocused } from '@react-navigation/native'
 import { useSelector, useDispatch } from 'react-redux'
 import SwitchBlock from '../components/SwitchBlock'
 import ButtonBox from '../components/ButtonBox'
-import { signOut } from '../store/UserActions'
+import { signOut } from '../store/actions/UserActions'
 
 const ProfileScreen = () => {
   const dispatch = useDispatch()
