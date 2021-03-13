@@ -3,10 +3,15 @@ import React from 'react'
 import { TextInput, View, Text, StyleSheet } from 'react-native'
 
 const InputBlock = (props) => {
-  const [showError, setShowError] = React.useState(0)
+  const [errorMessage, setErrorMesaage] = React.useState(props.errorMessage)
 
-  function CheckInputLenght() {
-    setShowError(props.value.length === 0 ? 20 : 0)
+  function CheckInput() {
+    console.log(props)
+    if (props.required) {
+      props.value.length === 0
+        ? setErrorMesaage(`Enter ${props.label}`)
+        : setErrorMesaage(props.errorMessage)
+    }
   }
   return (
     <View style={styles.inputBox}>
@@ -18,20 +23,19 @@ const InputBlock = (props) => {
         placeholder={props.placeholder}
         placeholderTextColor="rgba(72,61,139,0.5)"
         numberOfLines={4}
-        onBlur={() => CheckInputLenght()}
+        onBlur={() => CheckInput()}
         secureTextEntry={props.secureTextEntry}
+        required
       />
       <View style={styles.line} />
-      <Text style={[{ height: showError }, styles.errorMessage]}>
-        {props.errorMessage}
-      </Text>
+      <Text style={[{ height: 20 }, styles.errorMessage]}>{errorMessage}</Text>
     </View>
   )
 }
 
 const styles = StyleSheet.create({
   inputBox: {
-    height: 100,
+    height: 80,
     alignSelf: 'stretch',
 
     backgroundColor: 'white',
@@ -43,7 +47,7 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   inputField: {
-    height: 40,
+    height: 25,
     alignSelf: 'stretch',
     backgroundColor: 'white',
     borderRadius: 5,
@@ -55,6 +59,7 @@ const styles = StyleSheet.create({
     paddingLeft: 10,
     fontSize: 15,
     marginTop: 10,
+    fontWeight: 'bold',
   },
   errorMessage: {
     color: 'red',

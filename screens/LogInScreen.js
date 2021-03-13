@@ -42,17 +42,12 @@ const LogInScreen = () => {
         Log in
       </Text>
       <View style={{ padding: 20 }}>
-        <InputBlock
-          value={email}
-          setValue={setEmail}
-          errorMessage="Enter e-mail"
-          label="E-mail"
-        />
+        <InputBlock value={email} setValue={setEmail} label="E-mail" required />
         <View style={{ height: 10 }} />
         <InputBlock
           value={password}
           setValue={setPassword}
-          errorMessage="Enter password"
+          required
           label="Password"
           secureTextEntry
         />

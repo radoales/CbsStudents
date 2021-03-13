@@ -2,12 +2,14 @@ import {
   USER_SAVED,
   USER_LOGGED_IN,
   USER_SIGNED_OUT,
+  USER_SIGNED_UP,
 } from '../actions/UserActions'
 import { USERS } from '../../data/dummy-data'
+import User from '../../models/User'
 
 const initialState = {
   users: USERS,
-  loggedInUser: USERS[0],
+  loggedInUser: null,
 }
 
 const UserReducer = (state = initialState, action) => {
@@ -36,6 +38,22 @@ const UserReducer = (state = initialState, action) => {
       }
       return {
         ...state,
+      }
+    }
+
+    case USER_SIGNED_UP: {
+      const user = new User(
+        Math.random().toString(),
+        '',
+        action.payload.password,
+        action.payload.email,
+        '',
+        '',
+      )
+      const newUsers = [...state.users, user]
+      return {
+        ...state,
+        users: newUsers,
       }
     }
 
