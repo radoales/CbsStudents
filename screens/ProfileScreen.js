@@ -1,12 +1,14 @@
 /* eslint-disable react/destructuring-assignment */
 import React from 'react'
 import { View, StyleSheet, Text, Image, TouchableOpacity } from 'react-native'
-import { useNavigation, useIsFocused  } from '@react-navigation/native'
-import { useSelector } from 'react-redux'
+import { useNavigation, useIsFocused } from '@react-navigation/native'
+import { useSelector, useDispatch } from 'react-redux'
 import SwitchBlock from '../components/SwitchBlock'
 import ButtonBox from '../components/ButtonBox'
+import { signOut } from '../store/UserActions'
 
 const ProfileScreen = () => {
+  const dispatch = useDispatch()
   const navigation = useNavigation()
   const isFocused = useIsFocused()
   const authUser = useSelector((state) => state.user.loggedInUser)
@@ -18,6 +20,10 @@ const ProfileScreen = () => {
   const [isEventEnabled, setIsEventEnabled] = React.useState(false)
   const toggleSwitchEvent = () =>
     setIsEventEnabled((previousState) => !previousState)
+
+  const HandleSignOut = () => {
+    dispatch(signOut())
+  }
 
   return (
     <View style={{ flexDirection: 'column' }}>
@@ -70,7 +76,7 @@ const ProfileScreen = () => {
         switchState={isEventEnabled}
       />
       <View style={styles.line} />
-      <ButtonBox title="Sign Out" screen="ProfileScreen" />
+      <ButtonBox title="Sign Out" func={() => HandleSignOut()} />
     </View>
   )
 }

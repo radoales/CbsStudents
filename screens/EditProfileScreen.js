@@ -38,21 +38,24 @@ const EditProfileScreen = ({ route }) => {
           style={styles.imageIcon}
         />
       </View>
-      <InputBlock
-        value={userName}
-        setValue={setUserName}
-        label="WHAT IS YOUR NAME?"
-        errorMessage="Please enter your name"
-        placeholder="First name and last name"
-        initialState={user.name}
-      />
-      <InputBlock
-        value={title}
-        setValue={setTitle}
-        label="STUDY PROGRAM"
-        errorMessage="Please enter your study programme"
-        placeholder="Programme"
-      />
+      <View style={{ padding: 20 }}>
+        <InputBlock
+          value={userName}
+          setValue={setUserName}
+          label="WHAT IS YOUR NAME?"
+          errorMessage="Please enter your name"
+          placeholder="First name and last name"
+          initialState={user.name}
+        />
+        <View style={{ height: 10 }} />
+        <InputBlock
+          value={title}
+          setValue={setTitle}
+          label="STUDY PROGRAM"
+          errorMessage="Please enter your study programme"
+          placeholder="Programme"
+        />
+      </View>
       <ButtonBox func={() => handleSave()} title="Save Changes" />
     </View>
   )

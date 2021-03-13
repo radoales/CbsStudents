@@ -17,10 +17,9 @@ const InputBlock = (props) => {
         value={props.value}
         placeholder={props.placeholder}
         placeholderTextColor="rgba(72,61,139,0.5)"
-        multiline
         numberOfLines={4}
-        onFocus={() => console.log('focus received')}
         onBlur={() => CheckInputLenght()}
+        secureTextEntry={props.secureTextEntry}
       />
       <View style={styles.line} />
       <Text style={[{ height: showError }, styles.errorMessage]}>
@@ -34,7 +33,7 @@ const styles = StyleSheet.create({
   inputBox: {
     height: 100,
     alignSelf: 'stretch',
-    margin: 20,
+
     backgroundColor: 'white',
     borderRadius: 5,
     shadowColor: '#000',

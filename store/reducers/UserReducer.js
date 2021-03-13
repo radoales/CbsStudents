@@ -1,8 +1,9 @@
-import { USER_SAVED } from '../UserActions'
+import { USER_SAVED, USER_LOGGED_IN, USER_SIGN_OUT } from '../UserActions'
 import { USERS } from '../../data/dummy-data'
 
 const initialState = {
-  loggedInUser: USERS[0],
+  users: USERS,
+  loggedInUser: null,
 }
 
 const UserReducer = (state = initialState, action) => {
@@ -14,6 +15,22 @@ const UserReducer = (state = initialState, action) => {
       return {
         ...state,
         loggedInUser: user,
+      }
+    }
+
+    case USER_LOGGED_IN: {
+      const user = state.users.find((u) => u.email === action.payload.email)
+
+      return {
+        ...state,
+        loggedInUser: user,
+      }
+    }
+
+    case USER_SIGN_OUT: {
+      return {
+        ...state,
+        loggedInUser: null,
       }
     }
 

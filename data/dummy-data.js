@@ -7,7 +7,7 @@ export const USERS = [
     '1',
     'Robert Jacobsen',
     '1234',
-    'rob@student.dk',
+    'test',
     require('../assets/robert.jpg'),
     'MSc in Medicine',
     true,

@@ -6,7 +6,7 @@ import * as React from 'react'
 import Ionicons from '@expo/vector-icons/Ionicons'
 import { createStackNavigator } from '@react-navigation/stack'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
-import { Provider } from 'react-redux'
+import { Provider, useSelector } from 'react-redux'
 import { combineReducers, createStore } from 'redux'
 import { composeWithDevTools } from 'redux-devtools-extension'
 import { headerStyles } from './StyleSheets/Shared'
@@ -17,12 +17,83 @@ import Discover from './screens/Discover'
 import Chat from './screens/Chat'
 import Menu from './screens/Menu'
 import ChatRoomScreen from './screens/ChatRoomScreen'
+import SignUpScreen from './screens/SignUpScreen'
+import LogInScreen from './screens/LogInScreen'
 import EditProfileScreen from './screens/EditProfileScreen'
 import UserReducer from './store/reducers/UserReducer'
 
 LogBox.ignoreLogs(['Warning: ...']) // Ignore log notification by message
 LogBox.ignoreAllLogs()
+
 const Stack = createStackNavigator()
+const Tab = createBottomTabNavigator()
+
+const rootReducer = combineReducers({
+  chat: ChatReducer,
+  user: UserReducer,
+})
+const store = createStore(rootReducer, composeWithDevTools())
+// const store = createStore(rootReducer);
+
+function TabMenuStackNaigator() {
+  return (
+    <Tab.Navigator
+      screenOptions={({ route }) => ({
+        tabBarIcon: ({ focused, color, size }) => {
+          let iconName
+          if (route.name === 'Home') {
+            iconName = focused ? 'home' : 'home-outline'
+          } else if (route.name === 'Discover') {
+            iconName = focused ? 'search' : 'search-outline'
+          } else if (route.name === 'Chat') {
+            iconName = focused ? 'chatbubbles' : 'chatbubbles-outline'
+          } else if (route.name === 'Menu') {
+            iconName = focused ? 'menu' : 'menu-outline'
+          }
+
+          // You can return any component that you like here!
+          return <Ionicons name={iconName} size={size} color={color} />
+        },
+      })}
+      tabBarOptions={{
+        activeTintColor: 'darkslateblue',
+        inactiveTintColor: 'gray',
+        labelStyle: {
+          fontWeight: 'bold',
+          textTransform: 'uppercase',
+        },
+      }}
+    >
+      <Tab.Screen name="Home" component={Home} />
+      <Tab.Screen name="Discover" component={Discover} />
+      <Tab.Screen name="Chat" component={ChatStackNavigator} />
+      <Tab.Screen name="Menu" component={MenuStackNavigator} />
+    </Tab.Navigator>
+  )
+}
+
+function AuthStackNavigator() {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen
+        name="LogInScreen"
+        title="Log in"
+        component={LogInScreen}
+        options={{
+          headerTitleStyle: headerStyles.headerText,
+        }}
+      />
+      <Stack.Screen
+        name="SignUpScreen"
+        component={SignUpScreen}
+        options={{
+          title: 'Sign Up',
+          headerTitleStyle: headerStyles.headerText,
+        }}
+      />
+    </Stack.Navigator>
+  )
+}
 
 function ChatStackNavigator() {
   return (
@@ -69,51 +140,16 @@ function MenuStackNavigator() {
   )
 }
 
-const Tab = createBottomTabNavigator()
-
-const rootReducer = combineReducers({
-  chat: ChatReducer,
-  user: UserReducer,
-})
-const store = createStore(rootReducer, composeWithDevTools())
-// const store = createStore(rootReducer);
+function InitialStackNavigator() {
+  const isSignedIn = useSelector((state) => state.user.loggedInUser) !== null
+  return isSignedIn ? <TabMenuStackNaigator /> : <AuthStackNavigator />
+}
 
 export default function App() {
   return (
     <Provider store={store}>
       <NavigationContainer>
-        <Tab.Navigator
-          screenOptions={({ route }) => ({
-            tabBarIcon: ({ focused, color, size }) => {
-              let iconName
-              if (route.name === 'Home') {
-                iconName = focused ? 'home' : 'home-outline'
-              } else if (route.name === 'Discover') {
-                iconName = focused ? 'search' : 'search-outline'
-              } else if (route.name === 'Chat') {
-                iconName = focused ? 'chatbubbles' : 'chatbubbles-outline'
-              } else if (route.name === 'Menu') {
-                iconName = focused ? 'menu' : 'menu-outline'
-              }
-
-              // You can return any component that you like here!
-              return <Ionicons name={iconName} size={size} color={color} />
-            },
-          })}
-          tabBarOptions={{
-            activeTintColor: 'darkslateblue',
-            inactiveTintColor: 'gray',
-            labelStyle: {
-              fontWeight: 'bold',
-              textTransform: 'uppercase',
-            },
-          }}
-        >
-          <Tab.Screen name="Home" component={Home} />
-          <Tab.Screen name="Discover" component={Discover} />
-          <Tab.Screen name="Chat" component={ChatStackNavigator} />
-          <Tab.Screen name="Menu" component={MenuStackNavigator} />
-        </Tab.Navigator>
+        <InitialStackNavigator />
       </NavigationContainer>
     </Provider>
   )
