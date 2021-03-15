@@ -10,6 +10,7 @@ import User from '../../models/User'
 const initialState = {
   users: USERS,
   loggedInUser: null,
+  errorMessage: '',
 }
 
 const UserReducer = (state = initialState, action) => {
@@ -34,10 +35,12 @@ const UserReducer = (state = initialState, action) => {
         return {
           ...state,
           loggedInUser: user,
+          errorMessage: '',
         }
       }
       return {
         ...state,
+        errorMessage: 'Wrong Email or Password',
       }
     }
 

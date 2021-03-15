@@ -6,8 +6,8 @@ export const USERS = [
   new User(
     '1',
     'Robert Jacobsen',
-    '1234',
-    'test',
+    '1',
+    's',
     require('../assets/robert.jpg'),
     'MSc in Medicine',
     true,

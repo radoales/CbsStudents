@@ -1,6 +1,6 @@
 import React from 'react'
 import { StyleSheet, View, Image, Text, TouchableOpacity } from 'react-native'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { useNavigation } from '@react-navigation/native'
 import { logIn } from '../store/actions/UserActions'
 import ButtonBox from '../components/ButtonBox'
@@ -10,7 +10,8 @@ import { mainColor } from '../constants'
 const LogInScreen = () => {
   const dispatch = useDispatch()
   const navigation = useNavigation()
-
+  const error = useSelector((state) => state.user.errorMessage)
+  console.log(error)
   const [email, setEmail] = React.useState('')
   const [password, setPassword] = React.useState('')
 
@@ -43,6 +44,9 @@ const LogInScreen = () => {
         Log in
       </Text>
       <View style={{ padding: 20 }}>
+        <Text style={{ color: 'red', fontSize: 15, fontWeight: 'bold' }}>
+          {error}
+        </Text>
         <InputBlock value={email} setValue={setEmail} label="E-mail" required />
         <View style={{ height: 10 }} />
         <InputBlock

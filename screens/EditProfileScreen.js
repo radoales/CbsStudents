@@ -2,12 +2,14 @@
 import React from 'react'
 import { StyleSheet, View, Image, Text } from 'react-native'
 import { useDispatch } from 'react-redux'
+import { useNavigation } from '@react-navigation/native'
 import InputBlock from '../components/InputBlock'
 import ButtonBox from '../components/ButtonBox'
 import { saveUser } from '../store/actions/UserActions'
 
 const EditProfileScreen = ({ route }) => {
   const dispatch = useDispatch()
+  const navigation = useNavigation()
   const user = route.params.data
 
   const [userName, setUserName] = React.useState(user.name)
@@ -16,6 +18,7 @@ const EditProfileScreen = ({ route }) => {
   const handleSave = () => {
     if (userName.length !== 0 && title.length !== 0) {
       dispatch(saveUser(userName, title))
+      navigation.goBack()
     }
   }
 
