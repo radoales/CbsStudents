@@ -10,6 +10,7 @@ import User from '../../models/User'
 const initialState = {
   users: USERS,
   loggedInUser: null,
+  token: null,
   errorMessage: '',
 }
 
@@ -45,17 +46,21 @@ const UserReducer = (state = initialState, action) => {
     }
 
     case USER_SIGNED_UP: {
+      const { data } = action.payload
+
       const user = new User(
-        Math.random().toString(),
+        data.localId,
         '',
         action.payload.password,
-        action.payload.email,
+        data.email,
         '',
         '',
       )
+      console.log('userReducer new user: ', user)
       const newUsers = [...state.users, user]
       return {
         ...state,
+        token: action.payload.token,
         users: newUsers,
       }
     }

@@ -12,7 +12,31 @@ export const logIn = (email, password) => {
 }
 
 export const signUp = (email, password) => {
-  return { type: USER_SIGNED_UP, payload: { email, password } }
+  // return { type: USER_SIGNED_UP, payload: { email, password } }
+  return async dispatch => {
+    const response = await fetch('https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyCcvIpD40zd4J-lOEvlzRltraFlF15nA6w',
+     {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(
+          { 
+            returnSecureToken: true,
+            email: email,
+            password: password
+        })
+    })
+
+    if (!response.ok) {
+      console.log('response not okay', response)
+    } else {
+        const data = await response.json()
+        console.log(data)
+        dispatch({ type: USER_SIGNED_UP, payload: { password, data: data }})
+    }
+}
+
 }
 
 export const signOut = () => {

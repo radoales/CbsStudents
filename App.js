@@ -7,7 +7,7 @@ import Ionicons from '@expo/vector-icons/Ionicons'
 import { createStackNavigator } from '@react-navigation/stack'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { Provider, useSelector } from 'react-redux'
-import { combineReducers, createStore } from 'redux'
+import { combineReducers, createStore, applyMiddleware } from 'redux'
 import { composeWithDevTools } from 'redux-devtools-extension'
 import { headerStyles } from './StyleSheets/Shared'
 
@@ -22,6 +22,7 @@ import LogInScreen from './screens/LogInScreen'
 import EditProfileScreen from './screens/EditProfileScreen'
 import UserReducer from './store/reducers/UserReducer'
 import { mainColor, mainColorInactive } from './constants'
+import  ReduxThunk  from 'redux-thunk';
 
 LogBox.ignoreLogs(['Warning: ...']) // Ignore log notification by message
 LogBox.ignoreAllLogs()
@@ -33,8 +34,9 @@ const rootReducer = combineReducers({
   chat: ChatReducer,
   user: UserReducer,
 })
-const store = createStore(rootReducer, composeWithDevTools())
+// const store = createStore(rootReducer, applyMiddleware(ReduxThunk), composeWithDevTools())
 // const store = createStore(rootReducer);
+const store = createStore(rootReducer, applyMiddleware(ReduxThunk));
 
 function TabMenuStackNaigator() {
   return (
