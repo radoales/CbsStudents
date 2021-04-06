@@ -8,35 +8,61 @@ export const saveUser = (name, title) => {
 }
 
 export const logIn = (email, password) => {
-  return { type: USER_LOGGED_IN, payload: { email, password } }
-}
-
-export const signUp = (email, password) => {
-  // return { type: USER_SIGNED_UP, payload: { email, password } }
-  return async dispatch => {
-    const response = await fetch('https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyCcvIpD40zd4J-lOEvlzRltraFlF15nA6w',
-     {
+  return async (dispatch) => {
+    const response = await fetch(
+      'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyCcvIpD40zd4J-lOEvlzRltraFlF15nA6w',
+      {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
         },
-        body: JSON.stringify(
-          { 
-            returnSecureToken: true,
-            email: email,
-            password: password
-        })
-    })
+        body: JSON.stringify({
+          returnSecureToken: true,
+          email,
+          password,
+        }),
+      },
+    )
 
     if (!response.ok) {
       console.log('response not okay', response)
     } else {
-        const data = await response.json()
-        console.log(data)
-        dispatch({ type: USER_SIGNED_UP, payload: { password, data: data }})
+      const data = await response.json()
+      console.log(data)
+      dispatch({
+        type: USER_LOGGED_IN,
+        payload: { id: response.localId, email, token: data.idToken },
+      })
     }
+  }
 }
 
+export const signUp = (email, password) => {
+  // return { type: USER_SIGNED_UP, payload: { email, password } }
+  return async (dispatch) => {
+    const response = await fetch(
+      'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyCcvIpD40zd4J-lOEvlzRltraFlF15nA6w',
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          returnSecureToken: true,
+          email,
+          password,
+        }),
+      },
+    )
+
+    if (!response.ok) {
+      console.log('response not okay', response)
+    } else {
+      const data = await response.json()
+      console.log(data)
+      dispatch({ type: USER_SIGNED_UP, payload: { password, data } })
+    }
+  }
 }
 
 export const signOut = () => {

@@ -27,16 +27,19 @@ const UserReducer = (state = initialState, action) => {
     }
 
     case USER_LOGGED_IN: {
-      const user = state.users.find(
-        (u) =>
-          u.email === action.payload.email &&
-          u.password === action.payload.password,
+      const user = new User(
+        action.payload.localId,
+        '',
+        action.payload.email,
+        '',
+        '',
       )
       if (user !== undefined) {
         return {
           ...state,
           loggedInUser: user,
           errorMessage: '',
+          token: action.payload.token,
         }
       }
       return {
@@ -48,15 +51,7 @@ const UserReducer = (state = initialState, action) => {
     case USER_SIGNED_UP: {
       const { data } = action.payload
 
-      const user = new User(
-        data.localId,
-        '',
-        action.payload.password,
-        data.email,
-        '',
-        '',
-      )
-      console.log('userReducer new user: ', user)
+      const user = new User(data.localId, '', data.email, '', '')
       const newUsers = [...state.users, user]
       return {
         ...state,
@@ -69,6 +64,7 @@ const UserReducer = (state = initialState, action) => {
       return {
         ...state,
         loggedInUser: null,
+        token: null,
       }
     }
 

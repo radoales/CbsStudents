@@ -9,6 +9,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { Provider, useSelector } from 'react-redux'
 import { combineReducers, createStore, applyMiddleware } from 'redux'
 import { composeWithDevTools } from 'redux-devtools-extension'
+import ReduxThunk from 'redux-thunk'
 import { headerStyles } from './StyleSheets/Shared'
 
 import ChatReducer from './store/reducers/ChatReducer'
@@ -22,7 +23,6 @@ import LogInScreen from './screens/LogInScreen'
 import EditProfileScreen from './screens/EditProfileScreen'
 import UserReducer from './store/reducers/UserReducer'
 import { mainColor, mainColorInactive } from './constants'
-import  ReduxThunk  from 'redux-thunk';
 
 LogBox.ignoreLogs(['Warning: ...']) // Ignore log notification by message
 LogBox.ignoreAllLogs()
@@ -36,7 +36,7 @@ const rootReducer = combineReducers({
 })
 // const store = createStore(rootReducer, applyMiddleware(ReduxThunk), composeWithDevTools())
 // const store = createStore(rootReducer);
-const store = createStore(rootReducer, applyMiddleware(ReduxThunk));
+const store = createStore(rootReducer, applyMiddleware(ReduxThunk))
 
 function TabMenuStackNaigator() {
   return (
@@ -146,7 +146,7 @@ function MenuStackNavigator() {
 }
 
 function InitialStackNavigator() {
-  const isSignedIn = useSelector((state) => state.user.loggedInUser) !== null
+  const isSignedIn = useSelector((state) => state.user.token) !== null
   return isSignedIn ? <TabMenuStackNaigator /> : <AuthStackNavigator />
 }
 

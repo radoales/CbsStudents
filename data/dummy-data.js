@@ -6,7 +6,6 @@ export const USERS = [
   new User(
     '1',
     'Robert Jacobsen',
-    '1',
     's',
     require('../assets/robert.jpg'),
     'MSc in Medicine',
@@ -15,7 +14,6 @@ export const USERS = [
   new User(
     '2',
     'Lara Thylor',
-    '1234',
     'lara@student.dk',
     require('../assets/lara.jpg'),
     'MSc in Medicine',
@@ -24,7 +22,6 @@ export const USERS = [
   new User(
     '3',
     'Alex Lee',
-    '1234',
     'alex@student.dk',
     require('../assets/alex.jpg'),
     'MSc2 in Medicine',
@@ -33,7 +30,6 @@ export const USERS = [
   new User(
     '4',
     'Felipe Grace',
-    '1234',
     'felipe@student.dk',
     require('../assets/felipe.jpg'),
     'MSc in Medicine',
