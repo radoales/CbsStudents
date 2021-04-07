@@ -1,8 +1,11 @@
 import { CHATROOM_CBS } from '../../data/dummy-data'
+import ChatRoom from '../../models/ChatRoom'
 import {
   MESSAGE_SENT,
   MESSAGE_ADDED,
   CHAT_SELECTED,
+  CHATROOM_RETRIEVED,
+  CHATROOM_CREATED,
 } from '../actions/ChatActions'
 
 const initialState = {
@@ -19,6 +22,19 @@ const ChatReducer = (state = initialState, action) => {
         ...state,
         prevMessageDate: action.payload.prevMessageDate,
         prevMessageUserId: action.payload.prevMessageUserId,
+      }
+
+    case CHATROOM_RETRIEVED:
+      const chatroomsFromDb = []
+      for (const chat in action.payload.data) {
+        ;[
+          ...chatroomsFromDb,
+          new ChatRoom(chat, data[chat].createdDate, data[chat].name, [], ''),
+        ]
+      }
+      return {
+        ...state,
+        chatrooms: chatroomsFromDb,
       }
 
     case MESSAGE_SENT: {

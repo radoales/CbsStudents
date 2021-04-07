@@ -23,6 +23,7 @@ import LogInScreen from './screens/LogInScreen'
 import EditProfileScreen from './screens/EditProfileScreen'
 import UserReducer from './store/reducers/UserReducer'
 import { mainColor, mainColorInactive } from './constants'
+import NewChatroomScreen from './screens/NewChatroomScreen'
 
 LogBox.ignoreLogs(['Warning: ...']) // Ignore log notification by message
 LogBox.ignoreAllLogs()
@@ -116,6 +117,14 @@ function ChatStackNavigator() {
           title: route.params.name,
           headerTitleStyle: headerStyles.headerText,
         })}
+      />
+      <Stack.Screen
+        name="NewChatroomScreen"
+        component={NewChatroomScreen}
+        options={{
+          title: 'New Chatroom',
+          headerTitleStyle: headerStyles.headerText,
+        }}
       />
     </Stack.Navigator>
   )
