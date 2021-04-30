@@ -17,7 +17,7 @@ const ChatList = ({ chatroom, index }) => {
   const lastMessage = chatMessages[chatMessages.length - 1]
 
   // Get the last message user Id
-  const lastMessageUserId = chatMessages.map((m) => m.user.id)[
+  const lastMessageUserId = chatMessages.map((m) => m.user?.id ?? '')[
     chatMessages.length - 1
   ]
 
@@ -27,7 +27,7 @@ const ChatList = ({ chatroom, index }) => {
   // Check if the last message was marked as read and not sent from the auth user
   const isLastMessageRead = !(lastMessage.isRead === false && !isAuthUser)
 
-  const lasteMessageDate = lastMessage.createdDate
+  const lasteMessageDate = new Date(lastMessage.createdDate)
 
   // Format received time/date. If date is today, display <- hh:mm ->, if not display <- mmm dd ->
   const receivedTime =
@@ -45,15 +45,18 @@ const ChatList = ({ chatroom, index }) => {
     ? chatListStyles.dotRead
     : chatListStyles.dotUnread
 
-  let lastMessageText = lastMessage.message
+  const lastMessageText = lastMessage.message.message
+  console.log('last message object ', lastMessage)
 
   // Display a part of the last message
-  lastMessageText =
-    lastMessageText.length >= 30 && !isLastMessageRead
-      ? `${lastMessageText.substring(0, 30)}...`
-      : isLastMessageRead && lastMessageText.length >= 32
-      ? `${lastMessageText.substring(0, 32)}...`
-      : lastMessageText
+  // lastMessageText =
+  //   lastMessageText.length >= 30 && !isLastMessageRead
+  //     ? `${lastMessageText.substring(0, 30)}...`
+  //     : isLastMessageRead && lastMessageText.length >= 32
+  //     ? `${lastMessageText.substring(0, 32)}...`
+  //     : lastMessageText
+
+  console.log('last masstage stex', lastMessageText)
 
   const handleNavigation = () => {
     dispatch(setUpdateActiveChatRoom(index))

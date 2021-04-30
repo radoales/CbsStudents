@@ -7,7 +7,6 @@ const InputBlock = (props) => {
   const [errorMessage, setErrorMesaage] = React.useState(props.errorMessage)
 
   function CheckInput() {
-    console.log(props)
     if (props.required) {
       props.value.length === 0
         ? setErrorMesaage(`Enter ${props.label}`)

@@ -11,7 +11,6 @@ const LogInScreen = () => {
   const dispatch = useDispatch()
   const navigation = useNavigation()
   const error = useSelector((state) => state.user.errorMessage)
-  console.log(error)
   const [email, setEmail] = React.useState('')
   const [password, setPassword] = React.useState('')
 

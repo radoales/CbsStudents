@@ -10,7 +10,7 @@ import {
 import Ionicons from '@expo/vector-icons/Ionicons'
 import { useDispatch, useSelector } from 'react-redux'
 import ChatView from '../components/ChatView'
-import { addToChats } from '../store/actions/ChatActions'
+import { addToChats, sendMessage } from '../store/actions/ChatActions'
 import { mainColor, mainColorInactive } from '../constants'
 
 const ChatRoomScreen = ({ navigation, route }) => {
@@ -21,8 +21,14 @@ const ChatRoomScreen = ({ navigation, route }) => {
 
   const [value, setValue] = React.useState('')
 
-  function sendMessage() {
-    dispatch(addToChats(value))
+  // function sendMessage() {
+  //   dispatch(addToChats(value))
+  //   setValue('')
+  // }
+
+  function send() {
+    console.log('value from chatroomscreen', value)
+    dispatch(sendMessage(value))
     setValue('')
   }
 
@@ -57,10 +63,7 @@ const ChatRoomScreen = ({ navigation, route }) => {
           onFocus={() => console.log('focus received')}
           onBlur={() => console.log('focus lost')}
         />
-        <TouchableOpacity
-          onPress={() => sendMessage()}
-          disabled={isInputFieldEmpty}
-        >
+        <TouchableOpacity onPress={() => send()} disabled={isInputFieldEmpty}>
           <View style={sendButtonStyle}>
             <Ionicons
               style={[{ transform: [{ rotate: '315deg' }] }]}

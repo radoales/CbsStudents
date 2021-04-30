@@ -1,3 +1,5 @@
+import { fetchChatRooms } from './ChatActions'
+
 export const USER_SAVED = 'USER_SAVED'
 export const USER_LOGGED_IN = 'USER_LOGGED_IN'
 export const USER_SIGNED_UP = 'USER_SIGNED_UP'
@@ -28,11 +30,11 @@ export const logIn = (email, password) => {
       console.log('response not okay', response)
     } else {
       const data = await response.json()
-      console.log(data)
       dispatch({
         type: USER_LOGGED_IN,
         payload: { id: response.localId, email, token: data.idToken },
       })
+      dispatch(fetchChatRooms())
     }
   }
 }
@@ -59,7 +61,6 @@ export const signUp = (email, password) => {
       console.log('response not okay', response)
     } else {
       const data = await response.json()
-      console.log(data)
       dispatch({ type: USER_SIGNED_UP, payload: { password, data } })
     }
   }

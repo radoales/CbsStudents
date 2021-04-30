@@ -7,8 +7,9 @@ import { mainColor, mainColorInactive } from '../constants'
 const ChatView = ({ message }) => {
   const dispatch = useDispatch()
   const store = useStore()
+
   // Get the Id of the owner of the message
-  const userId = message.user.id
+  const userId = message.user?.id ?? '9EhrGapE0RRIDbgE70s1avb4TI53'
   // Get the name of the user sending the message
   const userName = message.user.name
 
@@ -27,7 +28,7 @@ const ChatView = ({ message }) => {
   const messageBlock = isAuthUser ? styles.chatBoxRight : styles.chatBoxLeft
 
   // Get the date of the message
-  const createddate = message.createdDate
+  const createddate = new Date(message.createdDate)
 
   // Format the receiving time of the message <- hh:mm ->
   const receivedTime = `${createddate.getHours()}:${createddate.getMinutes()}`
@@ -83,7 +84,6 @@ const ChatView = ({ message }) => {
           <View style={messageBlock}>
             <Text style={textStyle}>{message.message}</Text>
           </View>
-
           {/* If User is not the Authenticated User and is not the same as previous message, display userName and time */}
           {!isAuthUser && !isSameUser ? (
             <View style={timeReceivedPosition}>

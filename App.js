@@ -35,9 +35,12 @@ const rootReducer = combineReducers({
   chat: ChatReducer,
   user: UserReducer,
 })
-// const store = createStore(rootReducer, applyMiddleware(ReduxThunk), composeWithDevTools())
+const store = createStore(
+  rootReducer,
+  composeWithDevTools(applyMiddleware(ReduxThunk)),
+)
 // const store = createStore(rootReducer);
-const store = createStore(rootReducer, applyMiddleware(ReduxThunk))
+// const store = createStore(rootReducer, applyMiddleware(ReduxThunk))
 
 function TabMenuStackNaigator() {
   return (

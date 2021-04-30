@@ -4,39 +4,33 @@ import {
   MESSAGE_SENT,
   MESSAGE_ADDED,
   CHAT_SELECTED,
-  CHATROOM_RETRIEVED,
+  CHATROOM_FETCHED,
   CHATROOM_CREATED,
 } from '../actions/ChatActions'
 
 const initialState = {
   prevMessageDate: null,
   prevMessageUserId: null,
-  chatrooms: CHATROOM_CBS,
+  chatrooms: null,
   activeChatRoom: null,
 }
 
 const ChatReducer = (state = initialState, action) => {
   switch (action.type) {
-    case MESSAGE_ADDED:
+    case MESSAGE_ADDED: {
       return {
         ...state,
         prevMessageDate: action.payload.prevMessageDate,
         prevMessageUserId: action.payload.prevMessageUserId,
       }
+    }
 
-    case CHATROOM_RETRIEVED:
-      const chatroomsFromDb = []
-      for (const chat in action.payload.data) {
-        ;[
-          ...chatroomsFromDb,
-          new ChatRoom(chat, data[chat].createdDate, data[chat].name, [], ''),
-        ]
-      }
+    case CHATROOM_FETCHED: {
       return {
         ...state,
-        chatrooms: chatroomsFromDb,
+        chatrooms: action.payload.chatrooms,
       }
-
+    }
     case MESSAGE_SENT: {
       // Get the message from the payload
       const newMessage = action.payload
