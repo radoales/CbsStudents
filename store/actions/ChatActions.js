@@ -55,7 +55,7 @@ export const createChatroom = (name) => {
     )
 
     if (!response.ok) {
-      // console.log('response not okay', response)
+      console.log('response not okay', response)
     } else {
       const data = await response.json()
       dispatch({
@@ -66,14 +66,20 @@ export const createChatroom = (name) => {
   }
 }
 
+const messageSent = (message) => {
+  return {
+    type: MESSAGE_SENT,
+    message,
+  }
+}
+
 export const sendMessage = (value) => {
   return async (dispatch, getState) => {
     const { token } = getState().user
     const { user } = getState()
-    console.log('user-------------->', user)
     const loggedInUser = new User(user.id, user.name, user.email)
-    console.log('pachanga 2', user.loggedInUser)
     // const message = new ChatMessage('', new Date(), value, loggedInUser, true)
+    console.log('sendding message')
     const message = {
       createdDate: new Date(),
       message: value,
@@ -95,15 +101,16 @@ export const sendMessage = (value) => {
         }),
       },
     )
-    console.log('message from body', message)
     if (!response.ok) {
       console.log('response not okay', response)
     } else {
-      const data = await response.json()
-      dispatch({
-        type: MESSAGE_SENT,
-        payload: { message },
-      })
+      // const data = await response.json()
+      console.log('dispatching MESSAGE_SENT', message)
+      dispatch(messageSent(message))
+      // dispatch({
+      //   type: MESSAGE_SENT,
+      //   payload: { message },
+      // })
     }
   }
 }

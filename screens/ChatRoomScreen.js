@@ -27,7 +27,6 @@ const ChatRoomScreen = ({ navigation, route }) => {
   // }
 
   function send() {
-    console.log('value from chatroomscreen', value)
     dispatch(sendMessage(value))
     setValue('')
   }

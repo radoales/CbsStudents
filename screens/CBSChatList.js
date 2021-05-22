@@ -4,7 +4,11 @@ import { useSelector } from 'react-redux'
 import ChatList from '../components/ChatList'
 
 const CBSChatList = () => {
-  const chatrooms = useSelector((state) => state.chat.chatrooms)
+  const chatrooms = useSelector((state) => {
+    console.log('state', state)
+    return state.chat.chatrooms
+  })
+  // console.log('chatrooms', chatrooms)
   return (
     <View style={styles.room}>
       <FlatList

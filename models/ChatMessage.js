@@ -5,7 +5,6 @@ class ChatMessage {
     this.message = message
     this.user = user
     this.isRead = isRead
-    console.log('pachanga', this.message)
   }
 }
 

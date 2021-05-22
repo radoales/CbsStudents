@@ -68,6 +68,7 @@ const LogInScreen = () => {
           Forgot password?
         </Text>
       </TouchableOpacity>
+      {/* <ButtonBox title="Log In" func={() => HandlelogIn()} /> */}
       <ButtonBox title="Log In" func={() => HandlelogIn()} />
       <View
         style={{ flexDirection: 'row', justifyContent: 'center', padding: 10 }}

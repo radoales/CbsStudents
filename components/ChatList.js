@@ -10,17 +10,21 @@ const ChatList = ({ chatroom, index }) => {
   const navigation = useNavigation()
   const dispatch = useDispatch()
 
+  if (!chatroom) {
+    return
+  }
   // Get the array of chatmessages from the props
   const { chatMessages } = chatroom
-
+  // console.log('chatMessages', chatMessages)
   // Get the last message
-  const lastMessage = chatMessages[chatMessages.length - 1]
+  // const lastMessage = chatMessages[chatMessages?.length - 1]
+  const lastMessage = chatMessages[0]
 
   // Get the last message user Id
-  const lastMessageUserId = chatMessages.map((m) => m.user?.id ?? '')[
-    chatMessages.length - 1
-  ]
-
+  // const lastMessageUserId = chatMessages.map((m) => m.user?.id ?? '')[
+  //   chatMessages.length - 1
+  // ]
+  const lastMessageUserId = chatMessages[0].user?.id ?? ''
   // Check if user is the auth user
   const isAuthUser = lastMessageUserId === '1'
 
@@ -46,7 +50,6 @@ const ChatList = ({ chatroom, index }) => {
     : chatListStyles.dotUnread
 
   const lastMessageText = lastMessage.message.message
-  console.log('last message object ', lastMessage)
 
   // Display a part of the last message
   // lastMessageText =
@@ -55,8 +58,6 @@ const ChatList = ({ chatroom, index }) => {
   //     : isLastMessageRead && lastMessageText.length >= 32
   //     ? `${lastMessageText.substring(0, 32)}...`
   //     : lastMessageText
-
-  console.log('last masstage stex', lastMessageText)
 
   const handleNavigation = () => {
     dispatch(setUpdateActiveChatRoom(index))

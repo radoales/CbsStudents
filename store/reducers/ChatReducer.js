@@ -16,6 +16,7 @@ const initialState = {
 }
 
 const ChatReducer = (state = initialState, action) => {
+  console.log('les reduceres !~!!')
   switch (action.type) {
     case MESSAGE_ADDED: {
       return {
@@ -33,6 +34,7 @@ const ChatReducer = (state = initialState, action) => {
     }
     case MESSAGE_SENT: {
       // Get the message from the payload
+      console.log('stuuff send', action)
       const newMessage = action.payload
 
       // Find the Chatroom where the message belongs
@@ -40,7 +42,6 @@ const ChatReducer = (state = initialState, action) => {
 
       // Copy the messages from the room and add the new message to the array
       const chatMessages = [...chatroom.chatMessages, newMessage]
-
       // Copy the Chatroom and replace the old array of messages with the new one
       const newChatRoom = { ...chatroom }
       newChatRoom.chatMessages = chatMessages
