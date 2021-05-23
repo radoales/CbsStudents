@@ -1,3 +1,4 @@
+/* eslint-disable consistent-return */
 import React from 'react'
 import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
@@ -6,30 +7,65 @@ import { chatListStyles } from '../StyleSheets/Shared'
 
 import { setUpdateActiveChatRoom } from '../store/actions/ChatActions'
 
+const EmptyChat = ({ handleNavigation, image, name }) => (
+  <View>
+    <TouchableOpacity onPress={handleNavigation}>
+      <View style={chatListStyles.chatBlock}>
+        <Image source={image} style={chatListStyles.imageIcon} />
+        <View style={chatListStyles.column}>
+          <Text style={{ fontWeight: 'bold' }}>{name}</Text>
+        </View>
+        <View style={chatListStyles.endColumn}>
+          <Text>New message</Text>
+        </View>
+      </View>
+    </TouchableOpacity>
+    <View style={{ height: 10 }} />
+  </View>
+)
+
 const ChatList = ({ chatroom, index }) => {
   const navigation = useNavigation()
   const dispatch = useDispatch()
 
+  const handleNavigation = () => {
+    dispatch(setUpdateActiveChatRoom(index))
+    navigation.navigate('ChatRoomScreen', { name: chatroom.name })
+  }
+
   if (!chatroom) {
-    return
+    return (
+      <View>
+        <Text>No chat rooms</Text>
+      </View>
+    )
   }
   // Get the array of chatmessages from the props
   const { chatMessages } = chatroom
-  // console.log('chatMessages', chatMessages)
+
+  if (!chatMessages?.length) {
+    return (
+      <EmptyChat
+        handleNavigation={handleNavigation}
+        image={chatroom.chatImage}
+        name={chatroom.name}
+      />
+    )
+  }
   // Get the last message
-  // const lastMessage = chatMessages[chatMessages?.length - 1]
-  const lastMessage = chatMessages[0]
+  const lastMessage = chatMessages[chatMessages?.length - 1]
+  // const lastMessage = chatMessages[0]
 
   // Get the last message user Id
-  // const lastMessageUserId = chatMessages.map((m) => m.user?.id ?? '')[
-  //   chatMessages.length - 1
-  // ]
-  const lastMessageUserId = chatMessages[0].user?.id ?? ''
+  const lastMessageUserId = chatMessages?.map((m) => m.user?.id ?? '')[
+    chatMessages.length - 1
+  ]
+  // const lastMessageUserId = chatMessages[0].user?.id ?? ''
   // Check if user is the auth user
   const isAuthUser = lastMessageUserId === '1'
 
   // Check if the last message was marked as read and not sent from the auth user
-  const isLastMessageRead = !(lastMessage.isRead === false && !isAuthUser)
+  const isLastMessageRead = !(lastMessage?.isRead === false && !isAuthUser)
 
   const lasteMessageDate = new Date(lastMessage.createdDate)
 
@@ -58,11 +94,6 @@ const ChatList = ({ chatroom, index }) => {
   //     : isLastMessageRead && lastMessageText.length >= 32
   //     ? `${lastMessageText.substring(0, 32)}...`
   //     : lastMessageText
-
-  const handleNavigation = () => {
-    dispatch(setUpdateActiveChatRoom(index))
-    navigation.navigate('ChatRoomScreen', { name: chatroom.name })
-  }
 
   return (
     <View style={styles.chatList}>

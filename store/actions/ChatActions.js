@@ -53,7 +53,6 @@ export const createChatroom = (name) => {
         }),
       },
     )
-
     if (!response.ok) {
       console.log('response not okay', response)
     } else {
@@ -69,7 +68,7 @@ export const createChatroom = (name) => {
 const messageSent = (message) => {
   return {
     type: MESSAGE_SENT,
-    message,
+    payload: { message },
   }
 }
 
@@ -129,25 +128,27 @@ export const fetchChatRooms = () => {
         },
       },
     )
-
     if (!response.ok) {
-      // console.log('response not okay', response)
+      console.log('response not okay', response)
     } else {
-      const data = await response.json()
-      const chatrooms = []
+      const res = await response.json()
+      const data = Object.keys(res).map((key) => ({
+        ...res[key],
+        key,
+      }))
       // Add code here to create a chatmessages array and save that right
-      for (const key in data) {
-        chatrooms.push(
-          new ChatRoom(
-            key,
-            new Date(data[key].createdDate),
-            data[key].name,
-            data[key].chatMessages,
-            // eslint-disable-next-line global-require
-            require('../../assets/lara.jpg'),
-          ),
-        )
-      }
+      const chatrooms = data.map((room) => ({
+        id: room.id,
+        createdDate: room.createdDate,
+        name: room.name,
+        chatMessages: room.chatMessages
+          ? Object.keys(room.chatMessages).map((key) => ({
+              ...room.chatMessages[key],
+              key,
+            }))
+          : [],
+        chatImage: room.chatImage,
+      }))
       dispatch({
         type: CHATROOM_FETCHED,
         payload: { chatrooms },

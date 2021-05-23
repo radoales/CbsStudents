@@ -16,7 +16,6 @@ const initialState = {
 }
 
 const ChatReducer = (state = initialState, action) => {
-  console.log('les reduceres !~!!')
   switch (action.type) {
     case MESSAGE_ADDED: {
       return {
@@ -34,8 +33,7 @@ const ChatReducer = (state = initialState, action) => {
     }
     case MESSAGE_SENT: {
       // Get the message from the payload
-      console.log('stuuff send', action)
-      const newMessage = action.payload
+      const newMessage = action.payload.message
 
       // Find the Chatroom where the message belongs
       const chatroom = state.chatrooms[state.activeChatRoom]

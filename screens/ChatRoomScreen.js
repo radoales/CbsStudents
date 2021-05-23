@@ -32,7 +32,6 @@ const ChatRoomScreen = ({ navigation, route }) => {
   }
 
   const isInputFieldEmpty = value.length === 0
-
   // If input has any charecters set button to active
   const sendButtonStyle = isInputFieldEmpty
     ? styles.sendButtonViewActive

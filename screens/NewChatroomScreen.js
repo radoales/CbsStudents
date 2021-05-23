@@ -5,7 +5,7 @@ import { useDispatch } from 'react-redux'
 import { useNavigation } from '@react-navigation/native'
 import InputBlock from '../components/InputBlock'
 import ButtonBox from '../components/ButtonBox'
-import { createChatroom, getChatroom } from '../store/actions/ChatActions'
+import { createChatroom, fetchChatRooms } from '../store/actions/ChatActions'
 
 const NewChatroomScreen = () => {
   const dispatch = useDispatch()
@@ -15,10 +15,11 @@ const NewChatroomScreen = () => {
 
   const handleSave = () => {
     dispatch(createChatroom(name))
+    dispatch(fetchChatRooms())
     // navigation.goBack()
   }
   const handleCall = () => {
-    dispatch(getChatroom())
+    dispatch(fetchChatRooms())
     // navigation.goBack()
   }
 
