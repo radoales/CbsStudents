@@ -5,7 +5,7 @@ import { mainColor, mainColorInactive } from '../constants'
 
 const ButtonBox = (props) => {
   return (
-    <View>
+    <View style={{ marginBottom: 3 }}>
       <TouchableOpacity
         style={{
           height: 50,

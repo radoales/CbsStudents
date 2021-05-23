@@ -17,7 +17,7 @@ const ChatRoomScreen = ({ navigation, route }) => {
   const dispatch = useDispatch()
   const chatrooms = useSelector((state) => state.chat.chatrooms)
   const activeChatRoom = useSelector((state) => state.chat.activeChatRoom)
-  const chatRoom = chatrooms?.[activeChatRoom]
+  const chatRoom = chatrooms.filter((x) => x.id === activeChatRoom)
 
   const [value, setValue] = React.useState('')
 
@@ -36,11 +36,10 @@ const ChatRoomScreen = ({ navigation, route }) => {
   const sendButtonStyle = isInputFieldEmpty
     ? styles.sendButtonViewActive
     : styles.sendButtonViewInActive
-
   return chatRoom ? (
     <View style={styles.container}>
       <FlatList
-        data={chatRoom.chatMessages}
+        data={chatRoom?.[0]?.chatMessages}
         renderItem={({ item }) => <ChatView message={item} />}
         keyExtractor={(item) => item.id}
       />

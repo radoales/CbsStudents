@@ -3,6 +3,7 @@ import {
   USER_LOGGED_IN,
   USER_SIGNED_OUT,
   USER_SIGNED_UP,
+  SET_USERS,
 } from '../actions/UserActions'
 import { USERS } from '../../data/dummy-data'
 import User from '../../models/User'
@@ -25,15 +26,21 @@ const UserReducer = (state = initialState, action) => {
         loggedInUser: user,
       }
     }
-
+    case SET_USERS: {
+      return {
+        ...state,
+        users: action.payload.users,
+      }
+    }
     case USER_LOGGED_IN: {
-      const user = new User(
-        action.payload.localId,
-        '',
-        action.payload.email,
-        '',
-        '',
-      )
+      const { payload } = action
+      const user = {
+        id: payload.id,
+        name: payload.displayName ?? '',
+        email: payload.email,
+        image: payload.image,
+      }
+
       if (user !== undefined) {
         return {
           ...state,

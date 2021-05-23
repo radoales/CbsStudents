@@ -34,6 +34,13 @@ export const setUpdateActiveChatRoom = (index) => {
   return { type: CHAT_SELECTED, payload: { index } }
 }
 
+export const handleSaveNewChatroom = (chatroom) => {
+  return {
+    type: CHATROOM_CREATED,
+    payload: { chatroom },
+  }
+}
+
 export const createChatroom = (name) => {
   return async (dispatch, getState) => {
     const { token } = getState().user
@@ -76,9 +83,9 @@ export const sendMessage = (value) => {
   return async (dispatch, getState) => {
     const { token } = getState().user
     const { user } = getState()
+    const { activeChatRoom } = getState().chat
     const loggedInUser = new User(user.id, user.name, user.email)
     // const message = new ChatMessage('', new Date(), value, loggedInUser, true)
-    console.log('sendding message')
     const message = {
       createdDate: new Date(),
       message: value,
@@ -86,7 +93,7 @@ export const sendMessage = (value) => {
       isRead: true,
     }
     const response = await fetch(
-      `https://cbsstudents-kea-default-rtdb.firebaseio.com/chatrooms/-MYAMT4qOSj_Alzz5eEi/chatMessages.json?auth=${token}`,
+      `https://cbsstudents-kea-default-rtdb.firebaseio.com/chatrooms/${activeChatRoom}/chatMessages.json?auth=${token}`,
       {
         method: 'POST',
         headers: {
@@ -134,7 +141,7 @@ export const fetchChatRooms = () => {
       const res = await response.json()
       const data = Object.keys(res).map((key) => ({
         ...res[key],
-        key,
+        id: key,
       }))
       // Add code here to create a chatmessages array and save that right
       const chatrooms = data.map((room) => ({
@@ -144,7 +151,7 @@ export const fetchChatRooms = () => {
         chatMessages: room.chatMessages
           ? Object.keys(room.chatMessages).map((key) => ({
               ...room.chatMessages[key],
-              key,
+              id: key,
             }))
           : [],
         chatImage: room.chatImage,
@@ -154,5 +161,12 @@ export const fetchChatRooms = () => {
         payload: { chatrooms },
       })
     }
+  }
+}
+
+export const updateChatRooms = (chatrooms) => {
+  return {
+    type: CHATROOM_FETCHED,
+    payload: { chatrooms },
   }
 }

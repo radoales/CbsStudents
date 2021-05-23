@@ -19,7 +19,7 @@ const Chat = () => {
       }}
     >
       <Tab.Screen name="Robert Jacobsen" component={CBSChatList} />
-      <Tab.Screen name="CBS Surf" component={MyChatList} />
+      {/* <Tab.Screen name="CBS Surf" component={MyChatList} /> */}
       <Tab.Screen name="New Chatroom" component={NewChatroomScreen} />
     </Tab.Navigator>
   )

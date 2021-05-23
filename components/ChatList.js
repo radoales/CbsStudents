@@ -29,10 +29,9 @@ const ChatList = ({ chatroom, index }) => {
   const dispatch = useDispatch()
 
   const handleNavigation = () => {
-    dispatch(setUpdateActiveChatRoom(index))
+    dispatch(setUpdateActiveChatRoom(chatroom.id))
     navigation.navigate('ChatRoomScreen', { name: chatroom.name })
   }
-
   if (!chatroom) {
     return (
       <View>

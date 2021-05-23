@@ -1,15 +1,23 @@
 /* eslint-disable global-require */
 import React from 'react'
 import { StyleSheet, View, Image, Text } from 'react-native'
-import { useDispatch } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { useNavigation } from '@react-navigation/native'
+import axios from 'axios'
 import InputBlock from '../components/InputBlock'
 import ButtonBox from '../components/ButtonBox'
-import { createChatroom, fetchChatRooms } from '../store/actions/ChatActions'
+import {
+  createChatroom,
+  fetchChatRooms,
+  updateChatRooms,
+  handleSaveNewChatroom,
+} from '../store/actions/ChatActions'
+import ChatRoom from '../models/ChatRoom'
 
 const NewChatroomScreen = () => {
   const dispatch = useDispatch()
   const navigation = useNavigation()
+  const { users, token } = useSelector((state) => state.user)
 
   const [name, setName] = React.useState()
 
@@ -23,8 +31,70 @@ const NewChatroomScreen = () => {
     // navigation.goBack()
   }
 
+  const handleNavigation = ({ userName }) => {
+    const chatroom = new ChatRoom('', new Date(), name, [], '')
+    // Todo: Fix this, create new chatroom before redirecting to the chat
+    axios
+      .post(
+        `https://cbsstudents-kea-default-rtdb.firebaseio.com/chatrooms.json?auth=${token}`,
+        {
+          name: chatroom.name,
+          createdDate: chatroom.createdDate,
+          chatMessages: chatroom.chatMessages,
+        },
+      )
+      .then((results) => {
+        handleSaveNewChatroom(chatroom)
+
+        axios
+          .get(
+            `https://cbsstudents-kea-default-rtdb.firebaseio.com/chatrooms.json?auth=${token}`,
+          )
+          .then((res) => {
+            const data = Object.keys(res.data).map((key) => ({
+              ...res.data[key],
+              key,
+            }))
+            console.log('data', data)
+            const chatrooms = data.map((room) => ({
+              id: room.id,
+              createdDate: room.createdDate,
+              name: room.name,
+              chatMessages: room.chatMessages
+                ? Object.keys(room.chatMessages).map((key) => ({
+                    ...room.chatMessages[key],
+                    key,
+                  }))
+                : [],
+              chatImage: room.chatImage,
+            }))
+            console.log('chatrooms', chatrooms)
+            dispatch(updateChatRooms(chatrooms))
+
+            // dispatch(setUpdateActiveChatRoom(index))
+            navigation.navigate('ChatRoomScreen', {
+              name: `Chat with ${userName}`,
+            })
+          })
+          .catch((err) => {
+            console.log('err', err)
+          })
+      })
+      .catch((err) => {
+        console.log('errer', err)
+      })
+
+    // Add code here to create a chatmessages array and save that right
+  }
   return (
     <View style={{ paddingTop: 20 }}>
+      {users.map((user) => (
+        <ButtonBox
+          key={user.id}
+          func={() => handleNavigation({ userName: user.name })}
+          title={user.name}
+        />
+      ))}
       <View
         style={{
           flexDirection: 'row',
