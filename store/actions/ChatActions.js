@@ -111,7 +111,6 @@ export const sendMessage = (value) => {
       console.log('response not okay', response)
     } else {
       // const data = await response.json()
-      console.log('dispatching MESSAGE_SENT', message)
       dispatch(messageSent(message))
       // dispatch({
       //   type: MESSAGE_SENT,

@@ -34,14 +34,18 @@ const ChatReducer = (state = initialState, action) => {
     case MESSAGE_SENT: {
       // Get the message from the payload
       const newMessage = action.payload.message
-
       // Find the Chatroom where the message belongs
-      const chatroom = state.chatrooms[state.activeChatRoom]
+      const activeRoom = state.chatrooms.filter(
+        (x) => x.id === state.activeChatRoom,
+      )
+      const chatroom = activeRoom[0]
 
       // Copy the messages from the room and add the new message to the array
       const chatMessages = [...chatroom.chatMessages, newMessage]
+
       // Copy the Chatroom and replace the old array of messages with the new one
       const newChatRoom = { ...chatroom }
+
       newChatRoom.chatMessages = chatMessages
 
       // Copy the Chatrooms array to a new variable

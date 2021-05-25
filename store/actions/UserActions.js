@@ -12,7 +12,6 @@ export const saveUser = (name, title) => {
 
 const fetchContacts = (token) => {
   return async (dispatch) => {
-    console.log('calling for all users')
     const response = await fetch(
       `https://cbsstudents-kea-default-rtdb.firebaseio.com/users.json?auth=${token}`,
       {
@@ -23,7 +22,6 @@ const fetchContacts = (token) => {
       },
     )
     const data = await response.json()
-    console.log('data users', data)
     const users = Object.keys(data).map((key) => ({
       ...data[key],
     }))
@@ -55,7 +53,6 @@ export const logIn = (email, password) => {
       console.log('response not okay', response)
     } else {
       const data = await response.json()
-      console.log('user data', data)
       dispatch({
         type: USER_LOGGED_IN,
         payload: { id: data.localId, email, token: data.idToken },

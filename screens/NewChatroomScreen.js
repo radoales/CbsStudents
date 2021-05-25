@@ -11,9 +11,41 @@ import {
   fetchChatRooms,
   updateChatRooms,
   handleSaveNewChatroom,
+  setUpdateActiveChatRoom,
 } from '../store/actions/ChatActions'
 import ChatRoom from '../models/ChatRoom'
 
+// @flow
+
+const callFirebase = async (endpoint, request = {}) => {
+  const { method = 'get', data } = request
+
+  const url = `${endpoint}`
+  return axios({
+    url,
+    method,
+    data,
+  })
+}
+
+const createNewRoom = ({ name, createdDate, chatMessages, token }) => {
+  return callFirebase(
+    `https://cbsstudents-kea-default-rtdb.firebaseio.com/chatrooms.json?auth=${token}`,
+    {
+      method: 'post',
+      data: {
+        name,
+        createdDate,
+        chatMessages,
+      },
+    },
+  )
+}
+const getAllChatrooms = (token) => {
+  return callFirebase(
+    `https://cbsstudents-kea-default-rtdb.firebaseio.com/chatrooms.json?auth=${token}`,
+  )
+}
 const NewChatroomScreen = () => {
   const dispatch = useDispatch()
   const navigation = useNavigation()
@@ -31,47 +63,48 @@ const NewChatroomScreen = () => {
     // navigation.goBack()
   }
 
+  const handleCreateChatrooms = (data) => {
+    return data.map((room) => ({
+      id: room.id,
+      createdDate: room.createdDate,
+      name: room.name,
+      chatMessages: room.chatMessages
+        ? Object.keys(room.chatMessages).map((key) => ({
+            ...room.chatMessages[key],
+            key,
+          }))
+        : [],
+      chatImage: room.chatImage,
+    }))
+  }
   const handleNavigation = ({ userName }) => {
-    const chatroom = new ChatRoom('', new Date(), name, [], '')
-    // Todo: Fix this, create new chatroom before redirecting to the chat
-    axios
-      .post(
-        `https://cbsstudents-kea-default-rtdb.firebaseio.com/chatrooms.json?auth=${token}`,
-        {
-          name: chatroom.name,
-          createdDate: chatroom.createdDate,
-          chatMessages: chatroom.chatMessages,
-        },
-      )
-      .then((results) => {
-        handleSaveNewChatroom(chatroom)
+    const chatroom = {
+      id: '',
+      createdDate: new Date(),
+      name: `Chat with ${userName}`,
+      chatMessages: [],
+      chatImage: '',
+    }
 
-        axios
-          .get(
-            `https://cbsstudents-kea-default-rtdb.firebaseio.com/chatrooms.json?auth=${token}`,
-          )
+    // Todo: Fix this, create new chatroom before redirecting to the chat
+
+    createNewRoom({
+      name: chatroom.name,
+      createdDate: chatroom.createdDate,
+      chatMessages: chatroom.chatMessages,
+      token,
+    })
+      .then((results) => {
+        dispatch(handleSaveNewChatroom(chatroom))
+        getAllChatrooms(token)
           .then((res) => {
             const data = Object.keys(res.data).map((key) => ({
               ...res.data[key],
-              key,
+              id: key,
             }))
-            console.log('data', data)
-            const chatrooms = data.map((room) => ({
-              id: room.id,
-              createdDate: room.createdDate,
-              name: room.name,
-              chatMessages: room.chatMessages
-                ? Object.keys(room.chatMessages).map((key) => ({
-                    ...room.chatMessages[key],
-                    key,
-                  }))
-                : [],
-              chatImage: room.chatImage,
-            }))
-            console.log('chatrooms', chatrooms)
+            const chatrooms = handleCreateChatrooms(data)
             dispatch(updateChatRooms(chatrooms))
-
-            // dispatch(setUpdateActiveChatRoom(index))
+            dispatch(setUpdateActiveChatRoom(results?.data?.name))
             navigation.navigate('ChatRoomScreen', {
               name: `Chat with ${userName}`,
             })
@@ -81,9 +114,8 @@ const NewChatroomScreen = () => {
           })
       })
       .catch((err) => {
-        console.log('errer', err)
+        console.log('err', err)
       })
-
     // Add code here to create a chatmessages array and save that right
   }
   return (

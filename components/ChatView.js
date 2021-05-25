@@ -7,7 +7,6 @@ import { mainColor, mainColorInactive } from '../constants'
 const ChatView = ({ message }) => {
   const dispatch = useDispatch()
   const store = useStore()
-  console.log('message', message)
   // Get the Id of the owner of the message
   const userId = message.user?.id ?? '9EhrGapE0RRIDbgE70s1avb4TI53'
   // Get the name of the user sending the message

@@ -5,7 +5,6 @@ import ChatList from '../components/ChatList'
 
 const CBSChatList = () => {
   const chatrooms = useSelector((state) => {
-    console.log('state', state)
     return state.chat.chatrooms
   })
   return (

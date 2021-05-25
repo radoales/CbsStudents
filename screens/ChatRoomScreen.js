@@ -9,6 +9,7 @@ import {
 } from 'react-native'
 import Ionicons from '@expo/vector-icons/Ionicons'
 import { useDispatch, useSelector } from 'react-redux'
+import { useIsFocused } from '@react-navigation/native'
 import ChatView from '../components/ChatView'
 import { addToChats, sendMessage } from '../store/actions/ChatActions'
 import { mainColor, mainColorInactive } from '../constants'
@@ -18,9 +19,7 @@ const ChatRoomScreen = ({ navigation, route }) => {
   const chatrooms = useSelector((state) => state.chat.chatrooms)
   const activeChatRoom = useSelector((state) => state.chat.activeChatRoom)
   const chatRoom = chatrooms.filter((x) => x.id === activeChatRoom)
-
   const [value, setValue] = React.useState('')
-
   // function sendMessage() {
   //   dispatch(addToChats(value))
   //   setValue('')
