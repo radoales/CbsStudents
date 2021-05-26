@@ -3,9 +3,8 @@ import { StyleSheet, Platform } from 'react-native'
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs'
 import { mainColor, mainColorInactive } from '../constants'
 
-import CBSChatList from './CBSChatList'
-import MyChatList from './MyChatList'
-import NewChatroomScreen from './NewChatroomScreen'
+import ActiveChatsScreen from './ActiveChatsScreen'
+import Contacts from './Contacts'
 
 const Tab = createMaterialTopTabNavigator()
 
@@ -18,9 +17,8 @@ const Chat = () => {
         labelStyle: styles.tabLabels,
       }}
     >
-      <Tab.Screen name="Robert Jacobsen" component={CBSChatList} />
-      {/* <Tab.Screen name="CBS Surf" component={MyChatList} /> */}
-      <Tab.Screen name="New Chatroom" component={NewChatroomScreen} />
+      <Tab.Screen name="Active Chats" component={ActiveChatsScreen} />
+      <Tab.Screen name="Contacts" component={Contacts} />
     </Tab.Navigator>
   )
 }

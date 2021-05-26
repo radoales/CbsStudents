@@ -19,7 +19,7 @@ const chatListStyles = StyleSheet.create({
     backgroundColor: mainColor,
     height: 10,
     width: 10,
-    borderRadius: 5,
+    borderRadius: 10,
     alignSelf: 'flex-end',
   },
   dotRead: {

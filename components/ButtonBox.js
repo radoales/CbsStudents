@@ -1,7 +1,8 @@
 /* eslint-disable react/destructuring-assignment */
 import React from 'react'
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
+import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native'
 import { mainColor, mainColorInactive } from '../constants'
+import { chatListStyles } from '../StyleSheets/Shared'
 
 const ButtonBox = (props) => {
   return (
@@ -9,24 +10,35 @@ const ButtonBox = (props) => {
       <TouchableOpacity
         style={{
           height: 50,
-          backgroundColor: mainColor,
+          backgroundColor: props.backgroundColor,
           marginLeft: 20,
           marginRight: 20,
-          alignItems: 'center',
+          alignItems: props.alignItems,
           borderRadius: 5,
         }}
       >
-        <Text
-          style={{
-            color: 'white',
-            fontSize: 20,
-            paddingTop: 10,
-            fontWeight: 'bold',
-          }}
-          onPress={props.func}
-        >
-          {props.title}
-        </Text>
+        <View style={{ flexDirection: 'row' }}>
+          {props.hasImage ? (
+            <Image
+              source={props.imageSource}
+              style={chatListStyles.imageIcon}
+            />
+          ) : (
+            <View />
+          )}
+
+          <Text
+            style={{
+              color: props.textColor,
+              fontSize: 20,
+              paddingTop: 10,
+              fontWeight: 'bold',
+            }}
+            onPress={props.func}
+          >
+            {props.title}
+          </Text>
+        </View>
       </TouchableOpacity>
     </View>
   )

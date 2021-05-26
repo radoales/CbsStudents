@@ -38,7 +38,7 @@ const UserReducer = (state = initialState, action) => {
         id: payload.id,
         name: payload.displayName ?? '',
         email: payload.email,
-        image: payload.image,
+        image: require('../../assets/alex.jpg'),
       }
 
       if (user !== undefined) {

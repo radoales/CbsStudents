@@ -47,6 +47,9 @@ const ProfileScreen = () => {
         </View>
       </View>
       <ButtonBox
+        backgroundColor={mainColor}
+        textColor="white"
+        alignItems="center"
         data={authUser}
         title="Edit Profile"
         func={() =>
@@ -77,7 +80,13 @@ const ProfileScreen = () => {
         switchState={isEventEnabled}
       />
       <View style={styles.line} />
-      <ButtonBox title="Sign Out" func={() => HandleSignOut()} />
+      <ButtonBox
+        alignItems="center"
+        backgroundColor={mainColor}
+        textColor="white"
+        title="Sign Out"
+        func={() => HandleSignOut()}
+      />
     </View>
   )
 }

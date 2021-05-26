@@ -1,27 +1,27 @@
 import React from 'react'
 import { View, Text, StyleSheet, Image } from 'react-native'
-import { useDispatch, useStore } from 'react-redux'
+import { useDispatch, useSelector, useStore } from 'react-redux'
 import { addMessage } from '../store/actions/ChatActions'
 import { mainColor, mainColorInactive } from '../constants'
 
-const ChatView = ({ message }) => {
+const MessageBlock = ({ message }) => {
   const dispatch = useDispatch()
   const store = useStore()
+  const loggedInuserId = useSelector((state) => state.user.loggedInUser.id)
+
   // Get the Id of the owner of the message
-  const userId = message.user?.id ?? '9EhrGapE0RRIDbgE70s1avb4TI53'
+  const userId = message.user?.id ?? loggedInuserId
   // Get the name of the user sending the message
   const userName = message.user.name
 
   // Check if the owner of the message is the authenticated User
   // '1' should be replaced with the authenticated user
-  const isAuthUser = userId === '1'
+  const isAuthUser = userId === loggedInuserId
+
+  // Set the color of the time in the message block
+  const timeReceivedTextColor = isAuthUser ? 'white' : 'black'
 
   // const flexPosition = isAuthUser ? 'flex-end' : 'flex-start';
-
-  // The position of the time the message was received
-  const timeReceivedPosition = isAuthUser
-    ? styles.timeReceivedRight
-    : styles.timeReceivedLeft
 
   // The position of the message block
   const messageBlock = isAuthUser ? styles.chatBoxRight : styles.chatBoxLeft
@@ -70,10 +70,8 @@ const ChatView = ({ message }) => {
           <View />
         )}
       </View>
-      <View
-        style={{ flex: 1, flexDirection: 'row' /* alignSelf: flexPosition */ }}
-      >
-        {/* If User is the authenticated user and not the same as the previous message, display profile image */}
+      <View style={{ flex: 1, flexDirection: 'row' }}>
+        {/* If User is the auth user and not the same as the previous message, display profile image */}
         {!isAuthUser && !isSameUser ? (
           <Image source={message.user.image} style={styles.imageIcon} />
         ) : (
@@ -82,21 +80,16 @@ const ChatView = ({ message }) => {
         <View style={{ flex: 1, flexDirection: 'column' }}>
           <View style={messageBlock}>
             <Text style={textStyle}>{message.message}</Text>
+            <Text
+              style={{
+                color: timeReceivedTextColor,
+                alignSelf: 'flex-end',
+                fontSize: 10,
+              }}
+            >
+              {receivedTime}
+            </Text>
           </View>
-          {/* If User is not the Authenticated User and is not the same as previous message, display userName and time */}
-          {!isAuthUser && !isSameUser ? (
-            <View style={timeReceivedPosition}>
-              <Text style={styles.timeReceivedStyle}>
-                From {userName} - {receivedTime}
-              </Text>
-            </View>
-          ) : isAuthUser ? (
-            <View style={timeReceivedPosition}>
-              <Text style={styles.timeReceivedStyle}>{receivedTime}</Text>
-            </View>
-          ) : (
-            <View />
-          )}
         </View>
       </View>
     </View>
@@ -136,17 +129,8 @@ const styles = StyleSheet.create({
     color: 'black',
   },
   timeReceivedStyle: {
-    color: 'grey',
     alignSelf: 'flex-end',
     fontSize: 10,
-  },
-  timeReceivedRight: {
-    alignSelf: 'flex-end',
-    paddingRight: 20,
-  },
-  timeReceivedLeft: {
-    alignSelf: 'flex-start',
-    paddingLeft: 20,
   },
   imageIcon: {
     width: 40,
@@ -157,4 +141,4 @@ const styles = StyleSheet.create({
   },
 })
 
-export default ChatView
+export default MessageBlock

@@ -3,7 +3,7 @@ import { View, StyleSheet, FlatList, Text } from 'react-native'
 import { useSelector } from 'react-redux'
 import ChatList from '../components/ChatList'
 
-const CBSChatList = () => {
+const ActiveChatsScreen = () => {
   const chatrooms = useSelector((state) => {
     return state.chat.chatrooms
   })
@@ -24,4 +24,4 @@ const CBSChatList = () => {
 
 const styles = StyleSheet.create({})
 
-export default CBSChatList
+export default ActiveChatsScreen

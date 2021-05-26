@@ -84,15 +84,17 @@ const ChatList = ({ chatroom, index }) => {
     ? chatListStyles.dotRead
     : chatListStyles.dotUnread
 
-  const lastMessageText = lastMessage.message.message
+  console.log('last message', lastMessage)
 
-  // Display a part of the last message
-  // lastMessageText =
-  //   lastMessageText.length >= 30 && !isLastMessageRead
-  //     ? `${lastMessageText.substring(0, 30)}...`
-  //     : isLastMessageRead && lastMessageText.length >= 32
-  //     ? `${lastMessageText.substring(0, 32)}...`
-  //     : lastMessageText
+  let lastMessageText = lastMessage.message
+
+  // // Display a part of the last message
+  lastMessageText =
+    lastMessageText.length >= 30 && !isLastMessageRead
+      ? `${lastMessageText.substring(0, 30)}...`
+      : isLastMessageRead && lastMessageText.length >= 32
+      ? `${lastMessageText.substring(0, 32)}...`
+      : lastMessageText
 
   return (
     <View style={styles.chatList}>

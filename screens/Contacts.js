@@ -46,7 +46,7 @@ const getAllChatrooms = (token) => {
     `https://cbsstudents-kea-default-rtdb.firebaseio.com/chatrooms.json?auth=${token}`,
   )
 }
-const NewChatroomScreen = () => {
+const Contacts = () => {
   const dispatch = useDispatch()
   const navigation = useNavigation()
   const { users, token } = useSelector((state) => state.user)
@@ -122,9 +122,12 @@ const NewChatroomScreen = () => {
     <View style={{ paddingTop: 20 }}>
       {users.map((user) => (
         <ButtonBox
+          hasImage
+          imageSource={require('../assets/lara.jpg')}
           key={user.id}
           func={() => handleNavigation({ userName: user.name })}
           title={user.name}
+          textColor="Black"
         />
       ))}
       <View
@@ -135,18 +138,6 @@ const NewChatroomScreen = () => {
           marginTop: 50,
         }}
       />
-      <View style={{ padding: 20 }}>
-        <InputBlock
-          value={name}
-          setValue={setName}
-          required
-          label="WHAT IS THE CHATROOM'S NAME?"
-          placeholder="chatroom name"
-          initialState={name}
-        />
-      </View>
-      <ButtonBox func={() => handleSave()} title="Create" />
-      <ButtonBox func={() => handleCall()} title="Call" />
     </View>
   )
 }
@@ -160,4 +151,4 @@ const styles = StyleSheet.create({
   },
 })
 
-export default NewChatroomScreen
+export default Contacts

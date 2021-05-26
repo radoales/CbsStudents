@@ -69,7 +69,13 @@ const LogInScreen = () => {
         </Text>
       </TouchableOpacity>
       {/* <ButtonBox title="Log In" func={() => HandlelogIn()} /> */}
-      <ButtonBox title="Log In" func={() => HandlelogIn()} />
+      <ButtonBox
+        alignItems="center"
+        backgroundColor={mainColor}
+        textColor="white"
+        title="Log In"
+        func={() => HandlelogIn()}
+      />
       <View
         style={{ flexDirection: 'row', justifyContent: 'center', padding: 10 }}
       >

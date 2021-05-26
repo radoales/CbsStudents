@@ -109,7 +109,13 @@ const SignUpScreen = () => {
           </Text>
         </TouchableOpacity>
       </View>
-      <ButtonBox title="Get Access" func={() => HandleSignUp()} />
+      <ButtonBox
+        alignItems="center"
+        backgroundColor={mainColor}
+        textColor="white"
+        title="Get Access"
+        func={() => HandleSignUp()}
+      />
       <View
         style={{ flexDirection: 'row', justifyContent: 'center', padding: 10 }}
       >

@@ -23,7 +23,7 @@ import LogInScreen from './screens/LogInScreen'
 import EditProfileScreen from './screens/EditProfileScreen'
 import UserReducer from './store/reducers/UserReducer'
 import { mainColor, mainColorInactive } from './constants'
-import NewChatroomScreen from './screens/NewChatroomScreen'
+import Contacts from './screens/Contacts'
 
 LogBox.ignoreLogs(['Warning: ...']) // Ignore log notification by message
 LogBox.ignoreAllLogs()
@@ -122,10 +122,10 @@ function ChatStackNavigator() {
         })}
       />
       <Stack.Screen
-        name="NewChatroomScreen"
-        component={NewChatroomScreen}
+        name="Contacts"
+        component={Contacts}
         options={{
-          title: 'New Chatroom',
+          title: 'Contacts',
           headerTitleStyle: headerStyles.headerText,
         }}
       />

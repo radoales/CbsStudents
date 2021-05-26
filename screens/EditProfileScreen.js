@@ -6,6 +6,7 @@ import { useNavigation } from '@react-navigation/native'
 import InputBlock from '../components/InputBlock'
 import ButtonBox from '../components/ButtonBox'
 import { saveUser } from '../store/actions/UserActions'
+import { mainColor, mainColorInactive } from '../constants'
 
 const EditProfileScreen = ({ route }) => {
   const dispatch = useDispatch()
@@ -34,7 +35,12 @@ const EditProfileScreen = ({ route }) => {
       >
         <View style={{ width: 200, marginEnd: 50 }}>
           <Text style={{ paddingLeft: 20 }}>PROFILE PICTURE</Text>
-          <ButtonBox title="Upload" />
+          <ButtonBox
+            alignItems="center"
+            title="Upload"
+            textColor="white"
+            backgroundColor={mainColor}
+          />
         </View>
         <Image
           source={require('../assets/robert.jpg')}
@@ -59,7 +65,13 @@ const EditProfileScreen = ({ route }) => {
           placeholder="Programme"
         />
       </View>
-      <ButtonBox func={() => handleSave()} title="Save Changes" />
+      <ButtonBox
+        alignItems="center"
+        func={() => handleSave()}
+        title="Save Changes"
+        backgroundColor={mainColor}
+        textColor="white"
+      />
     </View>
   )
 }

@@ -10,7 +10,7 @@ import {
 import Ionicons from '@expo/vector-icons/Ionicons'
 import { useDispatch, useSelector } from 'react-redux'
 import { useIsFocused } from '@react-navigation/native'
-import ChatView from '../components/ChatView'
+import MessageBlock from '../components/MessageBlock'
 import { addToChats, sendMessage } from '../store/actions/ChatActions'
 import { mainColor, mainColorInactive } from '../constants'
 
@@ -38,8 +38,9 @@ const ChatRoomScreen = ({ navigation, route }) => {
   return chatRoom ? (
     <View style={styles.container}>
       <FlatList
-        data={chatRoom?.[0]?.chatMessages}
-        renderItem={({ item }) => <ChatView message={item} />}
+        // inverted
+        data={chatRoom?.[0]?.chatMessages /* .reverse() */}
+        renderItem={({ item }) => <MessageBlock message={item} />}
         keyExtractor={(item) => item.id}
       />
       <View
