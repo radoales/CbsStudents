@@ -127,7 +127,7 @@ const Contacts = () => {
           key={user.id}
           func={() => handleNavigation({ userName: user.name })}
           title={user.name}
-          textColor="Black"
+          textColor="black"
         />
       ))}
       <View

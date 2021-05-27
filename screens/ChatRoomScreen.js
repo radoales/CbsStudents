@@ -16,14 +16,10 @@ import { mainColor, mainColorInactive } from '../constants'
 
 const ChatRoomScreen = ({ navigation, route }) => {
   const dispatch = useDispatch()
-  const chatrooms = useSelector((state) => state.chat.chatrooms)
-  const activeChatRoom = useSelector((state) => state.chat.activeChatRoom)
-  const chatRoom = chatrooms.filter((x) => x.id === activeChatRoom)
+
+  const chatRoom = useSelector((state) => state.chat.activeChatRoom)
+
   const [value, setValue] = React.useState('')
-  // function sendMessage() {
-  //   dispatch(addToChats(value))
-  //   setValue('')
-  // }
 
   function send() {
     dispatch(sendMessage(value))
@@ -38,8 +34,8 @@ const ChatRoomScreen = ({ navigation, route }) => {
   return chatRoom ? (
     <View style={styles.container}>
       <FlatList
-        // inverted
-        data={chatRoom?.[0]?.chatMessages /* .reverse() */}
+        inverted
+        data={chatRoom.chatMessages}
         renderItem={({ item }) => <MessageBlock message={item} />}
         keyExtractor={(item) => item.id}
       />

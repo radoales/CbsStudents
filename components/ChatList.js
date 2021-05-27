@@ -84,8 +84,6 @@ const ChatList = ({ chatroom, index }) => {
     ? chatListStyles.dotRead
     : chatListStyles.dotUnread
 
-  console.log('last message', lastMessage)
-
   let lastMessageText = lastMessage.message
 
   // // Display a part of the last message
