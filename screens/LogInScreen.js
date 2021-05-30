@@ -32,7 +32,7 @@ const LogInScreen = () => {
         source={require('../assets/cbsstud.png')}
         style={styles.imageIcon}
       />
-      <Text
+      {/* <Text
         style={{
           fontSize: 20,
           color: mainColor,
@@ -41,7 +41,7 @@ const LogInScreen = () => {
         }}
       >
         Log in
-      </Text>
+      </Text> */}
       <View style={{ padding: 20 }}>
         <Text style={{ color: 'red', fontSize: 15, fontWeight: 'bold' }}>
           {error}

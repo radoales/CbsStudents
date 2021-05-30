@@ -6,8 +6,32 @@ export const USER_SIGNED_UP = 'USER_SIGNED_UP'
 export const USER_SIGNED_OUT = 'USER_SIGNED_OUT'
 export const SET_USERS = 'SET_USERS'
 
-export const saveUser = (name, title) => {
-  return { type: USER_SAVED, payload: { name, title } }
+export const saveUser = (user, token, name, title) => {
+  return async (dispatch) => {
+    const response = await fetch(
+      `https://cbsstudents-kea-default-rtdb.firebaseio.com/users/${user.id}.json?auth=${token}`,
+      {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          id: user.id,
+          email: user.email,
+          name,
+          title,
+          image: user.image,
+        }),
+      },
+    )
+    if (!response.ok) {
+      console.log('response not okay', response)
+    } else {
+      const data = await response.json()
+
+      dispatch({ type: USER_SAVED, payload: { name, title } })
+    }
+  }
 }
 
 const fetchContacts = (token) => {
@@ -53,9 +77,26 @@ export const logIn = (email, password) => {
       console.log('response not okay', response)
     } else {
       const data = await response.json()
+      // Get loggedin user from the realtime database
+      const res = await fetch(
+        `https://cbsstudents-kea-default-rtdb.firebaseio.com/users/${data.localId}.json?auth=${data.idToken}`,
+        {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        },
+      )
+      const userFromDb = await res.json()
       dispatch({
         type: USER_LOGGED_IN,
-        payload: { id: data.localId, email, token: data.idToken },
+        payload: {
+          id: data.localId,
+          email: userFromDb.email,
+          name: userFromDb.name,
+          title: userFromDb.title,
+          token: data.idToken,
+        },
       })
       dispatch(fetchChatRooms())
       dispatch(fetchContacts(data.idToken))
@@ -85,6 +126,21 @@ export const signUp = (email, password) => {
       console.log('response not okay', response)
     } else {
       const data = await response.json()
+
+      // Add the new user to the realtime database
+      await fetch(
+        `https://cbsstudents-kea-default-rtdb.firebaseio.com/users/${data.localId}.json?auth=${data.idToken}`,
+        {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            email: data.email,
+            id: data.localId,
+          }),
+        },
+      )
       dispatch({ type: USER_SIGNED_UP, payload: { password, data } })
     }
   }

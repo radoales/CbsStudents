@@ -1,7 +1,7 @@
 /* eslint-disable global-require */
 import React from 'react'
 import { StyleSheet, View, Image, Text } from 'react-native'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { useNavigation } from '@react-navigation/native'
 import InputBlock from '../components/InputBlock'
 import ButtonBox from '../components/ButtonBox'
@@ -12,13 +12,16 @@ const EditProfileScreen = ({ route }) => {
   const dispatch = useDispatch()
   const navigation = useNavigation()
   const user = route.params.data
+  console.log('user: ', user)
+  const userId = useSelector((state) => state.user.loggedInUser.id)
+  const token = useSelector((state) => state.user.token)
 
   const [userName, setUserName] = React.useState(user.name)
   const [title, setTitle] = React.useState(user.title)
 
   const handleSave = () => {
     if (userName.length !== 0 && title.length !== 0) {
-      dispatch(saveUser(userName, title))
+      dispatch(saveUser(user, token, userName, title))
       navigation.goBack()
     }
   }

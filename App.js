@@ -84,9 +84,9 @@ function AuthStackNavigator() {
     <Stack.Navigator>
       <Stack.Screen
         name="LogInScreen"
-        title="Log in"
         component={LogInScreen}
         options={{
+          title: 'Log in',
           headerTitleStyle: headerStyles.headerText,
         }}
       />
@@ -121,14 +121,14 @@ function ChatStackNavigator() {
           headerTitleStyle: headerStyles.headerText,
         })}
       />
-      <Stack.Screen
+      {/* <Stack.Screen
         name="Contacts"
         component={Contacts}
         options={{
           title: 'Contacts',
           headerTitleStyle: headerStyles.headerText,
         }}
-      />
+      /> */}
     </Stack.Navigator>
   )
 }

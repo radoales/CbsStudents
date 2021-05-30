@@ -9,7 +9,7 @@ import { USERS } from '../../data/dummy-data'
 import User from '../../models/User'
 
 const initialState = {
-  users: USERS,
+  users: null,
   loggedInUser: null,
   token: null,
   errorMessage: '',
@@ -36,8 +36,9 @@ const UserReducer = (state = initialState, action) => {
       const { payload } = action
       const user = {
         id: payload.id,
-        name: payload.displayName ?? '',
+        name: payload.name ?? '',
         email: payload.email,
+        title: payload.title,
         image: require('../../assets/alex.jpg'),
       }
 

@@ -39,7 +39,7 @@ const SignUpScreen = () => {
         source={require('../assets/cbsstud.png')}
         style={styles.imageIcon}
       />
-      <Text
+      {/* <Text
         style={{
           fontSize: 20,
           color: 'darkslateblue',
@@ -48,7 +48,7 @@ const SignUpScreen = () => {
         }}
       >
         Sign Up
-      </Text>
+      </Text> */}
       <View style={{ padding: 20 }}>
         <InputBlock
           value={email}
