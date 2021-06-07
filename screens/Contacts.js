@@ -123,7 +123,7 @@ const Contacts = () => {
       {users.map((user) => (
         <ButtonBox
           hasImage
-          imageSource={require('../assets/lara.jpg')}
+          imageSource={{ uri: user.Image} }
           key={user.id}
           func={() => handleNavigation({ userName: user.name })}
           title={user.name}
