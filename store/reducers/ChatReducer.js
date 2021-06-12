@@ -25,8 +25,8 @@ const ChatReducer = (state = initialState, action) => {
         prevMessageUserId: action.payload.prevMessageUserId,
       }
     }
-
     case CHATROOM_FETCHED: {
+      console.log('reducer called', action.payload.chatrooms)
       return {
         ...state,
         chatrooms: action.payload.chatrooms,

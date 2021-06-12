@@ -7,6 +7,7 @@ const ActiveChatsScreen = () => {
   const chatrooms = useSelector((state) => {
     return state.chat.chatrooms
   })
+
   return (
     <View style={styles.room}>
       <FlatList

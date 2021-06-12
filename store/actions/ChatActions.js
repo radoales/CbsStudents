@@ -164,6 +164,7 @@ export const fetchChatRooms = () => {
 }
 
 export const updateChatRooms = (chatrooms) => {
+  console.log('update chatrooms called', chatrooms)
   return {
     type: CHATROOM_FETCHED,
     payload: { chatrooms },

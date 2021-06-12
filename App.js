@@ -24,6 +24,8 @@ import EditProfileScreen from './screens/EditProfileScreen'
 import UserReducer from './store/reducers/UserReducer'
 import { mainColor, mainColorInactive } from './constants'
 import Contacts from './screens/Contacts'
+import { db } from './firebase'
+import { updateChatRooms } from './store/actions/ChatActions'
 
 LogBox.ignoreLogs(['Warning: ...']) // Ignore log notification by message
 LogBox.ignoreAllLogs()
@@ -158,6 +160,16 @@ function MenuStackNavigator() {
 }
 
 function InitialStackNavigator() {
+  db.ref('chatrooms/').on('value', (querySnapShot) => {
+    const data = querySnapShot.val() ? querySnapShot.val() : {}
+    const chatrooms = { ...data }
+    console.log('called', new Date())
+
+    const fetchedChatrooms = Object.keys(chatrooms).map((key) => chatrooms[key])
+
+    updateChatRooms(fetchedChatrooms)
+  })
+
   const isSignedIn = useSelector((state) => state.user.token) !== null
   return isSignedIn ? <TabMenuStackNaigator /> : <AuthStackNavigator />
 }
