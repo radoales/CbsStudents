@@ -12,20 +12,21 @@ const Home = (props) => {
     db.ref('chatrooms/').on('value', (querySnapShot) => {
       const data = querySnapShot.val() ? querySnapShot.val() : {}
       const chatrooms = { ...data }
-      console.log('called', new Date())
 
       // Binds the firebase data to the appropriate format
-      const fetchedChatrooms = Object.keys(chatrooms).map((key) => ({
-        ...chatrooms[key],
-        id: key,
-        chatMessages: Object.keys(chatrooms[key]?.chatMessages).map(
-          (messageKey) => ({
-            ...chatrooms[key]?.chatMessages?.[messageKey],
-            id: messageKey,
-          }),
-        ),
-      }))
-      dispatch(updateChatRooms(fetchedChatrooms))
+      if (chatrooms) {
+        const fetchedChatrooms = Object.keys(chatrooms).map((key) => ({
+          ...chatrooms[key],
+          id: key,
+          chatMessages: chatrooms[key]?.chatMessage
+            ? Object.keys(chatrooms[key]?.chatMessages).map((messageKey) => ({
+                ...chatrooms[key]?.chatMessages?.[messageKey],
+                id: messageKey,
+              }))
+            : [],
+        }))
+        dispatch(updateChatRooms(fetchedChatrooms))
+      }
     })
   }
 
