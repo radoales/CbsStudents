@@ -6,7 +6,7 @@ import * as React from 'react'
 import Ionicons from '@expo/vector-icons/Ionicons'
 import { createStackNavigator } from '@react-navigation/stack'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
-import { Provider, useSelector } from 'react-redux'
+import { Provider, useDispatch, useSelector } from 'react-redux'
 import { combineReducers, createStore, applyMiddleware, compose } from 'redux'
 import { composeWithDevTools } from 'redux-devtools-extension'
 import ReduxThunk from 'redux-thunk'
@@ -160,16 +160,6 @@ function MenuStackNavigator() {
 }
 
 function InitialStackNavigator() {
-  db.ref('chatrooms/').on('value', (querySnapShot) => {
-    const data = querySnapShot.val() ? querySnapShot.val() : {}
-    const chatrooms = { ...data }
-    console.log('called', new Date())
-
-    const fetchedChatrooms = Object.keys(chatrooms).map((key) => chatrooms[key])
-
-    updateChatRooms(fetchedChatrooms)
-  })
-
   const isSignedIn = useSelector((state) => state.user.token) !== null
   return isSignedIn ? <TabMenuStackNaigator /> : <AuthStackNavigator />
 }

@@ -79,6 +79,13 @@ const messageSent = (message) => {
   }
 }
 
+export const updateChatRooms = (chatrooms) => {
+  return {
+    type: CHATROOM_FETCHED,
+    payload: { chatrooms },
+  }
+}
+
 export const sendMessage = (value) => {
   return async (dispatch, getState) => {
     const { token } = getState().user
@@ -160,13 +167,5 @@ export const fetchChatRooms = () => {
         payload: { chatrooms },
       })
     }
-  }
-}
-
-export const updateChatRooms = (chatrooms) => {
-  console.log('update chatrooms called', chatrooms)
-  return {
-    type: CHATROOM_FETCHED,
-    payload: { chatrooms },
   }
 }

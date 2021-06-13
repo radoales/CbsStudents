@@ -120,7 +120,7 @@ const Contacts = () => {
   }
   return (
     <View style={{ paddingTop: 20 }}>
-      {users.map((user) => (
+      {users?.map((user) => (
         <ButtonBox
           hasImage
           imageSource={{ uri: user.Image }}

@@ -60,14 +60,17 @@ const ChatReducer = (state = initialState, action) => {
       }
     }
     case CHAT_SELECTED: {
-      const chatroomSelected = state.chatrooms.filter(
+      const chatroomSelected = state?.chatrooms?.filter(
         (x) => x.id === action.payload.index,
       )[0]
-      chatroomSelected.chatMessages = chatroomSelected.chatMessages.reverse()
+      console.log('selected chatrooms', chatroomSelected)
       return {
         ...state,
         activeChatRoomId: action.payload.index,
-        activeChatRoom: chatroomSelected,
+        activeChatRoom: {
+          ...chatroomSelected,
+          chatMessages: chatroomSelected?.chatMessages?.reverse(),
+        },
       }
     }
     default:
