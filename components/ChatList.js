@@ -27,7 +27,7 @@ const EmptyChat = ({ handleNavigation, image, name }) => (
 const ChatList = ({ chatroom, index }) => {
   const navigation = useNavigation()
   const dispatch = useDispatch()
-  console.log('chatroom', chatroom)
+
   const handleNavigation = () => {
     dispatch(setUpdateActiveChatRoom(chatroom.id))
     navigation.navigate('ChatRoomScreen', { name: chatroom.name })

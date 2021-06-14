@@ -3,7 +3,7 @@ import { View, Text, StyleSheet } from 'react-native'
 import { useDispatch } from 'react-redux'
 import { headerStyles } from '../StyleSheets/Shared'
 import { db } from '../firebase'
-import { updateChatRooms } from '../store/actions/ChatActions'
+import { fetchChatRooms, updateChatRooms } from '../store/actions/ChatActions'
 
 const Home = (props) => {
   const dispatch = useDispatch()
@@ -18,13 +18,11 @@ const Home = (props) => {
         const fetchedChatrooms = Object.keys(chatrooms).map((key) => ({
           ...chatrooms[key],
           id: key,
-          chatMessages: chatrooms[key]?.chatMessage
-            ? Object.keys(chatrooms[key]?.chatMessages).map((messageKey) => ({
-                ...chatrooms[key]?.chatMessages?.[messageKey],
-                id: messageKey,
-              }))
+          chatMessages: chatrooms[key]?.chatMessages
+            ? Object.values(chatrooms[key]?.chatMessages)
             : [],
         }))
+        console.log('fetchedchatrooms', fetchedChatrooms)
         dispatch(updateChatRooms(fetchedChatrooms))
       }
     })

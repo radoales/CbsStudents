@@ -72,7 +72,7 @@ export const createChatroom = (name) => {
   }
 }
 
-const messageSent = (message) => {
+export const messageSent = (message) => {
   return {
     type: MESSAGE_SENT,
     payload: { message },
@@ -117,12 +117,7 @@ export const sendMessage = (value) => {
     if (!response.ok) {
       console.log('response not okay', response)
     } else {
-      // const data = await response.json()
       dispatch(messageSent(message))
-      // dispatch({
-      //   type: MESSAGE_SENT,
-      //   payload: { message },
-      // })
     }
   }
 }

@@ -26,44 +26,54 @@ const ChatReducer = (state = initialState, action) => {
       }
     }
     case CHATROOM_FETCHED: {
-      console.log('reducer called', action.payload.chatrooms)
+      const activeChatRoom =
+        state.activeChatRoomId != null
+          ? action.payload.chatrooms.filter(
+              (room) => room.id === state.activeChatRoomId,
+            )[0]
+          : null
+      if (activeChatRoom != null) {
+        activeChatRoom.chatMessages = activeChatRoom.chatMessages?.reverse()
+      }
+
       return {
         ...state,
         chatrooms: action.payload.chatrooms,
+        activeChatRoom,
       }
     }
     case MESSAGE_SENT: {
       // Get the message from the payload
-      const newMessage = action.payload.message
+      // const newMessage = action.payload.message
 
-      // Find the Chatroom where the message belongs
-      const activeRoom = state.activeChatRoom
+      // // Find the Chatroom where the message belongs
+      // const activeRoom = state.activeChatRoom
 
-      // Copy the messages from the room and add the new message to the array
-      const chatMessages = [...activeRoom.chatMessages, newMessage]
+      // // Copy the messages from the room and add the new message to the array
+      // const chatMessages = [...activeRoom.chatMessages, newMessage]
 
-      // Copy the Chatroom and replace the old array of messages with the new one
-      const newChatRoom = { ...activeRoom }
+      // // Copy the Chatroom and replace the old array of messages with the new one
+      // const newChatRoom = { ...activeRoom }
 
-      newChatRoom.chatMessages = chatMessages.reverse()
+      // newChatRoom.chatMessages = chatMessages.reverse()
 
-      // Copy the Chatrooms array to a new variable
-      const chatRoomArray = [...state.chatrooms]
+      // // Copy the Chatrooms array to a new variable
+      // const chatRoomArray = [...state.chatrooms]
 
-      // Replace the chatroom with the new chatroom
-      chatRoomArray.splice(state.activeChatRoomId, 1, newChatRoom)
+      // // Replace the chatroom with the new chatroom
+      // chatRoomArray.splice(state.activeChatRoomId, 1, newChatRoom)
 
       return {
         ...state,
-        activeChatRoom: newChatRoom,
-        chatrooms: chatRoomArray,
+        // activeChatRoom: newChatRoom,
+        // chatrooms: chatRoomArray,
       }
     }
     case CHAT_SELECTED: {
       const chatroomSelected = state?.chatrooms?.filter(
         (x) => x.id === action.payload.index,
       )[0]
-      console.log('selected chatrooms', chatroomSelected)
+
       return {
         ...state,
         activeChatRoomId: action.payload.index,

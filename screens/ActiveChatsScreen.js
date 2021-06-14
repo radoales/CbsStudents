@@ -4,10 +4,7 @@ import { useSelector } from 'react-redux'
 import ChatList from '../components/ChatList'
 
 const ActiveChatsScreen = () => {
-  const chatrooms = useSelector((state) => {
-    return state.chat.chatrooms
-  })
-
+  const chatrooms = useSelector((state) => state.chat.chatrooms)
   return (
     <View style={styles.room}>
       <FlatList
