@@ -3,120 +3,60 @@ import React from 'react'
 import { StyleSheet, View, Image, Text } from 'react-native'
 import { useSelector, useDispatch } from 'react-redux'
 import { useNavigation } from '@react-navigation/native'
-import axios from 'axios'
-import InputBlock from '../components/InputBlock'
 import ButtonBox from '../components/ButtonBox'
-import {
-  createChatroom,
-  fetchChatRooms,
-  updateChatRooms,
-  handleSaveNewChatroom,
-  setUpdateActiveChatRoom,
-} from '../store/actions/ChatActions'
-import ChatRoom from '../models/ChatRoom'
+import { setUpdateActiveChatRoom } from '../store/actions/ChatActions'
+import { db } from '../firebase'
 
-// @flow
-
-const callFirebase = async (endpoint, request = {}) => {
-  const { method = 'get', data } = request
-
-  const url = `${endpoint}`
-  return axios({
-    url,
-    method,
-    data,
-  })
-}
-
-const createNewRoom = ({ name, createdDate, chatMessages, token }) => {
-  return callFirebase(
-    `https://cbsstudents-kea-default-rtdb.firebaseio.com/chatrooms.json?auth=${token}`,
-    {
-      method: 'post',
-      data: {
-        name,
-        createdDate,
-        chatMessages,
-      },
-    },
-  )
-}
-const getAllChatrooms = (token) => {
-  return callFirebase(
-    `https://cbsstudents-kea-default-rtdb.firebaseio.com/chatrooms.json?auth=${token}`,
-  )
-}
 const Contacts = () => {
   const dispatch = useDispatch()
   const navigation = useNavigation()
-  const { users, token } = useSelector((state) => state.user)
+  const { users, loggedInUser } = useSelector((state) => state.user)
+  const { chatrooms } = useSelector((state) => state.chat)
 
-  const [name, setName] = React.useState()
+  // Navigate to an existing or create a new chatroom
+  const handleNavigation = ({ user }) => {
+    let isTrue = false
+    let roomId
+    const chats = Object.values(chatrooms)
 
-  const handleSave = () => {
-    dispatch(createChatroom(name))
-    dispatch(fetchChatRooms())
-    // navigation.goBack()
-  }
-  const handleCall = () => {
-    dispatch(fetchChatRooms())
-    // navigation.goBack()
-  }
-
-  const handleCreateChatrooms = (data) => {
-    return data.map((room) => ({
-      id: room.id,
-      createdDate: room.createdDate,
-      name: room.name,
-      chatMessages: room.chatMessages
-        ? Object.keys(room.chatMessages).map((key) => ({
-            ...room.chatMessages[key],
-            key,
-          }))
-        : [],
-      chatImage: room.chatImage,
-    }))
-  }
-  const handleNavigation = ({ userName }) => {
-    const chatroom = {
-      id: '',
-      createdDate: new Date(),
-      name: `Chat with ${userName}`,
-      chatMessages: [],
-      chatImage: '',
-    }
-
-    // Todo: Fix this, create new chatroom before redirecting to the chat
-
-    createNewRoom({
-      name: chatroom.name,
-      createdDate: chatroom.createdDate,
-      chatMessages: chatroom.chatMessages,
-      token,
+    // Check if chatroom with that user already exists
+    chats.forEach((chatroom) => {
+      if (chatroom.users?.some((x) => x.id === user.id)) {
+        isTrue = true
+        roomId = chatroom.id
+      }
     })
-      .then((results) => {
-        dispatch(handleSaveNewChatroom(chatroom))
-        getAllChatrooms(token)
-          .then((res) => {
-            const data = Object.keys(res.data).map((key) => ({
-              ...res.data[key],
-              id: key,
-            }))
-            const chatrooms = handleCreateChatrooms(data)
-            dispatch(updateChatRooms(chatrooms))
-            dispatch(setUpdateActiveChatRoom(results?.data?.name))
-            navigation.navigate('ChatRoomScreen', {
-              name: `Chat with ${userName}`,
-            })
-          })
-          .catch((err) => {
-            console.log('err', err)
-          })
+
+    // If chatroom exists, set it as the active chatroom and navigate to it
+    if (isTrue) {
+      dispatch(setUpdateActiveChatRoom(roomId))
+      navigation.navigate('ChatRoomScreen', {
+        name: `Chat between ${user.name} and ${loggedInUser.name}`,
       })
-      .catch((err) => {
-        console.log('err', err)
+    } else {
+      // If it doesn't exist, create a new chatroom,
+      const chatroom = {
+        id: '',
+        users: [user, loggedInUser],
+        createdDate: new Date(),
+        name: `Chat between ${user.name} and ${loggedInUser.name}`,
+        chatMessages: [],
+        chatImage: '',
+      }
+
+      // push it to firebase
+      const newRef = db.ref('chatrooms').push({
+        name: chatroom.name,
+        createdDate: chatroom.createdDate,
+        chatMessages: chatroom.chatMessages,
+        users: chatroom.users,
       })
-    // Add code here to create a chatmessages array and save that right
+      // set it as active chatroom and navigate to it
+      dispatch(setUpdateActiveChatRoom(newRef.key))
+      navigation.navigate('ChatRoomScreen', {
+        name: chatroom.name,
+      })
+    }
   }
   return (
     <View style={{ paddingTop: 20 }}>
@@ -125,7 +65,7 @@ const Contacts = () => {
           hasImage
           imageSource={{ uri: user.Image }}
           key={user.id}
-          func={() => handleNavigation({ userName: user.name })}
+          func={() => handleNavigation({ user })}
           title={user.name}
           textColor="black"
         />

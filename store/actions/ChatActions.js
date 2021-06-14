@@ -92,12 +92,12 @@ export const sendMessage = (value) => {
     const { user } = getState()
     const { activeChatRoomId } = getState().chat
     const loggedInUser = new User(user.id, user.name, user.email)
-    // const message = new ChatMessage('', new Date(), value, loggedInUser, true)
+
     const message = {
       createdDate: new Date(),
       message: value,
       user: user.loggedInUser,
-      isRead: true,
+      isRead: false,
     }
     const response = await fetch(
       `https://cbsstudents-kea-default-rtdb.firebaseio.com/chatrooms/${activeChatRoomId}/chatMessages.json?auth=${token}`,

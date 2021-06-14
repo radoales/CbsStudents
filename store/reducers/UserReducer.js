@@ -5,7 +5,6 @@ import {
   USER_SIGNED_UP,
   SET_USERS,
 } from '../actions/UserActions'
-import { USERS } from '../../data/dummy-data'
 import User from '../../models/User'
 
 const initialState = {

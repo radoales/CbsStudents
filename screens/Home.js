@@ -22,7 +22,6 @@ const Home = (props) => {
             ? Object.values(chatrooms[key]?.chatMessages)
             : [],
         }))
-        console.log('fetchedchatrooms', fetchedChatrooms)
         dispatch(updateChatRooms(fetchedChatrooms))
       }
     })
