@@ -33,7 +33,12 @@ const Contacts = () => {
       navigation.navigate('ChatRoomScreen', {
         name: `Chat between ${user.name} and ${loggedInUser.name}`,
       })
-      console.log('img', user.image)
+
+      // app
+      //   .storage()
+      //   .ref('C12L9rd96ogdC7ezIsDeSlvHbi83.jpg')
+      //   .getDownloadURL()
+      //   .then((uri) => console.log(uri))
     } else {
       // If it doesn't exist, create a new chatroom,
       const chatroom = {

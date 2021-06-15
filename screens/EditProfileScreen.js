@@ -1,14 +1,15 @@
 /* eslint-disable global-require */
 import React from 'react'
-import { StyleSheet, View, Image, Text, Button } from 'react-native'
+import { StyleSheet, View, Image, Text, Button, Platform } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigation } from '@react-navigation/native'
 import { utils } from '@react-native-firebase/app'
-import ImagePicker from 'react-native-image-picker'
+import * as ImagePicker from 'expo-image-picker'
+import * as FileSystem from 'expo-file-system'
 import InputBlock from '../components/InputBlock'
 import ButtonBox from '../components/ButtonBox'
 import { saveUser } from '../store/actions/UserActions'
-import { mainColor, mainColorInactive } from '../constants'
+import { mainColor } from '../constants'
 import { app } from '../firebase'
 
 const EditProfileScreen = ({ route }) => {
@@ -25,34 +26,44 @@ const EditProfileScreen = ({ route }) => {
   const [uploadedUri, setUploadedUri] = React.useState(user.title)
 
   const handleSave = () => {
+    const ref = app.storage().ref(`${userId}.jpg`)
+    const uri = ref.put(uploadedUri)
+
+    console.log('uri', ref.getDownloadURL())
     if (userName.length !== 0 && title.length !== 0) {
       dispatch(saveUser(user, token, userName, title))
       navigation.goBack()
     }
   }
 
-  const options = {
-    title: 'Select Avatar',
-    storageOptions: {
-      skipBackup: true,
-      path: 'images',
-    },
-  }
+  React.useEffect(() => {
+    ;(async () => {
+      if (Platform.OS !== 'web') {
+        const {
+          status,
+        } = await ImagePicker.requestMediaLibraryPermissionsAsync()
+        if (status !== 'granted') {
+          // eslint-disable-next-line no-alert
+          alert('Sorry, we need camera roll permissions to make this work!')
+        }
+      }
+    })()
+  }, [])
 
-  ImagePicker.showImagePicker(options, (response) => {
-    console.log('Response = ', response)
+  const pickImage = async () => {
+    const result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
+    })
 
-    if (response.didCancel) {
-      console.log('User cancelled image picker')
-    } else if (response.error) {
-      console.log('ImagePicker Error: ', response.error)
-    } else {
-      const { uri } = response
-      setUploadedUri(uri)
+    console.log(result)
+
+    if (!result.cancelled) {
+      setUploadedUri(result.uri)
     }
-  })
-
-  const reference = app.storage().ref('some.jpg')
+  }
 
   return (
     <View style={{ paddingTop: 20 }}>
@@ -66,21 +77,16 @@ const EditProfileScreen = ({ route }) => {
       >
         <View style={{ width: 200, marginEnd: 50 }}>
           <Text style={{ paddingLeft: 20 }}>PROFILE PICTURE</Text>
-          {/* <ButtonBox
+          <ButtonBox
+            func={pickImage}
             alignItems="center"
-            title="Upload"
+            title="Pick an image"
             textColor="white"
             backgroundColor={mainColor}
-          /> */}
-          <Button
-            title="upload"
-            onPress={async () => {
-              // path to existing file on filesystem
-              const pathToFile = `${utils.FilePath.PICTURES_DIRECTORY}/black-t-shirt-sm.png`
-              // uploads file
-              await reference.putFile(pathToFile)
-            }}
           />
+          {uploadedUri && (
+            <Image source={{ uri: uploadedUri }} style={styles.imageIcon} />
+          )}
         </View>
         <Image source={{ uri: user.image }} style={styles.imageIcon} />
       </View>
