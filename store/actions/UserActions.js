@@ -96,7 +96,7 @@ export const logIn = (email, password) => {
           name: userFromDb.name,
           title: userFromDb.title,
           token: data.idToken,
-          image: data.image,
+          image: userFromDb.image,
         },
       })
       dispatch(fetchChatRooms())

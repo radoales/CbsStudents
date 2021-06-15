@@ -30,7 +30,7 @@ const Menu = () => {
     <View style={{ flexDirection: 'column' }}>
       <View style={{ flexDirection: 'row', padding: 20 }}>
         <View style={{ flexDirection: 'column', paddingEnd: 20 }}>
-          <Image source={authUser.image} style={styles.imageIcon} />
+          <Image source={{ uri: authUser.image }} style={styles.imageIcon} />
         </View>
         <View style={{ flexDirection: 'column' }}>
           <Text

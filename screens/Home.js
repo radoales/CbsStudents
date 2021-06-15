@@ -2,29 +2,32 @@ import React from 'react'
 import { View, Text, StyleSheet } from 'react-native'
 import { useDispatch } from 'react-redux'
 import { headerStyles } from '../StyleSheets/Shared'
-import { db } from '../firebase'
+import { app } from '../firebase'
 import { fetchChatRooms, updateChatRooms } from '../store/actions/ChatActions'
 
 const Home = (props) => {
   const dispatch = useDispatch()
 
   const initDatabase = () => {
-    db.ref('chatrooms/').on('value', (querySnapShot) => {
-      const data = querySnapShot.val() ? querySnapShot.val() : {}
-      const chatrooms = { ...data }
+    app
+      .database()
+      .ref('chatrooms/')
+      .on('value', (querySnapShot) => {
+        const data = querySnapShot.val() ? querySnapShot.val() : {}
+        const chatrooms = { ...data }
 
-      // Binds the firebase data to the appropriate format
-      if (chatrooms) {
-        const fetchedChatrooms = Object.keys(chatrooms).map((key) => ({
-          ...chatrooms[key],
-          id: key,
-          chatMessages: chatrooms[key]?.chatMessages
-            ? Object.values(chatrooms[key]?.chatMessages)
-            : [],
-        }))
-        dispatch(updateChatRooms(fetchedChatrooms))
-      }
-    })
+        // Binds the firebase data to the appropriate format
+        if (chatrooms) {
+          const fetchedChatrooms = Object.keys(chatrooms).map((key) => ({
+            ...chatrooms[key],
+            id: key,
+            chatMessages: chatrooms[key]?.chatMessages
+              ? Object.values(chatrooms[key]?.chatMessages)
+              : [],
+          }))
+          dispatch(updateChatRooms(fetchedChatrooms))
+        }
+      })
   }
 
   initDatabase()

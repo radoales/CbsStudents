@@ -20,6 +20,7 @@ const UserReducer = (state = initialState, action) => {
       const user = state.loggedInUser
       user.name = action.payload.name
       user.title = action.payload.title
+      user.image = action.payload.image
       return {
         ...state,
         loggedInUser: user,
@@ -38,7 +39,7 @@ const UserReducer = (state = initialState, action) => {
         name: payload.name ?? '',
         email: payload.email,
         title: payload.title,
-        image: require('../../assets/alex.jpg'),
+        image: payload.image,
       }
 
       if (user !== undefined) {

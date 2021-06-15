@@ -73,7 +73,10 @@ const MessageBlock = ({ message }) => {
       <View style={{ flex: 1, flexDirection: 'row' }}>
         {/* If User is the auth user and not the same as the previous message, display profile image */}
         {!isAuthUser && !isSameUser ? (
-          <Image source={message.user.image} style={styles.imageIcon} />
+          <Image
+            source={{ uri: message.user.image }}
+            style={styles.imageIcon}
+          />
         ) : (
           <View style={styles.imageIcon} />
         )}

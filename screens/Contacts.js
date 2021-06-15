@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { useNavigation } from '@react-navigation/native'
 import ButtonBox from '../components/ButtonBox'
 import { setUpdateActiveChatRoom } from '../store/actions/ChatActions'
-import { db } from '../firebase'
+import { app } from '../firebase'
 
 const Contacts = () => {
   const dispatch = useDispatch()
@@ -33,6 +33,7 @@ const Contacts = () => {
       navigation.navigate('ChatRoomScreen', {
         name: `Chat between ${user.name} and ${loggedInUser.name}`,
       })
+      console.log('img', user.image)
     } else {
       // If it doesn't exist, create a new chatroom,
       const chatroom = {
@@ -45,7 +46,7 @@ const Contacts = () => {
       }
 
       // push it to firebase
-      const newRef = db.ref('chatrooms').push({
+      const newRef = app.database().ref('chatrooms').push({
         name: chatroom.name,
         createdDate: chatroom.createdDate,
         chatMessages: chatroom.chatMessages,
@@ -63,7 +64,7 @@ const Contacts = () => {
       {users?.map((user) => (
         <ButtonBox
           hasImage
-          imageSource={{ uri: user.Image }}
+          imageSource={{ uri: user.image }}
           key={user.id}
           func={() => handleNavigation({ user })}
           title={user.name}

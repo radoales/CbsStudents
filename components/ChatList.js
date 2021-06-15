@@ -4,7 +4,7 @@ import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import { useDispatch, useSelector } from 'react-redux'
 import { chatListStyles } from '../StyleSheets/Shared'
-import { db } from '../firebase'
+import { app } from '../firebase'
 
 import { setUpdateActiveChatRoom } from '../store/actions/ChatActions'
 
@@ -12,7 +12,7 @@ const EmptyChat = ({ handleNavigation, image, name }) => (
   <View>
     <TouchableOpacity onPress={handleNavigation}>
       <View style={chatListStyles.chatBlock}>
-        <Image source={image} style={chatListStyles.imageIcon} />
+        <Image source={{ uri: image }} style={chatListStyles.imageIcon} />
         <View style={chatListStyles.column}>
           <Text style={{ fontWeight: 'bold' }}>{name}</Text>
         </View>
@@ -30,12 +30,14 @@ const ChatList = ({ chatroom, index }) => {
   const dispatch = useDispatch()
   const authUserId = useSelector((state) => state.user.loggedInUser)
   let chatroomName
+  let chatroomPicture
 
   // Set the name of the chatroom. Each chatromm has two users
   // the name of the room should not be the name of the auth user, but the other
   chatroom.users?.forEach((u) => {
     if (u.id !== authUserId.id) {
       chatroomName = u.name
+      chatroomPicture = u.image
     }
   })
 
@@ -61,7 +63,7 @@ const ChatList = ({ chatroom, index }) => {
     return (
       <EmptyChat
         handleNavigation={handleNavigation}
-        image={chatroom.chatImage}
+        image={chatroomPicture}
         name={chatroomName}
       />
     )
@@ -113,7 +115,10 @@ const ChatList = ({ chatroom, index }) => {
     <View style={styles.chatList}>
       <TouchableOpacity onPress={handleNavigation}>
         <View style={chatListStyles.chatBlock}>
-          <Image source={chatroom.chatImage} style={chatListStyles.imageIcon} />
+          <Image
+            source={{ uri: chatroomPicture }}
+            style={chatListStyles.imageIcon}
+          />
           <View style={chatListStyles.column}>
             <Text style={{ fontWeight: 'bold' }}>{chatroomName}</Text>
             <Text style={isReadTextStyle}>{lastMessageText}</Text>

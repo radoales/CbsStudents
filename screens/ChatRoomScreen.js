@@ -18,6 +18,7 @@ const ChatRoomScreen = ({ navigation, route }) => {
   const dispatch = useDispatch()
 
   const chatRoom = useSelector((state) => state.chat.activeChatRoom)
+  const authUser = useSelector((state) => state.user.loggedInUser)
 
   const [value, setValue] = React.useState('')
 
@@ -42,10 +43,7 @@ const ChatRoomScreen = ({ navigation, route }) => {
       <View
         style={{ flexDirection: 'row', borderColor: '#D9D9D9', borderWidth: 1 }}
       >
-        <Image
-          source={require('../assets/robert.jpg')}
-          style={styles.imageIcon}
-        />
+        <Image source={{ uri: authUser.image }} style={styles.imageIcon} />
         <TextInput
           style={styles.inputField}
           onChangeText={(text) => setValue(text)}
