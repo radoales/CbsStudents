@@ -88,7 +88,9 @@ const ChatList = ({ chatroom, index }) => {
   // Format received time/date. If date is today, display <- hh:mm ->, if not display <- mmm dd ->
   const receivedTime =
     lasteMessageDate.getDate() === new Date().getDate()
-      ? `${lasteMessageDate.getHours()}:${lasteMessageDate.getMinutes()}`
+      ? `${lasteMessageDate.getHours()}:${lasteMessageDate
+          .getMinutes()
+          .toFixed(1)}`
       : lasteMessageDate.toDateString().substring(4, 11)
 
   // Set style for the message if is read or not

@@ -8,6 +8,7 @@ import { fetchChatRooms, updateChatRooms } from '../store/actions/ChatActions'
 const Home = (props) => {
   const dispatch = useDispatch()
   const authUserId = useSelector((state) => state.user.loggedInUser).id
+
   const initDatabase = () => {
     app
       .database()
@@ -15,7 +16,6 @@ const Home = (props) => {
       .on('value', (querySnapShot) => {
         const data = querySnapShot.val() ? querySnapShot.val() : {}
         const chatrooms = { ...data }
-        console.log(authUserId)
         // Binds the firebase data to the appropriate format
         if (chatrooms) {
           const fetchedChatrooms = Object.keys(chatrooms).map((key) => ({

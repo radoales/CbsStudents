@@ -1,5 +1,3 @@
-import { fetchChatRooms } from './ChatActions'
-
 export const USER_SAVED = 'USER_SAVED'
 export const USER_LOGGED_IN = 'USER_LOGGED_IN'
 export const USER_SIGNED_UP = 'USER_SIGNED_UP'
@@ -50,8 +48,6 @@ const fetchContacts = (token, authUserId) => {
       ...data[key],
     }))
     const contacts = users.filter((u) => u.id !== authUserId)
-    console.log('auth', authUserId)
-    console.log('contacts', contacts)
 
     dispatch({
       type: SET_USERS,

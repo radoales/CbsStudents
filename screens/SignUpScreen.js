@@ -22,6 +22,7 @@ const SignUpScreen = () => {
   const HandleSignUp = () => {
     if (termsCheckBox && passwordsMatch) {
       dispatch(signUp(email, password))
+      navigation.navigate('LogInScreen')
     }
   }
   const handleTerms = () => {

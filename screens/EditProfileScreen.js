@@ -16,7 +16,6 @@ const EditProfileScreen = ({ route }) => {
   const dispatch = useDispatch()
   const navigation = useNavigation()
   const user = route.params.data
-  console.log('user: ', user)
   const userId = useSelector((state) => state.user.loggedInUser.id)
   const token = useSelector((state) => state.user.token)
 

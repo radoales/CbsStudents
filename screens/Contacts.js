@@ -31,7 +31,7 @@ const Contacts = () => {
     if (roomExist) {
       dispatch(setUpdateActiveChatRoom(roomId))
       navigation.navigate('ChatRoomScreen', {
-        name: `Chat between ${user.name} and ${loggedInUser.name}`,
+        name: `${user.name}`,
       })
     } else {
       // If it doesn't exist, create a new chatroom,
@@ -54,7 +54,7 @@ const Contacts = () => {
       // set it as active chatroom and navigate to it
       dispatch(setUpdateActiveChatRoom(newRef.key))
       navigation.navigate('ChatRoomScreen', {
-        name: chatroom.name,
+        name: user.name,
       })
     }
   }
