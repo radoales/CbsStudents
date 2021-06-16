@@ -23,11 +23,8 @@ import LogInScreen from './screens/LogInScreen'
 import EditProfileScreen from './screens/EditProfileScreen'
 import UserReducer from './store/reducers/UserReducer'
 import { mainColor, mainColorInactive } from './constants'
-import Contacts from './screens/Contacts'
-import { db } from './firebase'
-import { updateChatRooms } from './store/actions/ChatActions'
 
-LogBox.ignoreLogs(['Warning: ...']) // Ignore log notification by message
+LogBox.ignoreLogs(['Warning:']) // Ignore log notification by message
 LogBox.ignoreAllLogs()
 
 const Stack = createStackNavigator()

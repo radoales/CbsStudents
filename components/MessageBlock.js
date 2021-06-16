@@ -10,18 +10,13 @@ const MessageBlock = ({ message }) => {
   const loggedInuserId = useSelector((state) => state.user.loggedInUser.id)
 
   // Get the Id of the owner of the message
-  const userId = message.user?.id ?? loggedInuserId
-  // Get the name of the user sending the message
-  const userName = message.user.name
+  const userId = message.user.id
 
   // Check if the owner of the message is the authenticated User
-  // '1' should be replaced with the authenticated user
   const isAuthUser = userId === loggedInuserId
 
   // Set the color of the time in the message block
   const timeReceivedTextColor = isAuthUser ? 'white' : 'black'
-
-  // const flexPosition = isAuthUser ? 'flex-end' : 'flex-start';
 
   // The position of the message block
   const messageBlock = isAuthUser ? styles.chatBoxRight : styles.chatBoxLeft
@@ -36,16 +31,15 @@ const MessageBlock = ({ message }) => {
   const textStyle = isAuthUser ? styles.textRight : styles.textLeft
 
   // Format the created date <- mmm dd yyyy ->
-  const date = createddate.toDateString().substring(4, 15)
+  let date = createddate.toDateString().substring(4, 15)
 
   // Check if the message has a different date than the prevoius one
   const isNewDate = date !== store.getState().chat.prevMessageDate
 
   // Check if the message has a different userId then the prevoius one
   const isSameUser = userId === store.getState().chat.prevMessageUserId
-
   dispatch(addMessage(date, userId))
-
+  date = date === new Date().toDateString().substring(4, 15) ? 'Today' : date
   return (
     <View>
       <View
@@ -103,7 +97,8 @@ const styles = StyleSheet.create({
   chatBoxRight: {
     backgroundColor: mainColor,
     padding: 10,
-    width: 250,
+    // width: 260,
+    maxWidth: 250,
     marginVertical: 8,
     marginHorizontal: 16,
     alignSelf: 'flex-end',
@@ -114,10 +109,12 @@ const styles = StyleSheet.create({
   },
   chatBoxLeft: {
     backgroundColor: '#D9D9D9',
-    width: 250,
+    // width: 260,
+    maxWidth: 250,
     padding: 10,
+    alignSelf: 'flex-start',
     marginVertical: 2,
-    marginHorizontal: 16,
+    // marginHorizontal: 2,
     borderBottomStartRadius: 3,
     borderBottomEndRadius: 10,
     borderTopEndRadius: 10,
@@ -136,8 +133,10 @@ const styles = StyleSheet.create({
     fontSize: 10,
   },
   imageIcon: {
-    width: 40,
-    height: 40,
+    width: 50,
+    height: 50,
+    marginHorizontal: 8,
+
     borderRadius: 20,
     resizeMode: 'contain',
     alignSelf: 'flex-end',

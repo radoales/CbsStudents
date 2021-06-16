@@ -15,30 +15,24 @@ const Contacts = () => {
 
   // Navigate to an existing or create a new chatroom
   const handleNavigation = ({ user }) => {
-    let isTrue = false
+    let roomExist = false
     let roomId
     const chats = Object.values(chatrooms)
 
     // Check if chatroom with that user already exists
     chats.forEach((chatroom) => {
       if (chatroom.users?.some((x) => x.id === user.id)) {
-        isTrue = true
+        roomExist = true
         roomId = chatroom.id
       }
     })
 
     // If chatroom exists, set it as the active chatroom and navigate to it
-    if (isTrue) {
+    if (roomExist) {
       dispatch(setUpdateActiveChatRoom(roomId))
       navigation.navigate('ChatRoomScreen', {
         name: `Chat between ${user.name} and ${loggedInUser.name}`,
       })
-
-      // app
-      //   .storage()
-      //   .ref('C12L9rd96ogdC7ezIsDeSlvHbi83.jpg')
-      //   .getDownloadURL()
-      //   .then((uri) => console.log(uri))
     } else {
       // If it doesn't exist, create a new chatroom,
       const chatroom = {

@@ -34,7 +34,7 @@ export const saveUser = (user, token, name, title) => {
   }
 }
 
-const fetchContacts = (token) => {
+const fetchContacts = (token, authUserId) => {
   return async (dispatch) => {
     const response = await fetch(
       `https://cbsstudents-kea-default-rtdb.firebaseio.com/users.json?auth=${token}`,
@@ -49,9 +49,13 @@ const fetchContacts = (token) => {
     const users = Object.keys(data).map((key) => ({
       ...data[key],
     }))
+    const contacts = users.filter((u) => u.id !== authUserId)
+    console.log('auth', authUserId)
+    console.log('contacts', contacts)
+
     dispatch({
       type: SET_USERS,
-      payload: { users },
+      payload: { contacts },
     })
   }
 }
@@ -99,8 +103,7 @@ export const logIn = (email, password) => {
           image: userFromDb.image,
         },
       })
-      // dispatch(fetchChatRooms())
-      dispatch(fetchContacts(data.idToken))
+      dispatch(fetchContacts(data.idToken, data.localId))
     }
   }
 }

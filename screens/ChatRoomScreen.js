@@ -51,8 +51,6 @@ const ChatRoomScreen = ({ navigation, route }) => {
           placeholder="Write message"
           multiline
           numberOfLines={4}
-          onFocus={() => console.log('focus received')}
-          onBlur={() => console.log('focus lost')}
         />
         <TouchableOpacity onPress={() => send()} disabled={isInputFieldEmpty}>
           <View style={sendButtonStyle}>

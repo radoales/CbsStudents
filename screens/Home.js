@@ -27,6 +27,7 @@ const Home = (props) => {
           }))
           const chats = []
           fetchedChatrooms
+            // Get only chats with the logged in user
             .filter((x) => x.users.find((y) => y.id === authUserId))
             .forEach((room) => {
               const newRoom = {
@@ -38,7 +39,6 @@ const Home = (props) => {
 
               chats.push(newRoom)
             })
-          console.log('new chatrooms', chats)
           dispatch(updateChatRooms(chats))
         }
       })

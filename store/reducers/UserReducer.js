@@ -29,7 +29,7 @@ const UserReducer = (state = initialState, action) => {
     case SET_USERS: {
       return {
         ...state,
-        users: action.payload.users,
+        users: action.payload.contacts,
       }
     }
     case USER_LOGGED_IN: {
