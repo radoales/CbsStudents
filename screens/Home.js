@@ -1,13 +1,13 @@
 import React from 'react'
 import { View, Text, StyleSheet } from 'react-native'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { headerStyles } from '../StyleSheets/Shared'
 import { app } from '../firebase'
 import { fetchChatRooms, updateChatRooms } from '../store/actions/ChatActions'
 
 const Home = (props) => {
   const dispatch = useDispatch()
-
+  const authUserId = useSelector((state) => state.user.loggedInUser).id
   const initDatabase = () => {
     app
       .database()
@@ -15,7 +15,7 @@ const Home = (props) => {
       .on('value', (querySnapShot) => {
         const data = querySnapShot.val() ? querySnapShot.val() : {}
         const chatrooms = { ...data }
-        console.log('Reference called')
+        console.log(authUserId)
         // Binds the firebase data to the appropriate format
         if (chatrooms) {
           const fetchedChatrooms = Object.keys(chatrooms).map((key) => ({
@@ -26,16 +26,18 @@ const Home = (props) => {
               : [],
           }))
           const chats = []
-          fetchedChatrooms.forEach((room) => {
-            const newRoom = {
-              id: room.id,
-              name: room.name,
-              chatMessages: [...room.chatMessages.reverse()],
-              users: room.users,
-            }
+          fetchedChatrooms
+            .filter((x) => x.users.find((y) => y.id === authUserId))
+            .forEach((room) => {
+              const newRoom = {
+                id: room.id,
+                name: room.name,
+                chatMessages: [...room.chatMessages.reverse()],
+                users: room.users,
+              }
 
-            chats.push(newRoom)
-          })
+              chats.push(newRoom)
+            })
           console.log('new chatrooms', chats)
           dispatch(updateChatRooms(chats))
         }

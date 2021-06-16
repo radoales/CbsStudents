@@ -15,7 +15,7 @@ const LogInScreen = () => {
   const [password, setPassword] = React.useState('')
 
   const HandlelogIn = () => {
-    dispatch(logIn(email, password))
+    dispatch(logIn(email, '111111'))
   }
   const handleSignUp = () => {
     navigation.navigate('SignUpScreen')
