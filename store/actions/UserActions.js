@@ -99,7 +99,7 @@ export const logIn = (email, password) => {
           image: userFromDb.image,
         },
       })
-      dispatch(fetchChatRooms())
+      // dispatch(fetchChatRooms())
       dispatch(fetchContacts(data.idToken))
     }
   }

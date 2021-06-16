@@ -69,7 +69,7 @@ const ChatList = ({ chatroom, index }) => {
     )
   }
   // Get the last message
-  const lastMessage = chatMessages[chatMessages?.length - 1]
+  const lastMessage = chatMessages[0]
   // const lastMessage = chatMessages[0]
 
   // Get the last message user Id

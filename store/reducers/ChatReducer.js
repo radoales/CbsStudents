@@ -32,9 +32,9 @@ const ChatReducer = (state = initialState, action) => {
               (room) => room.id === state.activeChatRoomId,
             )[0]
           : null
-      if (activeChatRoom != null) {
-        activeChatRoom.chatMessages = activeChatRoom.chatMessages?.reverse()
-      }
+      // if (activeChatRoom != null) {
+      //   activeChatRoom.chatMessages = activeChatRoom.chatMessages?.reverse()
+      // }
 
       return {
         ...state,
@@ -77,10 +77,7 @@ const ChatReducer = (state = initialState, action) => {
       return {
         ...state,
         activeChatRoomId: action.payload.index,
-        activeChatRoom: {
-          ...chatroomSelected,
-          chatMessages: chatroomSelected?.chatMessages?.reverse(),
-        },
+        activeChatRoom: chatroomSelected,
       }
     }
     default:

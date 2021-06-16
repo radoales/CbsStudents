@@ -90,8 +90,7 @@ export const sendMessage = (value) => {
   return async (dispatch, getState) => {
     const { token } = getState().user
     const { user } = getState()
-    const { activeChatRoomId } = getState().chat
-    const loggedInUser = new User(user.id, user.name, user.email)
+    const { activeChatRoom } = getState().chat
 
     const message = {
       createdDate: new Date(),
@@ -100,7 +99,7 @@ export const sendMessage = (value) => {
       isRead: false,
     }
     const response = await fetch(
-      `https://cbsstudents-kea-default-rtdb.firebaseio.com/chatrooms/${activeChatRoomId}/chatMessages.json?auth=${token}`,
+      `https://cbsstudents-kea-default-rtdb.firebaseio.com/chatrooms/${activeChatRoom.id}/chatMessages.json?auth=${token}`,
       {
         method: 'POST',
         headers: {

@@ -15,7 +15,7 @@ const Home = (props) => {
       .on('value', (querySnapShot) => {
         const data = querySnapShot.val() ? querySnapShot.val() : {}
         const chatrooms = { ...data }
-
+        console.log('Reference called')
         // Binds the firebase data to the appropriate format
         if (chatrooms) {
           const fetchedChatrooms = Object.keys(chatrooms).map((key) => ({
@@ -25,7 +25,19 @@ const Home = (props) => {
               ? Object.values(chatrooms[key]?.chatMessages)
               : [],
           }))
-          dispatch(updateChatRooms(fetchedChatrooms))
+          const chats = []
+          fetchedChatrooms.forEach((room) => {
+            const newRoom = {
+              id: room.id,
+              name: room.name,
+              chatMessages: [...room.chatMessages.reverse()],
+              users: room.users,
+            }
+
+            chats.push(newRoom)
+          })
+          console.log('new chatrooms', chats)
+          dispatch(updateChatRooms(chats))
         }
       })
   }
